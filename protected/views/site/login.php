@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 ?>
 
 <?php $this->beginWidget('booster.widgets.TbPanel',array(
-   'title' => 'Aplikasi SIASEP PKP2A I LAN',
+   'title' => 'Aplikasi BMN LAN',
 	'context'=>'primary',
  	'padContent' => false,
      'htmlOptions' => array(
