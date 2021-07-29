@@ -1,0 +1,50 @@
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+  background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #005499),
+	color-stop(1, #2576B8)
+);
+background-image: -o-linear-gradient(bottom, #005499 0%, #2576B8 100%);
+background-image: -moz-linear-gradient(bottom, #005499 0%, #2576B8 100%);
+background-image: -webkit-linear-gradient(bottom, #005499 0%, #2576B8 100%);
+background-image: -ms-linear-gradient(bottom, #005499 0%, #2576B8 100%);
+background-image: linear-gradient(to bottom, #005499 0%, #2576B8 100%);
+}
+
+#content .panel-primary {
+	border: #125554;
+}
+
+#content .panel-primary > .panel-heading {
+	background: #054D87;
+	border: #125554;
+	padding:20px 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#content .panel-primary > .panel-heading h3 {
+	/* font-weight: bold; */
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#site-login .btn-primary {
+background: #054D87; /* Old browsers */
+padding:10px 10px;
+font-weight: bold;
+}
+
+#site-login .btn-primary:hover {
+	background: #1563A3; /* Old browsers */
+	padding:10px 10px;
+	font-weight: bold;
+}
+
+.rememberMe {
+	margin-bottom:10px;
+}
