@@ -1,6 +1,6 @@
 <?php $this->renderPartial('_batch_laporan'); ?>
 
-<h1>Laporan Perawatan Barang</h1>
+<h1>Laporan Pengguna Barang</h1>
 
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
     'id'=>'laporan-form',

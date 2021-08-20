@@ -38,15 +38,17 @@ class Barang extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('kode', 'required'),
-			array('id_barang_kondisi, nup, id_lokasi, id_pegawai', 'numerical', 'integerOnly'=>true),
+			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly'=>true),
 			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max'=>255),
 			array('waktu_diubah, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
-				  perawatan_terakhir, sakhir, tanggal', 'safe'),
+				  perawatan_terakhir, sakhir, tanggal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, kode, memrek, harga, nup, nama, tahun_perolehan, asal_perolehan, masa_manfaat, id_barang_kondisi, sk_psp, sk_penghapusan, id_lokasi, id_pegawai, gambar, waktu_diubah, waktu_dibuat,
-				administrasi_jumlah,administrasi_harga_satuan,administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga', 'safe', 'on'=>'search'),
+			array('id, kode, memrek, harga, nup, nama, tahun_perolehan, asal_perolehan, masa_manfaat, id_barang_kondisi, sk_psp,
+                sk_penghapusan, id_lokasi, id_pegawai, gambar, waktu_diubah, waktu_dibuat, administrasi_jumlah,
+                administrasi_harga_satuan,administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,
+                inventarisasi_harga, id_perolehan_asal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,11 +75,13 @@ class Barang extends CActiveRecord
 			'kode' => 'Kode',
 			'nup' => 'NUP',
 			'nama' => 'Nama',
-			'merek' => 'Merek',
+			'merek' => 'Merek/Tipe',
 			'id_pegawai' => 'Pegawai',
 			'id_lokasi' => 'Lokasi',
+            'id_lokasi_jenis' => 'Ruangan',
 			'tahun_perolehan' => 'Tahun Perolehan',
 			'asal_perolehan' => 'Asal Perolehan',
+            'id_perolehan_asal' => 'Asal Perolehan',
 			'masa_manfaat' => 'Masa Manfaat',
 			'harga' => 'Harga',
 			'id_barang_kondisi' => 'Kondisi Barang',
@@ -96,8 +100,9 @@ class Barang extends CActiveRecord
 			'inventarisasi_jumlah'=>'Jumlah',
 			'inventarisasi_harga_satuan'=>'Harga Satuan',
 			'inventarisasi_harga'=>'Harga',
-
-
+            'spesifikasi_processor' => 'Spek Processor',
+            'sistem_operasi' => 'OS',
+            'tanggal_kondisi_barang' => 'Tanggal Kondisi Barang',
 		);
 	}
 
@@ -125,15 +130,20 @@ class Barang extends CActiveRecord
 		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('tahun_perolehan',$this->tahun_perolehan,true);
 		$criteria->compare('asal_perolehan',$this->asal_perolehan,true);
+        $criteria->compare('id_perolahan_asal',$this->id_perolehan_asal,true);
 		$criteria->compare('masa_manfaat',$this->masa_manfaat,true);
 		$criteria->compare('id_barang_kondisi',$this->id_barang_kondisi);
 		$criteria->compare('sk_psp',$this->sk_psp,true);
 		$criteria->compare('sk_penghapusan',$this->sk_penghapusan,true);
 		$criteria->compare('id_lokasi',$this->id_lokasi);
+        $criteria->compare('id_lokasi_jenis',$this->id_lokasi_jenis);
 		$criteria->compare('id_pegawai',$this->id_pegawai);
 		$criteria->compare('gambar',$this->gambar,true);
 		$criteria->compare('waktu_diubah',$this->waktu_diubah,true);
 		$criteria->compare('waktu_dibuat',$this->waktu_dibuat,true);
+        $criteria->compare('spesifikasi_processor',$this->spesifikasi_processor,true);
+        $criteria->compare('sistem_operasi',$this->sistem_operasi,true);
+        $criteria->compare('tanggal_kondisi_barang',$this->tanggal_kondisi_barang,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -180,7 +190,17 @@ class Barang extends CActiveRecord
 			return null;
 	}
 
-		public function getPegawai()
+    public function getLokasiJenis()
+    {
+        $model = LokasiJenis::model()->findByPk($this->id_lokasi_jenis);
+
+        if ($model !== null) 
+            return $model->nama;
+        else 
+            return null;
+    }
+
+	public function getPegawai()
 	{
 		$model = Pegawai::model()->findByPk($this->id_pegawai);
 
@@ -189,6 +209,16 @@ class Barang extends CActiveRecord
 		else
 			return null;
 	}
+
+    public function getPerolehanAsal()
+    {
+        $model = PerolehanAsal::model()->findByPk($this->id_perolehan_asal);
+
+        if ($model !== null)
+            return $model->nama;
+        else
+            return null;
+    }
 
 	public function getKode()
 	{
@@ -381,6 +411,8 @@ class Barang extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nup',$this->nup,true);
 		$criteria->compare('kode',$this->kode,true);
+        $criteria->compare('tahun_perolehan',$this->tahun_perolehan,true);
+        $criteria->compare('merek',$this->merek,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -464,6 +496,16 @@ class Barang extends CActiveRecord
 					$this->save();
 				}
 		 }
+
+         public function getTahunPerolehan()
+         {
+            if ($this->tahun_perolehan === null OR $this->tahun_perolehan === '0000-00-00') {
+                return null;
+            }
+            
+            $datetime = \DateTime::createFromFormat('Y-m-d', $this->tahun_perolehan);
+            return $datetime->format('Y');
+         }
 
 
 

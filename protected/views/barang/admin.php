@@ -129,7 +129,7 @@ $this->breadcrumbs=array(
 		'icon'=>'plus',
 		'size'=>'small',
 		'context'=>'danger',
-		'url'=>('barang/create')
+		'url'=>array('barang/create')
 )); ?>&nbsp;
 <?php $this->widget('booster.widgets.TbButton',array(
 		'buttonType'=>'link',

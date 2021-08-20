@@ -11,7 +11,7 @@
 	
 	<?php $this->widget('booster.widgets.TbButton',array(
 			'buttonType'=>'link',
-			'label'=>'Laporan Perawatan',
+			'label'=>'Laporan Pengguna',
 			'icon'=>'wrench',
 			'context'=>'primary',
 			'size'=>'large',

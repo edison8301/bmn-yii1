@@ -16,14 +16,14 @@
 <p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 <div class="row">
-	<div class="col-sm-7">
+	<div class="col-sm-9">
 		
 		<?php echo $form->errorSummary($model); ?>
 
 		<div class="well">
+        <?php echo $form->textFieldGroup($model,'nama',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+        
 		<?php echo $form->textFieldGroup($model,'kode',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
-		
-		<?php echo $form->textFieldGroup($model,'nama',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
 		<?php echo $form->textFieldGroup($model,'nup',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
 
@@ -31,12 +31,26 @@
 			'widgetOptions'=>array(
 				'data' => CHtml::listData(BarangKondisi::model()->findAll(),'id','nama'),
 				'htmlOptions'=>array(
-					'class'=>'span5','maxlength'=>255)))); ?>		
+					'class'=>'span5','maxlength'=>255)))); ?>	
+        
+        <?php echo $form->datePickerGroup($model,'tanggal_kondisi_barang',array(
+			'widgetOptions'=>array(
+				'options'=>array('format'=>'yyyy-mm-dd','autoclose'=>true),
+				'htmlOptions'=>array('class'=>'span5')
+				), 
+			'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
+		)); ?>
+                    
+        <?php echo $form->select2Group($model,'id_lokasi_jenis',array(
+            'widgetOptions'=>array(
+                'data'=>LokasiJenis::getList(),
+                'htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'placeholder' => 'Pilih Ruangan'))
+		)); ?>
 
 		<?php echo $form->select2Group($model,'id_lokasi',array(
 				'widgetOptions'=>array(
 					'data'=>Lokasi::getListData(),
-					'htmlOptions'=>array('class'=>'span5','maxlength'=>255))
+					'htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'placeholder'=>'Pilih Lokasi'))
 		)); ?>
 
 		<?php
@@ -60,17 +74,23 @@
 			'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
 		)); ?>
 
-		<?php echo $form->textFieldGroup($model,'asal_perolehan',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
+        <?php echo $form->select2Group($model,'id_perolehan_asal', array(
+            'widgetOptions'=>array('data'=>CHtml::listData(PerolehanAsal::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Asal Perolehan'))
+        )) ?>
 
 		<?php echo $form->textFieldGroup($model,'bukti_perolehan',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
 		
 		<?php echo $form->textFieldGroup($model,'merek',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
 
-		<?php echo $form->textFieldGroup($model,'masa_manfaat',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+        <?php echo $form->textFieldGroup($model,'spesifikasi_processor',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)),'hint' => 'Khusus PC Unit & Notebook')); ?>
+
+        <?php echo $form->textFieldGroup($model,'sistem_operasi',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)),'hint' => 'Khusus PC Unit & Notebook')); ?>
+        
+		<?php /* echo $form->textFieldGroup($model,'masa_manfaat',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); */ ?>
 
 		<?php echo $form->textFieldGroup($model,'sk_psp',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 		
-		<?php echo $form->textFieldGroup($model,'sk_penghapusan',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>			
+		<?php /* echo $form->textFieldGroup($model,'sk_penghapusan',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); */ ?>			
 		
 		<div class="form-group">
 			<label class="col-sm-3 control-label">Gambar</label>
@@ -85,6 +105,7 @@
 		</div><!-- .well -->
 	</div>
 	<!-- Sidebar Kanan -->
+    <?php /*
 	<div class="col-sm-5">
 		<?php $this->beginWidget('booster.widgets.TbPanel',array(
 		    'title' => 'ADMINISTRASI',
@@ -110,6 +131,7 @@
 
 		<?php $this->endWidget(); ?>
 	</div>
+    */ ?>
 </div><!-- row -->
 
 <div class="row">

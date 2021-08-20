@@ -39,12 +39,12 @@ class BarangController extends Controller
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','export','exportExcel','exportBarang','laporan','import','viewQr','filterQr','reportPerawatan',
 								'cetakQr','hapusKepemilikanPegawai','hapusKepemilikanLokasi','selectBarang','cetakQrPdf',
-								'kondisi','perawatan','pemeriksaan','reportPemeriksaan','reportPemindahan'
+								'kondisi','perawatan','pemeriksaan','reportPemeriksaan','reportPemindahan', 'importV2'
 				),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','cetakQrcode','cetakQrcodeDbr'),
+				'actions'=>array('admin','delete','cetakQrcode','cetakQrcodeDbr', 'cetakBastPdf'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -441,8 +441,8 @@ class BarangController extends Controller
 				$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom, $i);
 				$PHPExcel->getActiveSheet()->setCellValue('B'.$kolom, $data->kode);
 				$PHPExcel->getActiveSheet()->setCellValue('C'.$kolom, $data->nama);
-				$PHPExcel->getActiveSheet()->setCellValue('D'.$kolom, $data->getTahun());
-				$PHPExcel->getActiveSheet()->setCellValue('E'.$kolom, $data->asal_perolehan);
+				$PHPExcel->getActiveSheet()->setCellValue('D'.$kolom, $data->getTahunPerolehan());
+				$PHPExcel->getActiveSheet()->setCellValue('E'.$kolom, $data->getPerolehanAsal());
 				$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom, $data->masa_manfaat);
 				$PHPExcel->getActiveSheet()->setCellValue('G'.$kolom, $data->getBarangKondisi());
 				$PHPExcel->getActiveSheet()->setCellValue('H'.$kolom, $data->sk_psp);
@@ -464,10 +464,10 @@ class BarangController extends Controller
 	
 			$filename = time().'_Barang.xlsx';
 
-			$path = Yii::app()->basePath.'/../uploads/export/';
+			$path = 'uploads/export/';
 			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
 			$objWriter->save($path.$filename);	
-			$this->redirect(Yii::app()->request->baseUrl.'/uploads/export/'.$filename);
+			$this->redirect($path.$filename);
 
 			}	
 		}
@@ -648,6 +648,25 @@ public function getCssClass($data)
 			
 	}
 
+    public function actionImportV2()
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $konten = $_POST['konten'];
+
+            $dataExplode = explode("\n", $konten);
+
+            foreach ($dataExplode as $data) {
+                $konten = explode("\t", $data);
+
+                $kode = str_replace(' ', '', $konten[0]);
+
+                print_r($kode);die;
+            }
+        }
+        
+        return $this->render('importV2');
+    }
+
 	public function actionReportPerawatan()
 	{
 		$model = new LaporanPerawatanForm;
@@ -727,14 +746,11 @@ public function getCssClass($data)
 		
 			$filename = time().'_LaporanPerawatanBarang.xlsx';
 
-			$path = Yii::app()->basePath.'/../uploads/laporan_perawatan/';
-			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
-			ob_end_clean();
 
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="'.$filename.'.xlsx"');
-			$objWriter->save('php://output');
-			$this->redirect(Yii::app()->request->baseUrl.'/uploads/exports/'.$filename);
+			$path = Yii::app()->basePath.'/../uploads/export/';
+			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
+			$objWriter->save($path.$filename);	
+			$this->redirect(Yii::app()->request->baseUrl.'/uploads/export/'.$filename);
 		}
 	}
 
@@ -1131,6 +1147,36 @@ public function actionSelectBarang(){
 		$this->render('cetakQrDbr',array(
 			'model'=>$model
 		));
+	}
+
+    public function actionCetakBastPdf()
+	{
+		
+		include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
+
+		$marginLeft = 5;
+		$marginRight = 5;
+		$marginTop = 5;
+		$marginBottom = 5;
+		$marginHeader = 5;
+		$marginFooter = 5;
+
+		$pdf = new mPDF('UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter);
+
+		$criteria = new CDbCriteria;
+		$params = array();
+		$criteria->params = $params;
+		$criteria->order = 'kode,nup ASC';
+
+		$models = Barang::model()->findAll($criteria);
+		
+
+		$html = $this->renderPartial('cetakBastPdf',array('models'=>$models),true);
+
+		$pdf->WriteHTML($html);
+
+		$pdf->Output();		
+		
 	}
 
 }

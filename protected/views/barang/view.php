@@ -23,7 +23,10 @@ $this->breadcrumbs=array(
 						'label'=>'Tahun Perolehan',
 						'value'=>Helper::getTanggalSingkat($model->tahun_perolehan)
 					),
-					'asal_perolehan',
+					array(
+                        'label' => 'Asal Perolehan',
+                        'value' => $model->getPerolehanAsal(),
+                    ),
 					'bukti_perolehan',
 					'masa_manfaat',
 					'merek',

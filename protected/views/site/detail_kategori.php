@@ -43,7 +43,11 @@
 			'name'=>'kode',
 			'header'=>'Kode',
 			'value'=>'$data->kode',
-		),		
+		),
+        array(
+            'name'=>'tahun_perolehan',
+            'value'=>'$data->getTahunPerolehan()'
+        ),
 		array(
 			'class'=>'booster.widgets.TbButtonColumn',
 			'htmlOptions' => array(
