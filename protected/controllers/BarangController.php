@@ -659,8 +659,16 @@ public function getCssClass($data)
                 $konten = explode("\t", $data);
 
                 $kode = str_replace(' ', '', $konten[0]);
+                $nup = $konten[1];
+                $nama = $konten[2];
 
-                print_r($kode);die;
+                $model = new Barang();
+                $model->kode = $kode;
+                $model->nup = $nup;
+                $model->nama = $nama;
+                if(!$model->save()) {
+                    print_r($model->getErrors());die;
+                }
             }
         }
         
@@ -1151,31 +1159,10 @@ public function actionSelectBarang(){
 
     public function actionCetakBastPdf()
 	{
-		
-		include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
-
-		$marginLeft = 5;
-		$marginRight = 5;
-		$marginTop = 5;
-		$marginBottom = 5;
-		$marginHeader = 5;
-		$marginFooter = 5;
-
-		$pdf = new mPDF('UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter);
-
-		$criteria = new CDbCriteria;
-		$params = array();
-		$criteria->params = $params;
-		$criteria->order = 'kode,nup ASC';
-
-		$models = Barang::model()->findAll($criteria);
-		
-
-		$html = $this->renderPartial('cetakBastPdf',array('models'=>$models),true);
-
-		$pdf->WriteHTML($html);
-
-		$pdf->Output();		
+        $this->layout = false;
+		$mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
+        $mpdf->Output();
 		
 	}
 

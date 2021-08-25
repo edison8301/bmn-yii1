@@ -7,12 +7,16 @@ use yii\helpers\Html;
 
 <!DOCTYPE html>
 
-<?php /* Html::img('@web/images/logo-lan.jpg', ['alt'=>'some', 'class'=>'thing', 'style' => 'height:80px; position:absolute; margin-left:30px;margin-top:10px']); */ ?> 
-
-
-<div style="position: absolute;left:250px">
-    <h4 style="font-weight: bold" class="text-center"> LEMBAGA ADMINISTRASI NEGARA<br>REPUBLIK INDONESIA</h4><p class="text-center">Jalan Veteran No.10 Jakarta Pusat 10110<br> Telp. (021) 3868201-5, Fax. (021) 3868210, Website: www.lan.go.id</p>
-</div>
+<table>
+    <tr>
+        <td>
+            <img src="images/logo-lan.jpg" alt="logo-lan" style="height:70px;">
+        </td>
+        <td style="text-align: center;">
+            <h4 style="font-weight: bold"> LEMBAGA ADMINISTRASI NEGARA<br>REPUBLIK INDONESIA</h4><p class="text-center">Jalan Veteran No.10 Jakarta Pusat 10110<br> Telp. (021) 3868201-5, Fax. (021) 3868210, Website: www.lan.go.id</p>
+        </td>
+    </tr>
+</table>
 
 
 <hr style="width:100%;text-align:left;margin-left:0">
@@ -23,40 +27,38 @@ use yii\helpers\Html;
 
 <p class="text-center">Nomor:</p>
 
-<p class="text-start"> &emsp; Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
+<p class="text-start" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
 
-<p class="text-start">1. Nama :</p>
-<p class="text-start"> &emsp;NIP :</p>
-<p class="text-start">&emsp;Jabatan : Kepala Biro SDM dan Umum </p>
-<p class="text-start">&emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</p>
-<p class="text-start">&emsp;Selanjutnya disebut sebagai PIHAK PERTAMA</p>
+<div class="text-start">1. Nama :</div>
+<div class="text-start">&emsp;NIP :</div>
+<div class="text-start">&emsp;Jabatan : Kepala Biro SDM dan Umum </div>
+<div class="text-start">&emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</div>
+<div class="text-start">&emsp;Selanjutnya disebut sebagai PIHAK PERTAMA</div>
 
+<div class="text-start">2. Nama :</p>
+<div class="text-start"> &emsp;NIP :</p>
+<div class="text-start"> &emsp;Jabatan : Kepala Biro SDM dan Umum </div>
+<div class="text-start"> &emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</div>
+<div class="text-start"> &emsp;Selanjutnya disebut sebagai PIHAK Kedua</div>
 
-<p class="text-start">2. Nama :</p>
-<p class="text-start"> &emsp;NIP :</p>
-<p class="text-start"> &emsp;Jabatan : Kepala Biro SDM dan Umum </p>
-<p class="text-start"> &emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</p>
-<p class="text-start"> &emsp;Selanjutnya disebut sebagai PIHAK Kedua</p>
+<p  class="lh-sm" style="text-align:justify; text-indent: 3em; ">Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan ... (.....) unit BMN LAN berupa .......... dengan spesifikasi :</p>
 
-<p  class="lh-sm" style="text-align:justify;"> &emsp; Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan ... (.....) unit BMN LAN berupa .......... dengan spesifikasi :</p>
-
-<p style="text-indent: 3em;">Merk / Type : </p>
-<p style="text-indent: 3em;">Perolehan: Tahun.... </p>
-<p style="text-indent: 3em;">Nilai Perolehan	:  Rp. ...</p>
-<p style="text-indent: 3em;">Kode Barang dan NUP	:  </p>
+<div class="text-start">Merk / Type : </div>
+<div class="text-start">Perolehan: Tahun.... </div>
+<div class="text-start">Nilai Perolehan	:  Rp. ...</div>
+<div class="text-start">Kode Barang dan NUP	:  </div>
 
 <p  class="lh-sm">Dengan ketentuan sebagai berikut :</p>
 
-<div style="margin-left: 40px;">
-	<p class="lh-sm" style="text-align:justify;">1.Dengan adanya Berita Acara ini maka pemanfaatan dan pengamanan atas barang-barang tersebut menjadi tanggungjawab PIHAK KEDUA. </p>
-	<p class="lh-sm" style="text-align:justify;">2.BMN ini digunakan untuk operasional kegiatan dinas.</p>
-	<p class="lh-sm" style="text-align:justify;">3.Pihak Kedua bersedia mengganti barang tersebut apabila terjadi kerusakan dan kehilangan akibat kelalaian Pihak Kedua dalam waktu paling lambat 1 bulan setelah terjadinya kerusakan/kehilangan tersebut.</p>
-	<p class="lh-sm" style="text-align:justify;">4.Apabila tidak menjabat lagi sebagai ............. , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1 </p>
-	<p class="lh-sm" style="text-align:justify;">5.Label kode NUP barang (nomor registrasi) tidak boleh dilepas dari notebook.</p>
+<ol>
+	<li class="lh-sm" style="text-align:justify;">Dengan adanya Berita Acara ini maka pemanfaatan dan pengamanan atas barang-barang tersebut menjadi tanggungjawab PIHAK KEDUA. </li>
+	<li class="lh-sm" style="text-align:justify;">BMN ini digunakan untuk operasional kegiatan dinas.<li>
+	<li class="lh-sm" style="text-align:justify;">Pihak Kedua bersedia mengganti barang tersebut apabila terjadi kerusakan dan kehilangan akibat kelalaian Pihak Kedua dalam waktu paling lambat 1 bulan setelah terjadinya kerusakan/kehilangan tersebut.</li>
+	<li class="lh-sm" style="text-align:justify;">Apabila tidak menjabat lagi sebagai ............. , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1 </li>
+	<li class="lh-sm" style="text-align:justify;">Label kode NUP barang (nomor registrasi) tidak boleh dilepas dari notebook.</li>
 
-	<p style="text-indent: 2em;">Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.</p>
-</div>
-
+	<li class="lh-sm">Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.</li>
+</li>
 
 
 
