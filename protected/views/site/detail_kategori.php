@@ -1,18 +1,18 @@
-<?php if($_GET['id'] == 301) $kelompok = "Alat Berat"; ?>
-<?php if($_GET['id'] == 302) $kelompok = "Alat Angkutan"; ?>
-<?php if($_GET['id'] == 303) $kelompok = "Alat Bengkel & Alat Ukur"; ?>
-<?php if($_GET['id'] == 305) $kelompok = "Alat Kantor & Rumah Tangga"; ?>
-<?php if($_GET['id'] == 306) $kelompok = "Alat Studio, Komunikasi & Pemancar"; ?>
-<?php if($_GET['id'] == 307) $kelompok = "Alat Kedokteran & Kesehatan"; ?>
-<?php if($_GET['id'] == 310) $kelompok = "Komputer"; ?>
-<?php if($_GET['id'] == 315) $kelompok = "Alat Keselamatan Kerja"; ?>
-<?php if($_GET['id'] == 317) $kelompok = "Alat Produksi"; ?>
-<?php if($_GET['id'] == 319) $kelompok = "Peralatan Olahraga"; ?>
-<?php if($_GET['id'] == 401) $kelompok = "Bangunan Gedung"; ?>
-<?php if($_GET['id'] == 404) $kelompok = "Tugu Titik Kontrol"; ?>
-<?php if($_GET['id'] == 502) $kelompok = "Bangunan Air"; ?>
-<?php if($_GET['id'] == 503) $kelompok = "Alat Instalasi"; ?>
-<?php if($_GET['id'] == 601) $kelompok = "Bahan Perpustakaan"; ?>
+<?php if($_GET['id'] == '3.01') $kelompok = "Alat Berat"; ?>
+<?php if($_GET['id'] == '3.02') $kelompok = "Alat Angkutan"; ?>
+<?php if($_GET['id'] == '3.03') $kelompok = "Alat Bengkel & Alat Ukur"; ?>
+<?php if($_GET['id'] == '3.05') $kelompok = "Alat Kantor & Rumah Tangga"; ?>
+<?php if($_GET['id'] == '3.06') $kelompok = "Alat Studio, Komunikasi & Pemancar"; ?>
+<?php if($_GET['id'] == '3.07') $kelompok = "Alat Kedokteran & Kesehatan"; ?>
+<?php if($_GET['id'] == '3.10') $kelompok = "Komputer"; ?>
+<?php if($_GET['id'] == '3.15') $kelompok = "Alat Keselamatan Kerja"; ?>
+<?php if($_GET['id'] == '3.17') $kelompok = "Alat Produksi"; ?>
+<?php if($_GET['id'] == '3.19') $kelompok = "Peralatan Olahraga"; ?>
+<?php if($_GET['id'] == '4.01') $kelompok = "Bangunan Gedung"; ?>
+<?php if($_GET['id'] == '4.04') $kelompok = "Tugu Titik Kontrol"; ?>
+<?php if($_GET['id'] == '5.02') $kelompok = "Bangunan Air"; ?>
+<?php if($_GET['id'] == '5.03') $kelompok = "Alat Instalasi"; ?>
+<?php if($_GET['id'] == '6.01') $kelompok = "Bahan Perpustakaan"; ?>
 
 <h1>Kelompok <?= $kelompok ?></h1>
 
