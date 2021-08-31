@@ -39,7 +39,7 @@ class PegawaiController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -221,4 +221,33 @@ class PegawaiController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionImport()
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $dataKonten = $_POST['konten'];
+
+            $dataExplode = explode("\n", $dataKonten);
+
+            foreach ($dataExplode as $data) {
+                $konten = explode("\t", $data);
+                
+                $nama = @$konten[0];
+                $nip = str_replace(' ','', @$konten[1]);
+
+                if ($nama == '' OR $nip == '') {
+                    continue;
+                }
+
+                $model = new Pegawai();
+                $model->nama = $nama;
+                $model->nip = $nip;
+                if(!$model->save()) {
+                    print_r($model->getErrors());die;
+                }
+            }
+        }
+
+        return $this->render('import');
+    }
 }
