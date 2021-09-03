@@ -1,3 +1,6 @@
+<?php 
+use chillerlan\QRCode\QRCode;
+?>
 <style type="text/css">
 
 	td{
@@ -15,7 +18,7 @@
 		height: 39px;
 		font-size: 13px;
 		text-align: center;
-		padding: 6px;
+		padding: 4px;
 		border: 2px solid black;
 		width: 100%
 	}
@@ -26,23 +29,16 @@
 		font-size: 13px;
 		text-align: center;
 		border-top: 0px;
-		padding: 6px;
+		padding: 4px;
 		border: 2px solid black;
 	}
 
 	.qrcode{
-		padding: 5px;
+		padding: 0px;
 		border: 2px solid black;
 		width: 30%;
-
 		margin-top: 5px;
-
 	}
-	.kolom{
-		
-
-	}
-
 </style>
 <?php $i=1; foreach($models as $model) { ?>
 
@@ -53,30 +49,17 @@
 } */?>
 
 <div style="float:left;width:300px;margin-right:10px;display:inline;">
-
-		<div class="qrcode">
-
-			<?php $this->widget('application.extensions.qrcode.QRCodeGenerator',array(
-					'data' => $model->id.'-'.$model->kode.'-'.$model->nup,
-					/*'data' => $model->id.'-'.$model->kode.'-'.$model->nup.' - '.$model->getLokasi(),*/
-					'subfolderVar' => false,
-					'matrixPointSize' => 4,
-					'displayImage'=>true, // default to true, if set to false display a URL path
-					'errorCorrectionLevel'=>'L', // available parameter is L,M,Q,H
-			)) ?>&nbsp;
+	<div class="qrcode">
+		<img src="<?= $qrcode->render($model->id.'-'.$model->kode.'-'.$model->nup) ?>" alt="QR Code" width="200px">
+	</div>
+	<div class="kolom">
+		<div class="kode" >
+			<?= $model->kode; ?>-<?=$model->nup; ?>
 		</div>
-		<div class="kolom">
-			<div class="kode" >
-				<?= $model->kode; ?>-<?=$model->nup; ?>
-			</div>
-
-			<div class="nama" >
-				<?= $model->nama; ?>
-			</div>
+		<div class="nama" >
+			<?= $model->nama; ?>
 		</div>
-
+	</div>
 </div>
-
-
 
 <?php $i++; } ?>

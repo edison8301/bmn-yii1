@@ -1,5 +1,11 @@
 <?php
 
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
+use Mpdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class BarangController extends Controller
 {
 	/**
@@ -21,7 +27,6 @@ class BarangController extends Controller
             ),
 		);
 	}
-
 
 
 	/**
@@ -66,8 +71,18 @@ class BarangController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$options = new QROptions([
+			'version'    => 5,
+			'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+			'eccLevel'   => QRCode::ECC_L,
+		]);
+		
+		// invoke a fresh QRCode instance
+		$qrcode = new QRCode($options);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $this->loadModel($id),
+			'qrcode'=>$qrcode
 		));
 	}
 
@@ -192,6 +207,7 @@ class BarangController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Barang');
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -354,9 +370,11 @@ class BarangController extends Controller
 	{
 
 	$model = new ExportBarang;
+
 	if(isset($_POST['ExportBarang']))
 	{
 		$model->attributes=$_POST['ExportBarang'];
+
 		if($model->validate())
 		{
 
@@ -394,43 +412,43 @@ class BarangController extends Controller
 			$criteria->params = $params;
 			$criteria->order = 'kode ASC';
 
+			$spreadsheet = new Spreadsheet();
+			$spreadsheet->setActiveSheetIndex(0);
+			$sheet = $spreadsheet->getActiveSheet();
 
-
-			$PHPExcel = new PHPExcel();
-
-			$PHPExcel->getActiveSheet()->getStyle('A3:M3')->getFont()->setBold(true);
-			$PHPExcel->getActiveSheet()->getStyle("A1:L1")->getFont()->setSize(14);
-			$PHPExcel->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-			$PHPExcel->getActiveSheet()->mergeCells('A1:M1');//sama jLga
-			$PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
+			$sheet->getStyle('A3:M3')->getFont()->setBold(true);
+			$sheet->getStyle("A1:L1")->getFont()->setSize(14);
+			$sheet->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+			$sheet->mergeCells('A1:M1');//sama jLga
+			$sheet->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
 		
-			$PHPExcel->getActiveSheet()->setCellValue('A3', 'NO');
-			$PHPExcel->getActiveSheet()->setCellValue('B3', 'KODE');
-			$PHPExcel->getActiveSheet()->setCellValue('C3', 'NAMA');
-			$PHPExcel->getActiveSheet()->setCellValue('D3', 'TAHUN PEROLEHAN');
-			$PHPExcel->getActiveSheet()->setCellValue('E3', 'ASAL PEROLEHAN');
-			$PHPExcel->getActiveSheet()->setCellValue('F3', 'MASA MANFAAT');
-			$PHPExcel->getActiveSheet()->setCellValue('G3', 'KONDISI BARANG');
-			$PHPExcel->getActiveSheet()->setCellValue('H3', 'SK PSP');
-			$PHPExcel->getActiveSheet()->setCellValue('I3', 'SK PENGHAPUSAN');
-			$PHPExcel->getActiveSheet()->setCellValue('J3', 'LOKASI');
-			$PHPExcel->getActiveSheet()->setCellValue('K3', 'PEGAWAI');
-			$PHPExcel->getActiveSheet()->setCellValue('L3', 'Waktu Diubah');
-			$PHPExcel->getActiveSheet()->setCellValue('M3', 'Waktu Dibuat');
+			$sheet->setCellValue('A3', 'NO');
+			$sheet->setCellValue('B3', 'KODE');
+			$sheet->setCellValue('C3', 'NAMA');
+			$sheet->setCellValue('D3', 'TAHUN PEROLEHAN');
+			$sheet->setCellValue('E3', 'ASAL PEROLEHAN');
+			$sheet->setCellValue('F3', 'MASA MANFAAT');
+			$sheet->setCellValue('G3', 'KONDISI BARANG');
+			$sheet->setCellValue('H3', 'SK PSP');
+			$sheet->setCellValue('I3', 'SK PENGHAPUSAN');
+			$sheet->setCellValue('J3', 'LOKASI');
+			$sheet->setCellValue('K3', 'PEGAWAI');
+			$sheet->setCellValue('L3', 'Waktu Diubah');
+			$sheet->setCellValue('M3', 'Waktu Dibuat');
 
-				$PHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
-				$PHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-				$PHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(14);
-				$PHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(18);
-				$PHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(18);
-				$PHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
-				$PHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(16);
-				$PHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-				$PHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(18);
-				$PHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(12);
-				$PHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(22);
-				$PHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
-				$PHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
+				$sheet->getColumnDimension('A')->setWidth(6);
+				$sheet->getColumnDimension('B')->setWidth(12);
+				$sheet->getColumnDimension('C')->setWidth(14);
+				$sheet->getColumnDimension('D')->setWidth(18);
+				$sheet->getColumnDimension('E')->setWidth(18);
+				$sheet->getColumnDimension('F')->setWidth(18);
+				$sheet->getColumnDimension('G')->setWidth(16);
+				$sheet->getColumnDimension('H')->setWidth(15);
+				$sheet->getColumnDimension('I')->setWidth(18);
+				$sheet->getColumnDimension('J')->setWidth(12);
+				$sheet->getColumnDimension('K')->setWidth(22);
+				$sheet->getColumnDimension('L')->setWidth(15);
+				$sheet->getColumnDimension('M')->setWidth(15);
 
 
 			$i = 1;
@@ -438,44 +456,49 @@ class BarangController extends Controller
 
 			foreach(Barang::model()->findAll($criteria) as $data)
 			{
-				$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom, $i);
-				$PHPExcel->getActiveSheet()->setCellValue('B'.$kolom, $data->kode);
-				$PHPExcel->getActiveSheet()->setCellValue('C'.$kolom, $data->nama);
-				$PHPExcel->getActiveSheet()->setCellValue('D'.$kolom, $data->getTahunPerolehan());
-				$PHPExcel->getActiveSheet()->setCellValue('E'.$kolom, $data->getPerolehanAsal());
-				$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom, $data->masa_manfaat);
-				$PHPExcel->getActiveSheet()->setCellValue('G'.$kolom, $data->getBarangKondisi());
-				$PHPExcel->getActiveSheet()->setCellValue('H'.$kolom, $data->sk_psp);
-				$PHPExcel->getActiveSheet()->setCellValue('I'.$kolom, $data->sk_penghapusan);
-				$PHPExcel->getActiveSheet()->setCellValue('J'.$kolom, $data->getLokasi());
-				$PHPExcel->getActiveSheet()->setCellValue('K'.$kolom, $data->getPegawai());
-				$PHPExcel->getActiveSheet()->setCellValue('L'.$kolom, $data->waktu_diubah);
-				$PHPExcel->getActiveSheet()->setCellValue('M'.$kolom, $data->waktu_dibuat);
+				$sheet->setCellValue('A'.$kolom, $i);
+				$sheet->setCellValue('B'.$kolom, $data->kode);
+				$sheet->setCellValue('C'.$kolom, $data->nama);
+				$sheet->setCellValue('D'.$kolom, $data->getTahunPerolehan());
+				$sheet->setCellValue('E'.$kolom, $data->getPerolehanAsal());
+				$sheet->setCellValue('F'.$kolom, $data->masa_manfaat);
+				$sheet->setCellValue('G'.$kolom, $data->getBarangKondisi());
+				$sheet->setCellValue('H'.$kolom, $data->sk_psp);
+				$sheet->setCellValue('I'.$kolom, $data->sk_penghapusan);
+				$sheet->setCellValue('J'.$kolom, $data->getLokasi());
+				$sheet->setCellValue('K'.$kolom, $data->getPegawai());
+				$sheet->setCellValue('L'.$kolom, $data->waktu_diubah);
+				$sheet->setCellValue('M'.$kolom, $data->waktu_dibuat);
 
-				$PHPExcel->getActiveSheet()->getStyle('A3:M'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-				$PHPExcel->getActiveSheet()->getStyle('A2:M'.$kolom)->getFont()->setSize(9);
-				$PHPExcel->getActiveSheet()->getStyle('A3:M'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
+				$sheet->getStyle('A3:M'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+				$sheet->getStyle('A2:M'.$kolom)->getFont()->setSize(9);
+				$sheet->getStyle('A3:M'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
 									
 				$i++; $kolom++;
 			}
 
-			$PHPExcel->getActiveSheet()->getStyle('A3:M'.$kolom)->getAlignment()->setWrapText(true);
-			$PHPExcel->getActiveSheet()->getStyle('A3:M'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+			$sheet->getStyle('A3:M'.$kolom)->getAlignment()->setWrapText(true);
+			$sheet->getStyle('A3:M'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
 	
 			$filename = time().'_Barang.xlsx';
 
-			$path = 'uploads/export/';
-			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
-			$objWriter->save($path.$filename);	
-			$this->redirect($path.$filename);
+			// $path = 'uploads/export/';
+			// $objWriter->save($path.$filename);	
+			// $this->redirect($path.$filename);
+
+			$objWriter = new Xlsx($spreadsheet);
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$filename);
+			header('Cache-Control: max-age=0');
+			$objWriter->save('php://output');
 
 			}	
 		}
-	$this->render('export',array(
-		'laporanform'=>$model
-	));		
-	}
 
+		$this->render('export',array(
+			'laporanform'=>$model
+		));		
+	}
 
 	public function actionExportBarang($id)
 	{
@@ -574,7 +597,7 @@ class BarangController extends Controller
 
 public function getCssClass($data)
 {
-    $cssClass;
+    $cssClass = $data;
 
     if('($data->id_barang_kondisi == 1)')
     {
@@ -1023,7 +1046,7 @@ public function actionSelectBarang(){
 	public function actionCetakQrPdf($kode,$nup_awal,$nup_akhir,$nup_lainnya)
 	{
 		
-		include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
+		// include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
 
 		$marginLeft = 5;
 		$marginRight = 5;
@@ -1032,10 +1055,8 @@ public function actionSelectBarang(){
 		$marginHeader = 5;
 		$marginFooter = 5;
 
-		$pdf = new mPDF('UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter);
+		$pdf = new Mpdf(['UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter]);
 		
-		$model = new Barang;
-
 		$criteria = new CDbCriteria;
 		$params = array();
 
@@ -1045,7 +1066,6 @@ public function actionSelectBarang(){
 			$params[':kode'] = $kode;
 		}
 
-		
 		/*if(isset($_GET['nup_awal'])) 
 		{
 			$criteria->addCondition('nup >= :nup_awal');
@@ -1090,9 +1110,20 @@ public function actionSelectBarang(){
 		$criteria->order = 'kode,nup ASC';	
 
 		$models = Barang::model()->findAll($criteria);
-		
 
-		$html = $this->renderPartial('cetakQrHtml',array('models'=>$models,'lorem'=>$lorem),true);
+		$options = new QROptions([
+			'version'    => 5,
+			'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+			'eccLevel'   => QRCode::ECC_L,
+		]);
+		
+		// invoke a fresh QRCode instance
+		$qrcode = new QRCode($options);
+
+		$html = $this->renderPartial('cetakQrHtml',array(
+			'models'=>$models,
+			'qrcode'=>$qrcode
+		),true);
 
 		$pdf->WriteHTML($html);
 
@@ -1120,8 +1151,6 @@ public function actionSelectBarang(){
 
 			if($model->validate())
 			{
-				include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
-
 				$marginLeft = 5;
 				$marginRight = 5;
 				$marginTop = 5;
@@ -1129,7 +1158,7 @@ public function actionSelectBarang(){
 				$marginHeader = 5;
 				$marginFooter = 5;
 
-				$pdf = new mPDF('UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter);
+				$pdf = new Mpdf(['UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter]);
 
 				$criteria = new CDbCriteria;
 				$params = array();
@@ -1142,8 +1171,7 @@ public function actionSelectBarang(){
 
 				$models = Barang::model()->findAll($criteria);
 				
-
-				$html = $this->renderPartial('cetakQrHtml',array('models'=>$models,'lorem'=>$lorem),true);
+				$html = $this->renderPartial('cetakQrHtml',array('models'=>$models),true);
 
 				$pdf->WriteHTML($html);
 
@@ -1160,10 +1188,9 @@ public function actionSelectBarang(){
     public function actionCetakBastPdf()
 	{
         $this->layout = false;
-		$mpdf = new \Mpdf\Mpdf();
+		$mpdf = new Mpdf();
         $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
         $mpdf->Output();
-		
 	}
 
 }

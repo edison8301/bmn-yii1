@@ -66,7 +66,7 @@ $this->breadcrumbs=array(
 				),
 			)); ?>
 	</div>
-	<div class="col-sm-4">
+	<?php /* <div class="col-sm-4">
 		<?php $this->widget('application.extensions.qrcode.QRCodeGenerator',array(
     		'data' => $model->id.'-'.$model->kode.'-'.$model->nup,
     		'subfolderVar' => false,
@@ -75,6 +75,13 @@ $this->breadcrumbs=array(
     		'errorCorrectionLevel'=>'L', // available parameter is L,M,Q,H
     		'matrixPointSize'=>4, // 1 to 10 only
 		)) ?>&nbsp;
+		</div>
+	*/ ?>
+	<div class="col-sm-4">
+		<img src="<?= $qrcode->render($model->id.'-'.$model->kode.'-'.$model->nup) ?>" alt="QR Code"> <br>
+		<p style="text-align:center">
+			<?= $model->id.'-'.$model->kode.'-'.$model->nup ?>
+		</p>
 	</div>
 </div>
 
