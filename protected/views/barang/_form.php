@@ -66,6 +66,8 @@
 		}
 		?>
 
+		<?php echo $form->textFieldGroup($model,'tahun',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
 		<?php echo $form->datePickerGroup($model,'tahun_perolehan',array(
 			'widgetOptions'=>array(
 				'options'=>array('format'=>'yyyy-mm-dd','autoclose'=>true),

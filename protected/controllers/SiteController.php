@@ -79,12 +79,11 @@ class SiteController extends Controller
 	{
 		$model=new Barang;
 
-		$dataProvider=new CActiveDataProvider('Barang');
+		$dataProvider = new CActiveDataProvider('Barang');
 		$this->render('detail_kategori',array(
 			'dataProvider'=>$model,
 			'id'=>$id,
 		));
-
 	}
 
 	/**

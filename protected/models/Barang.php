@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $kode
  * @property string $nama
+ * @property string $tahun
  * @property string $tahun_perolehan
  * @property string $asal_perolehan
  * @property string $masa_manfaat
@@ -40,12 +41,12 @@ class Barang extends CActiveRecord
 			array('kode', 'required'),
 			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly'=>true),
 			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max'=>255),
-			array('waktu_diubah, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
+			array('waktu_diubah,tahun, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
 				  perawatan_terakhir, sakhir, tanggal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, kode, memrek, harga, nup, nama, tahun_perolehan, asal_perolehan, masa_manfaat, id_barang_kondisi, sk_psp,
+			array('id, kode, memrek, harga, nup, nama,tahun, tahun_perolehan, asal_perolehan, masa_manfaat, id_barang_kondisi, sk_psp,
                 sk_penghapusan, id_lokasi, id_pegawai, gambar, waktu_diubah, waktu_dibuat, administrasi_jumlah,
                 administrasi_harga_satuan,administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,
                 inventarisasi_harga, id_perolehan_asal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe', 'on'=>'search'),
@@ -79,6 +80,7 @@ class Barang extends CActiveRecord
 			'id_pegawai' => 'Pegawai',
 			'id_lokasi' => 'Lokasi',
             'id_lokasi_jenis' => 'Ruangan',
+			'tahun' => 'Tahun',
 			'tahun_perolehan' => 'Tahun Perolehan',
 			'asal_perolehan' => 'Asal Perolehan',
             'id_perolehan_asal' => 'Asal Perolehan',
@@ -128,6 +130,7 @@ class Barang extends CActiveRecord
 		$criteria->compare('kode',$this->kode,true);
 		$criteria->compare('nup',$this->nup,true);
 		$criteria->compare('nama',$this->nama,true);
+		$criteria->compare('tahun',$this->tahun,true);
 		$criteria->compare('tahun_perolehan',$this->tahun_perolehan,true);
 		$criteria->compare('asal_perolehan',$this->asal_perolehan,true);
         $criteria->compare('id_perolahan_asal',$this->id_perolehan_asal,true);
@@ -467,18 +470,18 @@ class Barang extends CActiveRecord
 
 		 public function updatePerawatanTerkahir()
 		 {
-			 	$criteria = new CDbCriteria;
-				$criteria->addCondition('id_barang = :id_barang');
-				$criteria->params = array(':id_barang'=>$this->id);
-				$criteria->order = 'tanggal DESC';
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('id_barang = :id_barang');
+			$criteria->params = array(':id_barang'=>$this->id);
+			$criteria->order = 'tanggal DESC';
 
-				$perawatan = BarangPerawatan::model()->find($criteria);
+			$perawatan = BarangPerawatan::model()->find($criteria);
 
-				if($perawatan!==null)
-				{
-					$this->perawatan_terakhir = $perawatan->tanggal;
-					$this->save();
-				}
+			if($perawatan!==null)
+			{
+				$this->perawatan_terakhir = $perawatan->tanggal;
+				$this->save();
+			}
 		 }
 
 		 public function updatePemeriksaanTerkahir()

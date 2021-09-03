@@ -7,27 +7,25 @@ use yii\helpers\Html;
 
 <!DOCTYPE html>
 
-<table>
+<table style="border-bottom: 1px solid;">
     <tr>
         <td>
             <img src="images/logo-lan.jpg" alt="logo-lan" style="height:70px;">
         </td>
         <td style="text-align: center;">
-            <h4 style="font-weight: bold"> LEMBAGA ADMINISTRASI NEGARA<br>REPUBLIK INDONESIA</h4><p class="text-center">Jalan Veteran No.10 Jakarta Pusat 10110<br> Telp. (021) 3868201-5, Fax. (021) 3868210, Website: www.lan.go.id</p>
+            <h4 style="font-weight: bold"> LEMBAGA ADMINISTRASI NEGARA<br>REPUBLIK INDONESIA</h4>
+			<p class="text-center">Jalan Veteran No.10 Jakarta Pusat 10110<br> Telp. (021) 3868201-5, Fax. (021) 3868210, Website: www.lan.go.id</p>
         </td>
     </tr>
 </table>
 
-
-<hr style="width:100%;text-align:left;margin-left:0">
-
-
+<br>
 
 <h4 style="font-weight: bold" class="text-center"> BERITA ACARA SERAH TERIMA PENGGUNAAN </h4>
 
 <p class="text-center">Nomor:</p>
 
-<p class="text-start" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
+<p class="text-justify" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
 
 <div class="text-start">1. Nama :</div>
 <div class="text-start">&emsp;NIP :</div>

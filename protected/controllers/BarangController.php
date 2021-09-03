@@ -147,6 +147,7 @@ class BarangController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		
 		$oldFile = $model->gambar;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -597,7 +598,7 @@ class BarangController extends Controller
 
 public function getCssClass($data)
 {
-    $cssClass = $data;
+    $cssClass;
 
     if('($data->id_barang_kondisi == 1)')
     {
@@ -1188,7 +1189,9 @@ public function actionSelectBarang(){
     public function actionCetakBastPdf()
 	{
         $this->layout = false;
-		$mpdf = new Mpdf();
+		$mpdf = new Mpdf([
+			''
+		]);
         $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
         $mpdf->Output();
 	}
