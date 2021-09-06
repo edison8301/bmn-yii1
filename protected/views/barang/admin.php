@@ -45,24 +45,35 @@ $this->breadcrumbs=array(
     'enablePagination' => true,
     /*'rowCssClassExpression' => '"' . $this->getCssClass($model) . '"',*/
 	'columns'=>array(
-		array(
-			'value' => '$data->kode',
-			'name' => 'kode',
-			'headerHtmlOptions' => array('width'=>'10%','style'=>'text-align:center'),
-			'htmlOptions' => array('style'=>'text-align:center;'),
-			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
-		),
+        array(
+            'header' => 'No',
+            'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+            'htmlOptions' => array('style'=>'text-align:center; width: 50px'),
+        ),
 		array(
 			'name'=>'nama',
-			'headerHtmlOptions' => array('width' =>'25%','style'=>'text-align:center'),
+			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
+        array(
+            'value' => '$data->kode',
+            'name' => 'kode',
+            'headerHtmlOptions' => array('width'=>'10%','style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:center;'),
+            'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
+        ),
 		array(
 			 'name' => 'nup',
 			 'headerHtmlOptions' => array('width' =>'5%','style'=>'text-align:center'),
 			 'htmlOptions'=>array('style'=>'text-align:center'),
 			 'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
+        array(
+            'name' => 'merek',
+            'headerHtmlOptions' => array('style'=>'text-align:center; width: 200px'),
+            'htmlOptions'=>array('style'=>'text-align:center'),
+            'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
+        ),
 		array(
 			'value' => 'Helper::getTanggalSingkat($data->tahun_perolehan)',
 			'name' => 'tahun_perolehan',
@@ -70,6 +81,7 @@ $this->breadcrumbs=array(
 			'htmlOptions' => array('style'=>'text-align:center'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
+		/*
 		array(
 		 	'header' => 'Lokasi',
 		 	'name' => 'id_lokasi',
@@ -102,10 +114,11 @@ $this->breadcrumbs=array(
 			 'htmlOptions'=>array('style'=>'text-align:center'),
 			 'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
+		*/
 		array(
 			'type'=>'raw',
 			'value'=>'CHtml::link("<i class=\"glyphicon glyphicon-qrcode\"></i>",array("barang/cetakQr","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak QR"))',
-			'htmlOptions'=>array('style'=>'text-align:center'),
+			'htmlOptions'=>array('style'=>'text-align:center; width: 50px'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 
 		),		
