@@ -208,8 +208,8 @@ class BarangPerawatan extends CActiveRecord
 	public static function countBulanIni()
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		$awal = date('Y-m').'-01 00:00:00';
-		$akhir = date('Y-m').'-31 23:59:59';
+		$awal = date('Y-m-01');
+		$akhir = date('Y-m-t');
 
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('tanggal >= :awal AND tanggal <= :akhir');
@@ -236,36 +236,39 @@ class BarangPerawatan extends CActiveRecord
 	{
 		$dataChartBulan = '';
 
+        $tahun = date('Y');
+
 		for($i=1;$i<=12;$i++)
 		{
-   			$criteria = new CDbCriteria;
-    		$bulan = $i;
+            $bulan = $i;
 
-	    	if($i<=10) $bulan = '0'.$i;
+    		$datetime = DateTime::createFromFormat('Y-n-d',$tahun.'-'.$bulan.'-01');
 
-	   		$awal = date('Y').'-'.$bulan.'-01';
-    		$akhir = date('Y').'-'.$bulan.'-31';
+	   		$awal = $datetime->format('Y-m-01');
+    		$akhir = $datetime->format('Y-m-t');
 
-	    $criteria->condition = 'tanggal >= :awal AND tanggal <= :akhir';
-	    $criteria->params = array(':awal'=>$awal,':akhir'=>$akhir);
+            $criteria = new CDbCriteria;
+            $criteria->condition = 'tanggal >= :awal AND tanggal <= :akhir';
+            $criteria->params = [
+                ':awal' => $awal,
+                ':akhir' => $akhir
+            ];
 
-	    $jumlah_perawatan = BarangPerawatan::model()->count($criteria);
+	        $jumlah_perawatan = BarangPerawatan::model()->count($criteria);
 
-	    $nama_bulan = '';
-	    if($i==1) $nama_bulan = 'Jan';
-	    if($i==2) $nama_bulan = 'Feb';
-	    if($i==3) $nama_bulan = 'Mar';
-	    if($i==4) $nama_bulan = 'Apr';
-	    if($i==5) $nama_bulan = 'Mei';
-	    if($i==6) $nama_bulan = 'Jun';
-	    if($i==7) $nama_bulan = 'Jul';
-	    if($i==8) $nama_bulan = 'Aug';
-	    if($i==9) $nama_bulan = 'Sep';
-	    if($i==10) $nama_bulan = 'Oct';
-	    if($i==11) $nama_bulan = 'Nov';
-	    if($i==12) $nama_bulan = 'Des';
-
-
+            $nama_bulan = '';
+            if($i==1) $nama_bulan = 'Jan';
+            if($i==2) $nama_bulan = 'Feb';
+            if($i==3) $nama_bulan = 'Mar';
+            if($i==4) $nama_bulan = 'Apr';
+            if($i==5) $nama_bulan = 'Mei';
+            if($i==6) $nama_bulan = 'Jun';
+            if($i==7) $nama_bulan = 'Jul';
+            if($i==8) $nama_bulan = 'Aug';
+            if($i==9) $nama_bulan = 'Sep';
+            if($i==10) $nama_bulan = 'Oct';
+            if($i==11) $nama_bulan = 'Nov';
+            if($i==12) $nama_bulan = 'Des';
 
     		$dataChartBulan .= '{"label":"'.$nama_bulan.'","value":"'.$jumlah_perawatan.'"},';
 		}

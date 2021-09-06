@@ -38,10 +38,11 @@ class Barang extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('kode', 'required'),
+			array('nama, kode, nup', 'required'),
 			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly'=>true),
+			['tahun','numerical','integerOnly' => true],
 			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max'=>255),
-			array('waktu_diubah,tahun, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
+			array('waktu_diubah, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
 				  perawatan_terakhir, sakhir, tanggal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe'),
 			// The following rule is used by search().
@@ -449,6 +450,21 @@ class Barang extends CActiveRecord
 
 		return $model->count($criteria);
 	}
+
+	public function setNull()
+    {
+        if($this->tahun == "") {
+            $this->tahun = null;
+        }
+
+        if($this->tahun_perolehan == "") {
+            $this->tahun_perolehan = null;
+        }
+
+        if($this->tanggal_kondisi_barang == "") {
+            $this->tanggal_kondisi_barang = null;
+        }
+    }
 
 		public function getCssClass($data)
 		{

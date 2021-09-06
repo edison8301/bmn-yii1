@@ -31,7 +31,12 @@
 			'widgetOptions'=>array(
 				'data' => CHtml::listData(BarangKondisi::model()->findAll(),'id','nama'),
 				'htmlOptions'=>array(
-					'class'=>'span5','maxlength'=>255)))); ?>	
+					'class'=>'span5',
+                    'maxlength'=>255,
+                    'empty' => '- Pilih Kondisi -'
+                )
+            )
+        )); ?>
         
         <?php echo $form->datePickerGroup($model,'tanggal_kondisi_barang',array(
 			'widgetOptions'=>array(
@@ -56,13 +61,28 @@
 		<?php
 		if(isset($_GET['id_pegawai'])){
 			echo $form->select2Group($model,'id_pegawai',array(
-				'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAllByAttributes(array('id'=>$_GET['id_pegawai'])),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255))
+				'widgetOptions'=>array(
+                    'data' => CHtml::listData(Pegawai::model()->findAllByAttributes(array('id'=>$_GET['id_pegawai'])),'id','nama'),
+                    'htmlOptions' => array(
+                        'class'=>'span5',
+                        'maxlength' => 255,
+                        'prompt' => '- Pilih Pegawai -',
+                    ),
+                )
 			)); 
 		}
 		else
 		{
 			echo $form->select2Group($model,'id_pegawai',array(
-				'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255))));
+				'widgetOptions'=>array(
+                    'data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),
+                    'htmlOptions' => array(
+                        'class'=>'span5',
+                        'maxlength'=>255,
+                        'prompt' => '- Pilih Pegawai -',
+                    )
+                ))
+            );
 		}
 		?>
 

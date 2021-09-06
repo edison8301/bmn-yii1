@@ -107,9 +107,12 @@ class BarangController extends Controller
 				$gambar = CUploadedFile::getInstance($model,'gambar');
 
 			
-			if($gambar!==null)
-				$model->gambar = str_replace(' '  ,'-',time().'_'.$gambar->name);
-			
+			if($gambar!==null) {
+                $model->gambar = str_replace(' ', '-', time() . '_' . $gambar->name);
+            }
+
+			$model->setNull();
+
 			if($model->save())
 			{
 				if($gambar!==null)
@@ -150,9 +153,6 @@ class BarangController extends Controller
 		
 		$oldFile = $model->gambar;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Barang']))
 		{
 			$model->attributes=$_POST['Barang'];
@@ -161,11 +161,13 @@ class BarangController extends Controller
 
 			$gambar = CUploadedFile::getInstance($model,'gambar');
 
-			if($gambar!==null)
-				$model->gambar = str_replace(' ','-',time().'_'.$gambar->name);
-			else
-				$model->gambar = $oldFile;
+			if($gambar!==null) {
+                $model->gambar = str_replace(' ', '-', time() . '_' . $gambar->name);
+            } else {
+                $model->gambar = $oldFile;
+            }
 
+			$model->setNull();
 
 			if($model->save())
 			{
