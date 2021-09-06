@@ -4,3 +4,5 @@ protected/runtime/*
 !protected/runtime/.gitignore
 uploads/*
 vendor/*
+
+protected/config/database.php
