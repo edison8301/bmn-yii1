@@ -34,7 +34,7 @@
 						array('label'=>'Cetak QR per NUP','icon'=>'user','url'=>array('/barang/cetakQr')),
 						array('label'=>'Cetak QR per DBR','icon'=>'user','url'=>array('/barang/cetakQrcodeDbr')),
                     )),
-					array('label'=>'Ruangan','icon'=>'map-marker','url'=>array('/lokasi/admin')),
+					array('label'=>'Ruangan','icon'=>'map-marker','url'=>array('/ruangan/admin')),
 					array('label'=>'Perawatan','icon'=>'wrench','url'=>array('/barangPerawatan/admin')),
 					array('label'=>'Pemeriksaan','icon'=>'ok','url'=>array('/barangPemeriksaan/admin')),
 					array('label'=>'Pemindahan','icon'=>'list','url'=>array('/barangPemindahan/admin')),
