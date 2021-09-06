@@ -18,7 +18,7 @@
 	<tr>
 		<td rowspan="2" width="100px" style="text-align:center;">
 			<?php $this->widget('application.extensions.qrcode.QRCodeGenerator',array(
-					'data' => $model->id.'-'.$model->kode.'-'.$model->nup.'<br> Nup: '.$model->nup.'<br> Kode: '.$model->kode.'<br> Nama Barang: '.$model->nama,
+					'data' => $model->kode.'-'.$model->nup.'<br> Nup: '.$model->nup.'<br> Kode: '.$model->kode.'<br> Nama Barang: '.$model->nama,
 					'subfolderVar' => false,
 					'matrixPointSize' => 4,
 					'displayImage'=>true, // default to true, if set to false display a URL path
