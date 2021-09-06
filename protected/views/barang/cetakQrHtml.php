@@ -50,7 +50,7 @@ use chillerlan\QRCode\QRCode;
 
 <div style="float:left;width:300px;margin-right:10px;display:inline;">
 	<div class="qrcode">
-		<img src="<?= $qrcode->render($model->id.'-'.$model->kode.'-'.$model->nup) ?>" alt="QR Code" width="200px">
+		<img src="<?= $qrcode->render($model->kode.'-'.$model->nup) ?>" alt="QR Code" width="200px">
 	</div>
 	<div class="kolom">
 		<div class="kode" >
