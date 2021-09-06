@@ -3,9 +3,9 @@
 /* @var $model Lokasi */
 
 $this->breadcrumbs=array(
-	'Lokasis'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Ruangan' => array('index'),
+    $model->nama => array('view','id'=>$model->id),
+	'Ubah',
 );
 
 $this->menu=array(
@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Sunting Lokasi</h1>
+<h1>Ubah Ruangan</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

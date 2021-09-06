@@ -3,7 +3,7 @@
 /* @var $model Lokasi */
 
 $this->breadcrumbs=array(
-	'Lokasi'=>array('admin'),
+	'Ruangan' => array('admin'),
 	$model->nama,
 );
 

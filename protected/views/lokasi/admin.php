@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h1>Kelola Lokasi</h1>
+<h1>Kelola Ruangan</h1>
 
 
 <?php $this->widget('booster.widgets.TbGridView', array(

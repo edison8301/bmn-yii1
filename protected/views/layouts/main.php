@@ -33,8 +33,8 @@
 					array('label'=>'Cetak QR','icon'=>'qrcode','items'=>array(
 						array('label'=>'Cetak QR per NUP','icon'=>'user','url'=>array('/barang/cetakQr')),
 						array('label'=>'Cetak QR per DBR','icon'=>'user','url'=>array('/barang/cetakQrcodeDbr')),
-						)),
-					array('label'=>'Lokasi','icon'=>'map-marker','url'=>array('/lokasi/admin')),
+                    )),
+					array('label'=>'Ruangan','icon'=>'map-marker','url'=>array('/lokasi/admin')),
 					array('label'=>'Perawatan','icon'=>'wrench','url'=>array('/barangPerawatan/admin')),
 					array('label'=>'Pemeriksaan','icon'=>'ok','url'=>array('/barangPemeriksaan/admin')),
 					array('label'=>'Pemindahan','icon'=>'list','url'=>array('/barangPemindahan/admin')),
