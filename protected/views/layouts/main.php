@@ -42,6 +42,7 @@
 					array('label'=>'Laporan','icon'=>'file','url'=>array('/barang/exportExcel')),
 					array('label'=>'Setting','icon'=>'wrench','items'=>array(
 						array('label'=>'User','icon'=>'user','url'=>array('/user/admin')),
+                        array('label'=>'Kategori Barang','icon'=>'user','url'=>array('/barangKategori/admin')),
 						array('label'=>'Tahun','icon'=>'th','url'=>array('/tahun/admin')),
 						array('label'=>'Kondisi Barang','icon'=>'file','url'=>array('/barangKondisi/admin')),
 						array('label'=>'Gedung','icon'=>'file','url'=>array('/gedung/admin')),

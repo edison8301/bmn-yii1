@@ -331,9 +331,13 @@ class BarangController extends Controller
 	public function actionAdmin($paging=10)
 	{
 		$model=new Barang('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Barang']))
-			$model->attributes=$_GET['Barang'];
+
+		$model->unsetAttributes();
+
+		if(isset($_GET['Barang'])) {
+            $model->attributes=$_GET['Barang'];
+        }
+
 
 		$this->render('admin',array(
 			'model'=>$model,
