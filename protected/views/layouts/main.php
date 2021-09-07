@@ -14,8 +14,12 @@
 
 <div id="header">
     <div style="padding: 10px 20px 20px 20px">
-        <?php print CHtml::image(Yii::app()->baseUrl."/images/logo.png",'Logo',[
+        <?php print CHtml::image(Yii::app()->baseUrl."/images/logo-kiri.png",'Logo',[
             'style' => 'height: 80px'
+        ]); ?>
+        <?php print CHtml::image(Yii::app()->baseUrl."/images/logo-kanan.png",'Logo',[
+            'style' => 'height: 80px',
+            'class' => 'pull-right'
         ]); ?>
     </div>
 </div>
