@@ -45,20 +45,20 @@ $this->breadcrumbs=array(
             'headerHtmlOptions'=>array('style'=>'text-align:center')
         ),
 		 array(
-			 	'name' => 'id',
-			 	'header'=>'DBR',
-			 	'type'=>'raw',
-			 	'value' => 'CHtml::link("<i class=\"glyphicon glyphicon-download-alt\"></i>",array("/ruangan/dbr","id"=>$data->id))',
-			 	'headerHtmlOptions' => array('width' =>'5%'),
-			 	'filter' => '',
-			 	'htmlOptions'=>array('style'=>'text-align:center'),
-			 	'headerHtmlOptions'=>array('style'=>'text-align:center')
-			 	),
+            'name' => 'id',
+            'header'=>'DBR',
+            'type'=>'raw',
+            'value' => 'CHtml::link("<i class=\"glyphicon glyphicon-download-alt\"></i>",array("/ruangan/dbr","id"=>$data->id))',
+            'headerHtmlOptions' => array('width' =>'5%'),
+            'filter' => '',
+            'htmlOptions'=>array('style'=>'text-align:center'),
+            'headerHtmlOptions'=>array('style'=>'text-align:center')
+            ),
 		array(
 			'class'=>'booster.widgets.TbButtonColumn',
 			'htmlOptions' => array(
 				'style' => 'width: 80px;text-align:center')
-			),
+            ),
 
 	),
 )); ?>
@@ -67,20 +67,20 @@ $this->breadcrumbs=array(
 <div>&nbsp;</div>
 
 <div class="well" style="text-align:right">
-<?php $this->widget('booster.widgets.TbButton',array(
-		'buttonType'=>'link',
-		'label'=>'Cetak QR per DBR',
-		'icon'=>'qrcode',
-		'size'=>'small',
-		'context'=>'success',
-		'url'=>array('barang/cetakQrcodeDbr')
-)); ?> &nbsp;
-<?php $this->widget('booster.widgets.TbButton',array(
-		'buttonType'=>'link',
-		'label'=>'Tambah',
-		'icon'=>'plus',
-		'size'=>'small',
-		'context'=>'danger',
-		'url'=>array('/ruangan/create')
-)); ?>
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Tambah',
+        'icon'=>'plus',
+        'size'=>'small',
+        'context'=>'danger',
+        'url'=>array('/ruangan/create')
+    )); ?>
+    <?php $this->widget('booster.widgets.TbButton',array(
+            'buttonType'=>'link',
+            'label'=>'Cetak QR per DBR',
+            'icon'=>'qrcode',
+            'size'=>'small',
+            'context'=>'success',
+            'url'=>array('barang/cetakQrcodeDbr')
+    )); ?> &nbsp;
 </div>
