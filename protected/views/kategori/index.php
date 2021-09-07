@@ -1,5 +1,5 @@
 <?php
-/* @var $this BarangKategoriController */
+/* @var $this KategoriController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(

@@ -40,7 +40,7 @@ $this->menu=array(
 		'icon'=>'pencil',
 		'size'=>'small',
 		'context'=>'danger',
-		'url'=>array('/lokasi/update','id'=>$model->id)
+		'url'=>array('/ruangan/update','id'=>$model->id)
 )); ?>&nbsp;
 
 <?php $this->widget('booster.widgets.TbButton',array(
@@ -49,7 +49,7 @@ $this->menu=array(
 		'icon'=>'plus',
 		'size'=>'small',
 		'context'=>'danger',
-		'url'=>array('/lokasi/create')
+		'url'=>array('/ruangan/create')
 )); ?>&nbsp;
 
 
@@ -59,7 +59,7 @@ $this->menu=array(
 		'icon'=>'list',
 		'size'=>'small',
 		'context'=>'danger',
-		'url'=>array('/lokasi/admin')
+		'url'=>array('/ruangan/admin')
 )); ?>&nbsp;
 
 <?php $this->widget('booster.widgets.TbButton',array(

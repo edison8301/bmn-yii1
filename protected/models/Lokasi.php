@@ -25,7 +25,7 @@ class Lokasi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_gedung, id_unit, kode, nama, id_pegawai','required','message'=>'{attribute} harus diisi'),
+			array('nama','required','message'=>'{attribute} harus diisi'),
 			array('kode, nama', 'length', 'max'=>255),
 			array('id_gedung, id_pegawai, id_unit, subunit, lantai', 'safe'),
 			// The following rule is used by search().
@@ -52,7 +52,7 @@ class Lokasi extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nama' => 'Nama Ruangan',
+			'nama' => 'Nama Lokasi',
 			'id_gedung' => 'Gedung',
 			'id_unit'=>'Unit',
 			'id_subunit'=>'Subunit',

@@ -21,44 +21,48 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="well">
-	<?php echo $form->select2Group($model,'id_gedung',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array(
-					'data'=>CHtml::listData(Gedung::model()->findAll(),'id','nama'),
-					'htmlOptions'=>array('empty'=>'-- Pilih Gedung --')
-			)
-	)); ?>
+        <?php echo $form->textFieldGroup($model,'nama',array(
+            'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+            'widgetOptions'=>array(
+                    'htmlOptions'=>array('class'=>'span5','maxlength'=>255)
+            )
+        )); ?>
 
-	<?php echo $form->select2Group($model,'id_unit',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array(
-				'data'=>CHtml::listData(Unit::model()->findAll(),'id','nama'),
-				'htmlOptions'=>array('empty'=>'-- Pilih Unit --'))
-	)); ?>
+        <?php /*
+        <?php echo $form->select2Group($model,'id_gedung',array(
+                'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+                'widgetOptions'=>array(
+                        'data'=>CHtml::listData(Gedung::model()->findAll(),'id','nama'),
+                        'htmlOptions'=>array('empty'=>'-- Pilih Gedung --')
+                )
+        )); ?>
 
-	<?php echo $form->select2Group($model,'id_subunit',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array(
-				'data'=>CHtml::listData(Subunit::model()->findAll(),'id','nama'),
-				'htmlOptions'=>array('empty'=>'-- Pilih Subunit --'))
-	)); ?>
+        <?php echo $form->select2Group($model,'id_unit',array(
+                'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+                'widgetOptions'=>array(
+                    'data'=>CHtml::listData(Unit::model()->findAll(),'id','nama'),
+                    'htmlOptions'=>array('empty'=>'-- Pilih Unit --'))
+        )); ?>
 
-	<?php echo $form->textFieldGroup($model,'kode',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+        <?php echo $form->select2Group($model,'id_subunit',array(
+                'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+                'widgetOptions'=>array(
+                    'data'=>CHtml::listData(Subunit::model()->findAll(),'id','nama'),
+                    'htmlOptions'=>array('empty'=>'-- Pilih Subunit --'))
+        )); ?>
 
-	<?php echo $form->textFieldGroup($model,'nama',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
-
+        <?php echo $form->textFieldGroup($model,'kode',array(
+                'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+                'widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 	
-	<?php echo $form->select2Group($model,'id_pegawai',array(
-			'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
-			'widgetOptions'=>array(
-				'data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),
-				'htmlOptions'=>array('empty'=>'-- Pilih Pegawai --')
-			)
-	)); ?>
+        <?php echo $form->select2Group($model,'id_pegawai',array(
+                'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+                'widgetOptions'=>array(
+                    'data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),
+                    'htmlOptions'=>array('empty'=>'-- Pilih Pegawai --')
+                )
+        )); ?>
+        */ ?>
 </div>
 
 	<div class="form-action well" style="text-align: right">

@@ -2,7 +2,7 @@
 
 $model = new Barang;
 
-$allBarangKategori = BarangKategori::model()->findAll();
+$allBarangKategori = Kategori::model()->findAll();
 
 ?>
 

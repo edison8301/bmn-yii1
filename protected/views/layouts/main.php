@@ -42,10 +42,11 @@
 					array('label'=>'Laporan','icon'=>'file','url'=>array('/barang/exportExcel')),
 					array('label'=>'Setting','icon'=>'wrench','items'=>array(
 						array('label'=>'User','icon'=>'user','url'=>array('/user/admin')),
-                        array('label'=>'Kategori Barang','icon'=>'user','url'=>array('/barangKategori/admin')),
+                        array('label'=>'Kategori Barang','icon'=>'user','url'=>array('/kategori/admin')),
 						array('label'=>'Tahun','icon'=>'th','url'=>array('/tahun/admin')),
 						array('label'=>'Kondisi Barang','icon'=>'file','url'=>array('/barangKondisi/admin')),
-						array('label'=>'Gedung','icon'=>'file','url'=>array('/gedung/admin')),
+                        array('label'=>'Lokasi','icon'=>'file','url'=>array('/lokasi/admin')),
+						//array('label'=>'Gedung','icon'=>'file','url'=>array('/gedung/admin')),
 						array('label'=>'Unit','icon'=>'file','url'=>array('/unit/admin')),
 						array('label'=>'Konfigurasi','icon'=>'wrench','url'=>array('/pengaturan/detail','id'=>1)),
 						array('label'=>'Subunit','icon'=>'file','url'=>array('/subunit/admin')),

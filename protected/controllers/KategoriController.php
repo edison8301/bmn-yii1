@@ -1,6 +1,6 @@
 <?php
 
-class BarangKategoriController extends Controller
+class KategoriController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,7 +62,7 @@ class BarangKategoriController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new BarangKategori;
+		$model=new Kategori;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -133,7 +133,7 @@ class BarangKategoriController extends Controller
 	 */
 	public function actionAdmin($paging=10)
 	{
-		$model=new BarangKategori('search');
+		$model=new Kategori('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BarangKategori']))
 			$model->attributes=$_GET['BarangKategori'];
@@ -148,12 +148,12 @@ class BarangKategoriController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BarangKategori the loaded model
+	 * @return Kategori the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BarangKategori::model()->findByPk($id);
+		$model=Kategori::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -161,7 +161,7 @@ class BarangKategoriController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param BarangKategori $model the model to be validated
+	 * @param Kategori $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

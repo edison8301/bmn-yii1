@@ -39,8 +39,8 @@
         <?php echo $form->select2Group($model,'id_lokasi',array(
             'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
             'widgetOptions'=>array(
-                'data'=>CHtml::listData(Gedung::model()->findAll(),'id','nama'),
-                'htmlOptions'=>array('empty'=>'-- Pilih Gedung --')
+                'data'=>CHtml::listData(Lokasi::model()->findAll(),'id','nama'),
+                'htmlOptions'=>array('empty'=>'-- Pilih Lokasi --')
             )
         )); ?>
     </div>

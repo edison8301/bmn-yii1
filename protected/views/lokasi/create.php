@@ -3,7 +3,7 @@
 /* @var $model Lokasi */
 
 $this->breadcrumbs=array(
-	'Ruangan' => array('admin'),
+	'Lokasi' => array('admin'),
 	'Tambah',
 );
 $this->menu=array(
@@ -12,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Tambah Ruangan</h1>
+<h1>Tambah Lokasi</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

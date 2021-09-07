@@ -1,6 +1,6 @@
 <?php
-/* @var $this BarangKategoriController */
-/* @var $model BarangKategori */
+/* @var $this KategoriController */
+/* @var $model Kategori */
 /* @var $form CActiveForm */
 ?>
 

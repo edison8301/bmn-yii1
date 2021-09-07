@@ -27,6 +27,7 @@ class Ruangan extends CActiveRecord
 		return array(
 			array('kode, nama','required','message'=>'{attribute} harus diisi'),
 			array('kode, nama', 'length', 'max'=>255),
+			['id_lokasi', 'numerical','integerOnly'=>true],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, nama, id_pegawai', 'safe', 'on'=>'search'),
