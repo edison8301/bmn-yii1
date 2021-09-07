@@ -81,6 +81,16 @@ $this->breadcrumbs=array(
 			'htmlOptions' => array('style'=>'text-align:center'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
+        [
+            'header' => 'Nilai/Harga',
+            'name' => 'harga',
+            'value' => function($data) {
+                return number_format($data->harga,0,',','.');
+            },
+            'headerHtmlOptions' => ['width' =>'150px','style'=>'text-align:center'],
+            'htmlOptions' => ['style'=>'text-align:right'],
+            'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
+        ],
 		/*
 		array(
 		 	'header' => 'Lokasi',

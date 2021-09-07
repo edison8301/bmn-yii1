@@ -40,9 +40,9 @@ class Barang extends CActiveRecord
 		return array(
 			array('nama, kode, nup', 'required'),
 			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly'=>true),
-			['tahun','numerical','integerOnly' => true],
+			['tahun, harga','numerical','integerOnly' => true],
 			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max'=>255),
-			array('waktu_diubah, tahun_perolehan, merek, harga, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
+			array('waktu_diubah, tahun_perolehan, merek, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
 				  perawatan_terakhir, sakhir, tanggal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe'),
 			// The following rule is used by search().
@@ -86,7 +86,7 @@ class Barang extends CActiveRecord
 			'asal_perolehan' => 'Asal Perolehan',
             'id_perolehan_asal' => 'Asal Perolehan',
 			'masa_manfaat' => 'Masa Manfaat',
-			'harga' => 'Harga',
+			'harga' => 'Nilai/Harga',
 			'id_barang_kondisi' => 'Kondisi Barang',
 			'sk_psp' => 'Sk Psp',
 			'sk_penghapusan' => 'SK Penghapusan',

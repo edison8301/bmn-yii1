@@ -31,7 +31,7 @@ $this->breadcrumbs=array(
 					'masa_manfaat',
 					'merek',
 					array(
-						'label'=>'Harga',
+						'label'=>'Nilai/Harga',
 						'value'=>'Rp '.number_format($model->harga,0,',','.')
 					),
 					array(

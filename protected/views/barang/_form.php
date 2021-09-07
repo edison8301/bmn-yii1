@@ -102,7 +102,13 @@
 
 		<?php echo $form->textFieldGroup($model,'bukti_perolehan',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
 		
-		<?php echo $form->textFieldGroup($model,'merek',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>		
+		<?php echo $form->textFieldGroup($model,'merek',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+        <?php echo $form->textFieldGroup($model,'harga',[
+            'widgetOptions'=>[
+                'htmlOptions'=>['class'=>'span5','maxlength'=>255]
+            ]
+        ]); ?>
 
         <?php echo $form->textFieldGroup($model,'spesifikasi_processor',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)),'hint' => 'Khusus PC Unit & Notebook')); ?>
 
