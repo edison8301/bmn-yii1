@@ -13,9 +13,11 @@
 <div id="page">
 
 <div id="header">
-	<div id="logo">
-		<?php print CHtml::image(Yii::app()->baseUrl."/images/logo.png"); ?>
-	</div>
+    <div style="padding: 10px 20px 20px 20px">
+        <?php print CHtml::image(Yii::app()->baseUrl."/images/logo.png",'Logo',[
+            'style' => 'height: 80px'
+        ]); ?>
+    </div>
 </div>
 
 <div id="mainnav">
@@ -52,7 +54,7 @@
 						array('label'=>'Subunit','icon'=>'file','url'=>array('/subunit/admin')),
 					)),
 					array('label' => 'Logout', 'url' => array('site/logout'), 'icon'=>'off','linkOptions'=>array('class'=>'pull-right')),
-				
+
                 )
             )
         )
