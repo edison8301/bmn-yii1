@@ -55,6 +55,11 @@ $('.search-form form').submit(function(){
     'filter'=>$model,
     'enablePagination' => true,
     'columns'=>array(
+        array(
+            'header' => 'No',
+            'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+            'htmlOptions' => array('style'=>'text-align:center; width: 50px'),
+            'headerHtmlOptions' => array('style'=>'text-align:center; width: 50px'),        ),
         'nama',
         'kode',
         array(

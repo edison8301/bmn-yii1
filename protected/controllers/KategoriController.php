@@ -67,9 +67,9 @@ class KategoriController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BarangKategori']))
+		if(isset($_POST['Kategori']))
 		{
-			$model->attributes=$_POST['BarangKategori'];
+			$model->attributes=$_POST['Kategori'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class KategoriController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BarangKategori']))
+		if(isset($_POST['Kategori']))
 		{
-			$model->attributes=$_POST['BarangKategori'];
+			$model->attributes=$_POST['Kategori'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class KategoriController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('BarangKategori');
+		$dataProvider=new CActiveDataProvider('Kategori');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -135,8 +135,8 @@ class KategoriController extends Controller
 	{
 		$model=new Kategori('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BarangKategori']))
-			$model->attributes=$_GET['BarangKategori'];
+		if(isset($_GET['Kategori']))
+			$model->attributes=$_GET['Kategori'];
 
 		$this->render('admin',array(
 			'model' => $model,

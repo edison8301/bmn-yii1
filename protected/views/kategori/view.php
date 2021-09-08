@@ -3,8 +3,8 @@
 /* @var $model Kategori */
 
 $this->breadcrumbs=array(
-	'Barang Kategoris'=>array('index'),
-	$model->id,
+	'Kategori' => array('index'),
+	$model->nama,
 );
 
 $this->menu=array(
@@ -37,7 +37,7 @@ $this->menu=array(
         'icon'=>'pencil',
         'context'=>'danger',
         'size'=>'small',
-        'url'=>array('/barangKategori/update','id'=>$model->id)
+        'url'=>array('/kategori/update','id'=>$model->id)
     )); ?>&nbsp;
 
     <?php $this->widget('booster.widgets.TbButton',array(
@@ -46,6 +46,6 @@ $this->menu=array(
         'icon'=>'list',
         'size'=>'small',
         'context'=>'danger',
-        'url'=>array('/barangKategori/admin')
+        'url'=>array('/kategori/admin')
     )); ?>&nbsp;
 </div>
