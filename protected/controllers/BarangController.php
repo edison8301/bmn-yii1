@@ -306,15 +306,18 @@ class BarangController extends Controller
 			$model->nup_akhir = $barang->nup;
 		}
 
-		$this->performAjaxValidation($model);
-
 		if(isset($_POST['CetakQrForm']))
 		{
 			$model->attributes = $_POST['CetakQrForm'];
 
 			if($model->validate())
 			{
-				$this->redirect(array('barang/cetakQrPdf','kode'=>$model->kode,'nup_awal'=>$model->nup_awal,'nup_akhir'=>$model->nup_akhir,'nup_lainnya'=>$model->nup_lainnya));
+				$this->redirect(['barang/cetakQrPdf',
+                    'kode'=>$model->kode,
+                    'nup_awal'=>$model->nup_awal,
+                    'nup_akhir'=>$model->nup_akhir,
+                    'nup_lainnya'=>$model->nup_lainnya
+                ]);
 			}
 
 		}
