@@ -74,10 +74,27 @@ $this->breadcrumbs=array(
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
 		),
+        array(
+            'name' => 'kode_barang',
+            'value' => function($data) {
+                return @$data->kode_barang;
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
+        array(
+            'name' => 'nup_barang',
+            'value' => function($data) {
+                return @$data->nup_barang;
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
 		array(
 			'name' => 'id_barang',
 			'value' => function($data) {
-			    return @$data->barang->nama;
+			    $barang = $data->getBarang();
+			    return @$barang->nama;
 			},
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),

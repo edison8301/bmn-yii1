@@ -116,25 +116,25 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		<td width="40px"></td>
 		<td width="100px">Merk / Type</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= @$barang->merek; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Perolehan</td>
 		<td width="10px">:</td>
-		<td>Tahun ....</td>
+		<td><?=  @$barang->tanggal_perolehan; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Nilai Perolehan</td>
 		<td width="10px">:</td>
-		<td>Rp. ....</td>
+		<td>Rp. <?= Helper::rp(@$barang->nilai_perolehan,0); ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Kode Barang dan NUP</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= @$barang->kode; ?>-<?= @$barang->nup; ?></td>
 	</tr>
 </table>
 
