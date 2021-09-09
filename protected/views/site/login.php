@@ -63,13 +63,13 @@ $this->breadcrumbs=array(
 
 <div class="row" style="margin-top: 2em">
 	<div class="col-sm-6 col-6 align-items-center">
-		<img src="images/logo-lan.png" alt="logo-lan" width="200" class="float-left">
+		<img src="images/logo-lan.png" alt="logo-lan" width="200" class="float-left" style="background: #ffffff; padding:5px">
 	</div>
 	<div class="col-sm-6 col-6 align-items-center">
-		<img src="images/logo-simpatik.png" alt="logo-simpatik" width="300" class="float-right">
+		<img src="images/logo-simpatik.png" alt="logo-simpatik" width="300" class="float-right" style="background: #ffffff; padding:5px">
 	</div>
 </div>
-<div class="row" style="margin-top: 6.5em;">
+<div class="row" style="margin-top: 3.5em;">
 	<div class="col-sm-5 ml-auto">
 		
 		<?php $form=$this->beginWidget('booster.widgets.TbActiveForm', array(
@@ -104,7 +104,7 @@ $this->breadcrumbs=array(
 </div>
 <div class="row" style="margin-top: 1em;">
 	<div class="col-sm-12 text-banner">
-		<h1 class="p-2">
+		<h1 class="p-1">
 		<span style="font-style: italic">Selamat Datang di ...</span> <br>
 		Sistem Inventarisasi dan Manajemen Penggunaan Aset Tetap Internal Kantor - Lembaga Administrasi Negara
 		</h1>
