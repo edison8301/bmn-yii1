@@ -127,6 +127,12 @@ class Barang extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$params = [];
+
+		if($this->kode !== null) {
+            $criteria->addCondition("kode REGEXP '^$this->kode'");
+        }
+
 		$criteria->compare('id',$this->id);
 		$criteria->compare('kode',$this->kode,true);
 		$criteria->compare('nup',$this->nup,true);
@@ -443,8 +449,9 @@ class Barang extends CActiveRecord
 
 		$awal = substr($model->kode, 0, 3);
 
-		$criteria->addCondition('kode LIKE :kode');
-		$params[':kode']=$kode.'%';
+        $criteria->addCondition("kode REGEXP '^$kode'");
+		//$criteria->addCondition('kode LIKE :kode');
+		//$params[':kode']=$kode.'%';
 
 		$criteria->params = $params;
 

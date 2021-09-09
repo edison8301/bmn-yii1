@@ -71,21 +71,23 @@ $this->breadcrumbs=array(
         array(
             'name' => 'merek',
             'headerHtmlOptions' => array('style'=>'text-align:center; width: 200px'),
-            'htmlOptions'=>array('style'=>'text-align:center'),
+            'htmlOptions' => ['style'=>'text-align:left'],
             'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
         ),
 		array(
-			'value' => 'Helper::getTanggalSingkat($data->tahun_perolehan)',
-			'name' => 'tahun_perolehan',
-			'headerHtmlOptions' => array('width' =>'5%','style'=>'text-align:center'),
+			'name' => 'tanggal_perolehan',
+			'value' => function($data) {
+			    return Helper::getTanggalSingkat($data->tanggal_perolehan);
+			},
+			'headerHtmlOptions' => array('width' =>'120px','style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:center'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
 		),
         [
-            'header' => 'Nilai/Harga',
+            'header' => 'Nilai Perolehan',
             'name' => 'harga',
             'value' => function($data) {
-                return number_format($data->harga,0,',','.');
+                return number_format($data->nilai_perolehan,0,',','.');
             },
             'headerHtmlOptions' => ['width' =>'150px','style'=>'text-align:center'],
             'htmlOptions' => ['style'=>'text-align:right'],
