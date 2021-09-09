@@ -6,6 +6,7 @@
 	<meta name="language" content="en" />
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl; ?>/css/login.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -14,11 +15,7 @@
 
 <div id="content">
 	<div class="container">
-		<div class="row">
-			<div style="width:380px;margin-left:auto;margin-right:auto;margin-top:100px">
-			<?php echo $content; ?>
-			</div>
-		</div>
+		<?php echo $content; ?>
 	</div>
 </div>
 

@@ -5,6 +5,9 @@ html, body {
     -o-background-size: cover;
     background-size: cover;
 }
+#content {
+	width: 100%;
+}
 
 #content .panel-primary {
 	border: #125554;
@@ -38,4 +41,12 @@ font-weight: bold;
 
 .rememberMe {
 	margin-bottom:10px;
+}
+
+.text-banner {
+	border-radius: 10px;
+	background-color: #428bca9e;
+}
+.text-banner h1 {
+	color: yellow;
 }
