@@ -1192,14 +1192,24 @@ public function actionSelectBarang(){
 		));
 	}
 
-    public function actionCetakBastPdf()
+    public function actionExportPdfBast()
 	{
         $this->layout = false;
 		$mpdf = new Mpdf([
 			''
 		]);
-        $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
+        $mpdf->WriteHTML($this->render('exportPdfBast', array(), true));
         $mpdf->Output();
 	}
+
+    public function actionExportPdfBastPengembalian()
+    {
+        $this->layout = false;
+        $mpdf = new Mpdf([
+            ''
+        ]);
+        $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
+        $mpdf->Output();
+    }
 
 }

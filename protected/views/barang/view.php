@@ -78,9 +78,9 @@ $this->breadcrumbs=array(
 		</div>
 	*/ ?>
 	<div class="col-sm-4">
-		<img src="<?= $qrcode->render($model->id.'-'.$model->kode.'-'.$model->nup) ?>" alt="QR Code"> <br>
+		<img src="<?= $qrcode->render($model->kode.'-'.$model->nup) ?>" alt="QR Code"> <br>
 		<p style="text-align:center">
-			<?= $model->id.'-'.$model->kode.'-'.$model->nup ?>
+			<?= $model->kode.'-'.$model->nup ?>
 		</p>
 	</div>
 </div>
