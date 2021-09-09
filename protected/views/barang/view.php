@@ -19,39 +19,40 @@ $this->breadcrumbs=array(
 					'kode',
 					'nama',
 					'nup',
+                    'merek',
 					array(
 						'label'=>'Tahun Perolehan',
-						'value'=>Helper::getTanggalSingkat($model->tahun_perolehan)
+						'value'=>Helper::getTanggalSingkat($model->tanggal_perolehan),
 					),
-					array(
+                    array(
+                        'label'=>'Nilai Perolehan',
+                        'value'=>'Rp '.number_format($model->nilai_perolehan,0,',','.')
+                    ),
+                    'status_penggunaan',
+                    'nomor_psp',
+                    'tanggal_psp',
+                    array(
+                        'label'=>'Kondisi Barang',
+                        'value'=>$model->getBarangKondisi()
+                    ),
+                    array(
+                        'label'=> 'Ruangan',
+                        'value' => $model->getNamaRuangan()
+                    ),
+                    array(
+                        'label'=> 'Pegawai',
+                        'value' => @$model->pegawai->nama
+                    ),
+                    'bukti_perolehan',
+                    'masa_manfaat',
+                    array(
                         'label' => 'Asal Perolehan',
                         'value' => $model->getPerolehanAsal(),
                     ),
-					'bukti_perolehan',
-					'masa_manfaat',
-					'merek',
-					array(
-						'label'=>'Nilai/Harga',
-						'value'=>'Rp '.number_format($model->harga,0,',','.')
-					),
-					array(
-						'label'=>'Kondisi Barang',
-						'value'=>$model->getBarangKondisi()
-					),
-					'sk_psp',
-					'sk_penghapusan',
-					array(
-						'label'=> 'Lokasi',
-						'value' => $model->GetLokasi()
-					),
 					array(
 						'label'=> 'Gambar',
 						'type'=>'raw',
 						'value'=> $model->getGambar()
-					),
-					array(
-						'label' => 'Pegawai',
-						'value' => $model->getPegawai()
 					),
 					array(
 						'label'=>'Perawatan Terkahir',
@@ -61,6 +62,7 @@ $this->breadcrumbs=array(
 						'label'=>'Pemeriksaan Terkahir',
 						'value'=>Helper::getTanggal($model->pemeriksaan_terakhir)
 					),
+                    'sk_penghapusan',
 					'waktu_diubah',
 					'waktu_dibuat',
 				),

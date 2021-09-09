@@ -40,7 +40,7 @@ class Barang extends CActiveRecord
 		return array(
 			array('nama, kode, nup', 'required'),
 			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly'=>true),
-			['tahun, harga','numerical','integerOnly' => true],
+			['tahun, harga, id_ruangan','numerical','integerOnly' => true],
 			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max'=>255),
 			array('waktu_diubah, tahun_perolehan, merek, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
@@ -64,6 +64,7 @@ class Barang extends CActiveRecord
 		return array(
 			'pegawai'=>array(self::BELONGS_TO,'Pegawai','id_pegawai'),
 			'lokasi'=>array(self::BELONGS_TO,'Lokasi','id_lokasi'),
+            'ruangan'=> [self::BELONGS_TO,'Ruangan','id_ruangan'],
 		);
 	}
 
@@ -78,6 +79,7 @@ class Barang extends CActiveRecord
 			'nup' => 'NUP',
 			'nama' => 'Nama',
 			'merek' => 'Merek/Tipe',
+			'id_ruangan' => 'Ruangan',
 			'id_pegawai' => 'Pegawai',
 			'id_lokasi' => 'Lokasi',
             'id_lokasi_jenis' => 'Ruangan',
@@ -106,6 +108,8 @@ class Barang extends CActiveRecord
             'spesifikasi_processor' => 'Spek Processor',
             'sistem_operasi' => 'OS',
             'tanggal_kondisi_barang' => 'Tanggal Kondisi Barang',
+            'nomor_psp' => 'Nomor PSP',
+            'tanggal_psp' => 'Tanggal PSP',
 		);
 	}
 
@@ -532,6 +536,11 @@ class Barang extends CActiveRecord
             $datetime = \DateTime::createFromFormat('Y-m-d', $this->tahun_perolehan);
             return $datetime->format('Y');
          }
+
+        public function getNamaRuangan()
+        {
+            return @$this->ruangan->nama.' - '.@$this->ruangan->lokasi->nama;
+        }
 
 
 
