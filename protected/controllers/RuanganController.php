@@ -1,5 +1,8 @@
 <?php
 
+use chillerlan\QRCode\QROptions;
+use chillerlan\QRCode\QRCode;
+
 class RuanganController extends Controller
 {
 	/**
@@ -64,6 +67,15 @@ class RuanganController extends Controller
 
 		$tambah = new TambahBarangForm;
 
+        $options = new QROptions([
+            'version'    => 5,
+            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+            'eccLevel'   => QRCode::ECC_L,
+        ]);
+
+        // invoke a fresh QRCode instance
+        $qrcode = new QRCode($options);
+
 		if(isset($_POST['TambahBarangForm']))
 		{
 			$barang = $_POST['TambahBarangForm']['barang'];			
@@ -86,6 +98,7 @@ class RuanganController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 			'formtambah' => $tambah,
+            'qrcode' => $qrcode,
 		));
 	}
 
