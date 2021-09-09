@@ -1,5 +1,9 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class RuanganController extends Controller
 {
 	/**
@@ -215,31 +219,25 @@ class RuanganController extends Controller
         $criteria->params = array(':id_ruangan'=>$id);
         $criteria->order = 'id ASC';
 
-        spl_autoload_unregister(array('YiiBase','autoload'));
-		
-        Yii::import('application.vendors.PHPExcel',true);
+        $spreadsheet = new Spreadsheet();
+		$spreadsheet->setActiveSheetIndex(0);
+		$sheet = $spreadsheet->getActiveSheet();
 
-        spl_autoload_register(array('YiiBase', 'autoload'));
+        $sheet->getStyle('A7:H21')->getFont()->setBold(true);
 
-        $PHPExcel = new PHPExcel();
+        $sheet->mergeCells('A7:H7');
+        $sheet->mergeCells('A8:H8');
+        $sheet->mergeCells('A13:H13');
+        $sheet->mergeCells('A14:H14');
 
-        $PHPExcel->getActiveSheet()->getStyle('A7:H21')->getFont()->setBold(true);
+        $sheet->getStyle('A10:H12')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);//merge and center
+        $sheet->getStyle('A15:H17')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);//merge and center
+        $sheet->getStyle('A7:H8')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+        $sheet->getStyle('A13:H14')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
 
+        $sheet->getStyle('A19:H21')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
 
-        $PHPExcel->getActiveSheet()->mergeCells('A7:H7');
-        $PHPExcel->getActiveSheet()->mergeCells('A8:H8');
-        $PHPExcel->getActiveSheet()->mergeCells('A13:H13');
-        $PHPExcel->getActiveSheet()->mergeCells('A14:H14');
-
-
-        $PHPExcel->getActiveSheet()->getStyle('A10:H12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);//merge and center
-        $PHPExcel->getActiveSheet()->getStyle('A15:H17')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);//merge and center
-        $PHPExcel->getActiveSheet()->getStyle('A7:H8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-        $PHPExcel->getActiveSheet()->getStyle('A13:H14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-
-        $PHPExcel->getActiveSheet()->getStyle('A19:H21')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-
-        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
         $objDrawing->setName('Logo');
         $objDrawing->setDescription('Logo');
         $logo = 'images/makarti.png';
@@ -249,88 +247,83 @@ class RuanganController extends Controller
         $objDrawing->setCoordinates('D1');
         $objDrawing->setHeight(75); // logo height
         $objDrawing->setWidth(115); // logo height
-        $objDrawing->setWorksheet($PHPExcel->getActiveSheet());
+        $objDrawing->setWorksheet($sheet);
 
-        $PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 7, "PUSAT KAJIAN DAN PENDIDIKAN DAN PELATIHAN APARATUR I");
-        $PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 8, "LEMBAGA ADMINISTRASI NEGARA");
-        $PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 13, "DAFTAR BARANG RUANGAN");
-        $PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 14, "(DBR)");
-        $PHPExcel->getActiveSheet()->setCellValue('A10', 'UPPB');
-        $PHPExcel->getActiveSheet()->setCellValue('A11', 'UPPB-E1');
-        $PHPExcel->getActiveSheet()->setCellValue('A12', 'UUPPB-W');
-        $PHPExcel->getActiveSheet()->setCellValue('A15', 'KODE UPKPB');
-        $PHPExcel->getActiveSheet()->setCellValue('A16', 'Nama Unit UPKPB');
-        $PHPExcel->getActiveSheet()->setCellValue('A17', 'Nomor Ruang');
+        $sheet->setCellValueByColumnAndRow(0, 7, "PUSAT KAJIAN DAN PENDIDIKAN DAN PELATIHAN APARATUR I");
+        $sheet->setCellValueByColumnAndRow(0, 8, "LEMBAGA ADMINISTRASI NEGARA");
+        $sheet->setCellValueByColumnAndRow(0, 13, "DAFTAR BARANG RUANGAN");
+        $sheet->setCellValueByColumnAndRow(0, 14, "(DBR)");
+        $sheet->setCellValue('A10', 'UPPB');
+        $sheet->setCellValue('A11', 'UPPB-E1');
+        $sheet->setCellValue('A12', 'UUPPB-W');
+        $sheet->setCellValue('A15', 'KODE UPKPB');
+        $sheet->setCellValue('A16', 'Nama Unit UPKPB');
+        $sheet->setCellValue('A17', 'Nomor Ruang');
 
-        $PHPExcel->getActiveSheet()->setCellValue('C10', ': LEMBAGA ADMINISTRASI NEGARA');
-        $PHPExcel->getActiveSheet()->setCellValue('C11', ': LEMBAGA ADMINISTRASI NEGARA');
-        $PHPExcel->getActiveSheet()->setCellValue('C12', ': PKP2A I LAN');
+        $sheet->setCellValue('C10', ': LEMBAGA ADMINISTRASI NEGARA');
+        $sheet->setCellValue('C11', ': LEMBAGA ADMINISTRASI NEGARA');
+        $sheet->setCellValue('C12', ': PKP2A I LAN');
 
-        $PHPExcel->getActiveSheet()->setCellValue('C15', ': 086.01.02.450423.000');
-        $PHPExcel->getActiveSheet()->setCellValue('C16', ': PKP2A I LAN');
-        //$PHPExcel->getActiveSheet()->setCellValue('C17', ': '.$_GET['lokasi']);
-
-
-        $PHPExcel->getActiveSheet()->mergeCells('D19:F19');
+        $sheet->setCellValue('C15', ': 086.01.02.450423.000');
+        $sheet->setCellValue('C16', ': PKP2A I LAN');
+        //$sheet->setCellValue('C17', ': '.$_GET['lokasi']);
 
 
-        $PHPExcel->getActiveSheet()->mergeCells('A19:A20');
-        $PHPExcel->getActiveSheet()->mergeCells('B19:B20');
-        $PHPExcel->getActiveSheet()->mergeCells('C19:C20');
-        $PHPExcel->getActiveSheet()->mergeCells('H19:H20');
-
-        $PHPExcel->getActiveSheet()->mergeCells('G19:G20');
-
-        $PHPExcel->getActiveSheet()->setCellValue('A19', 'No Urut');
-        $PHPExcel->getActiveSheet()->setCellValue('B19', 'No Urut Pendaftaran');
-        $PHPExcel->getActiveSheet()->setCellValue('C19', 'Nama Barang');
-        $PHPExcel->getActiveSheet()->setCellValue('D19', 'Tanda Pengenal Barang');
-        $PHPExcel->getActiveSheet()->setCellValue('D20', 'Merek / Type');
-        $PHPExcel->getActiveSheet()->setCellValue('E20', 'Kode Barang');
-        $PHPExcel->getActiveSheet()->setCellValue('F20', 'Tahun Perolehan');
-        $PHPExcel->getActiveSheet()->setCellValue('G19', 'Jumlah Barang');
-        $PHPExcel->getActiveSheet()->setCellValue('H19', 'Ket.');
-
-        $PHPExcel->getActiveSheet()->setCellValue('A21', '1');
-        $PHPExcel->getActiveSheet()->setCellValue('B21', '2');
-        $PHPExcel->getActiveSheet()->setCellValue('C21', '3');
-        $PHPExcel->getActiveSheet()->setCellValue('D21', '4');
-        $PHPExcel->getActiveSheet()->setCellValue('E21', '5');
-        $PHPExcel->getActiveSheet()->setCellValue('F21', '6');
-        $PHPExcel->getActiveSheet()->setCellValue('G21', '7');
-        $PHPExcel->getActiveSheet()->setCellValue('H21', '8');
-
-        $PHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
-        $PHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(14);
-        $PHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(16);
-        $PHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-        $PHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-        $PHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-        $PHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(18);
-        $PHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(17);
+        $sheet->mergeCells('D19:F19');
 
 
+        $sheet->mergeCells('A19:A20');
+        $sheet->mergeCells('B19:B20');
+        $sheet->mergeCells('C19:C20');
+        $sheet->mergeCells('H19:H20');
 
+        $sheet->mergeCells('G19:G20');
 
+        $sheet->setCellValue('A19', 'No Urut');
+        $sheet->setCellValue('B19', 'No Urut Pendaftaran');
+        $sheet->setCellValue('C19', 'Nama Barang');
+        $sheet->setCellValue('D19', 'Tanda Pengenal Barang');
+        $sheet->setCellValue('D20', 'Merek / Type');
+        $sheet->setCellValue('E20', 'Kode Barang');
+        $sheet->setCellValue('F20', 'Tahun Perolehan');
+        $sheet->setCellValue('G19', 'Jumlah Barang');
+        $sheet->setCellValue('H19', 'Ket.');
 
+        $sheet->setCellValue('A21', '1');
+        $sheet->setCellValue('B21', '2');
+        $sheet->setCellValue('C21', '3');
+        $sheet->setCellValue('D21', '4');
+        $sheet->setCellValue('E21', '5');
+        $sheet->setCellValue('F21', '6');
+        $sheet->setCellValue('G21', '7');
+        $sheet->setCellValue('H21', '8');
 
-			$i = 1;
+        $sheet->getColumnDimension('A')->setWidth(6);
+        $sheet->getColumnDimension('B')->setWidth(14);
+        $sheet->getColumnDimension('C')->setWidth(16);
+        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(18);
+        $sheet->getColumnDimension('H')->setWidth(17);
+
+		$i = 1;
 			$kolom = 22;
 			$bawah = 24;
 
 			foreach(Barang::model()->findAll($criteria) as $data)
 			{
-				$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom, $i);
-				$PHPExcel->getActiveSheet()->setCellValue('B'.$kolom, $data->nup);
-				$PHPExcel->getActiveSheet()->setCellValue('C'.$kolom, $data->nama);
-				$PHPExcel->getActiveSheet()->setCellValue('D'.$kolom, $data->merek);
-				$PHPExcel->getActiveSheet()->setCellValue('E'.$kolom, $data->kode);
-				$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom, $data->tahun_perolehan);
-				$PHPExcel->getActiveSheet()->setCellValue('G'.$kolom, '1');
-				$PHPExcel->getActiveSheet()->setCellValue('H'.$kolom, '');
+				$sheet->setCellValue('A'.$kolom, $i);
+				$sheet->setCellValue('B'.$kolom, $data->nup);
+				$sheet->setCellValue('C'.$kolom, $data->nama);
+				$sheet->setCellValue('D'.$kolom, $data->merek);
+				$sheet->setCellValue('E'.$kolom, $data->kode);
+				$sheet->setCellValue('F'.$kolom, $data->tahun_perolehan);
+				$sheet->setCellValue('G'.$kolom, '1');
+				$sheet->setCellValue('H'.$kolom, '');
 
-				$PHPExcel->getActiveSheet()->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
-				$PHPExcel->getActiveSheet()->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
+				$sheet->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
+				$sheet->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
 									
 				$i++; $kolom++;
 
@@ -340,60 +333,60 @@ class RuanganController extends Controller
 
 			$peringatan = "TIDAK DIBENARKAN MEMINDAHKAN BARANG-BARANG YANG ADA PADA DAFTAR BARANG RUANG INI TANPA SEPENGETAHUAN PENANGGUNG JAWAB RUANGAN DAN PENANGGUNG JAWAB UPKBP.";
 
-			$PHPExcel->getActiveSheet()->setCellValue('A'.$bawah, $peringatan);
+			$sheet->setCellValue('A'.$bawah, $peringatan);
 
 			$kolom_peringatan = $bawah + 2;
 
-			$PHPExcel->getActiveSheet()->mergeCells('A'.$bawah.':H'.$kolom_peringatan.'');
+			$sheet->mergeCells('A'.$bawah.':H'.$kolom_peringatan.'');
 
-			$PHPExcel->getActiveSheet()->getStyle('A19:H'.$kolom)->getAlignment()->setWrapText(true);
-			$PHPExcel->getActiveSheet()->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setWrapText(true);
+			$sheet->getStyle('A19:H'.$kolom)->getAlignment()->setWrapText(true);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setWrapText(true);
 
-			$PHPExcel->getActiveSheet()->getStyle('A22:H'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
-			$PHPExcel->getActiveSheet()->getStyle('A22:B'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-			$PHPExcel->getActiveSheet()->getStyle('E22:H'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);			
+			$sheet->getStyle('A22:H'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
+			$sheet->getStyle('A22:B'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+			$sheet->getStyle('E22:H'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);			
 
-			$PHPExcel->getActiveSheet()->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-			$PHPExcel->getActiveSheet()->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setBold(true);
-			$PHPExcel->getActiveSheet()->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setSize(16);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setBold(true);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setSize(16);
 
-			$PHPExcel->getActiveSheet()->getStyle('A1:H17')->getFont()->setSize(13);
-			$PHPExcel->getActiveSheet()->getStyle('A22:H19')->getFont()->setSize(11);
+			$sheet->getStyle('A1:H17')->getFont()->setSize(13);
+			$sheet->getStyle('A22:H19')->getFont()->setSize(11);
 
 			//=============================== Tandatangan =====================================/
 
 			$kolom_tandatangan = $bawah + 6;
 			$kolom_nama_penandatangan = $kolom_tandatangan + 6;
 			$kolom_nip = $kolom_tandatangan + 7;
-			$pegawai = Pegawai::model()->findByAttributes(array('id'=>$model->id_pegawai));
 
-			$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom_tandatangan, 'PENANGGUNG JAWAB RUANGAN');
+			// $pegawai = Pegawai::model()->findByAttributes(array('id'=>$model->id_pegawai));
 
-			$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom_nama_penandatangan, $model->getPegawai());
-			$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom_nip, $pegawai->nip);
+			// $sheet->setCellValue('A'.$kolom_tandatangan, 'PENANGGUNG JAWAB RUANGAN');
+
+			// $sheet->setCellValue('A'.$kolom_nama_penandatangan, $model->getPegawai());
+			// $sheet->setCellValue('A'.$kolom_nip, $pegawai->nip);
 
 			$tanggal = date('Y-m-d');
 			$kolom_tandatangan_1 = $kolom_tandatangan-1;
 			$kolom_tandatangan_2 = $kolom_tandatangan_1+1;
 			$kolom_tandatangan_3 = $kolom_tandatangan_1+2;
-			$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom_tandatangan_1, 'SUMEDANG, '.Helper::getBulan($tanggal).' '.date('Y'));	
-			$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');	
-			$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA PKP2A I LAN');	
+			$sheet->setCellValue('F'.$kolom_tandatangan_1, 'SUMEDANG, '.Helper::getBulan($tanggal).' '.date('Y'));	
+			$sheet->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');	
+			$sheet->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA PKP2A I LAN');	
 
 			$penanggungjawab = Pengaturan::getNilaiByKode('penanggung_jawab_upkpb'); 
 
-			$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom_nama_penandatangan, $penanggungjawab);
-			$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom_nip, 'NIP. 19540407  197501  1  001');
-	
-			
+			$sheet->setCellValue('F'.$kolom_nama_penandatangan, $penanggungjawab);
+			$sheet->setCellValue('F'.$kolom_nip, 'NIP. 19540407  197501  1  001');
 	
 			$filename = time().'_Barang.xlsx';
 
-			$path = Yii::app()->basePath.'/../uploads/export/';
-			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
-			$objWriter->save($path.$filename);	
-			$this->redirect(Yii::app()->request->baseUrl.'/uploads/export/'.$filename);
+			$objWriter = new Xlsx($spreadsheet);
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$filename);
+			header('Cache-Control: max-age=0');
+			$objWriter->save('php://output');
 	}
 
 }
