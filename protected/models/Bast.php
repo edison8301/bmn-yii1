@@ -125,4 +125,90 @@ class Bast extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function getTanggalByFormat($format)
+    {
+        $datetime = DateTime::createFromFormat('Y-m-d',$this->tanggal);
+        return $datetime->format($format);
+    }
+
+    public function getNamaHariFromTanggal()
+    {
+        $i = $this->getTanggalByFormat('N');
+
+        if($i == 1) {
+            return "Senin";
+        }
+
+        if($i == 2) {
+            return "Selasa";
+        }
+
+        if($i == 3) {
+            return "Rabu";
+        }
+
+        if($i == 4) {
+            return "Kamis";
+        }
+
+        if($i == 5) {
+            return "Jumat";
+        }
+
+        if($i == 6) {
+            return "Sabtu";
+        }
+
+        if($i == 7) {
+            return "Minggu";
+        }
+    }
+
+    public function getNamaBulanByTanggal()
+    {
+        $i = $this->getTanggalByFormat('n');
+
+        if($i == 1) {
+            $bulan = 'Januari';
+        }
+        if($i == 2) {
+            $bulan = 'Februari';
+        }
+        if($i == 3) {
+            $bulan = 'Maret';
+        }
+        if($i == 4) {
+            $bulan = 'April';
+        }
+        if($i == 5) {
+            $bulan = 'Mei';
+        }
+        if($i == 6) {
+            $bulan = 'Juni';
+        }
+        if($i == 7) {
+            $bulan = 'Juli';
+        }
+        if($i == 8) {
+            $bulan = 'Agustus';
+        }
+        if($i == 9) {
+            $bulan = 'September';
+        }
+        if($i == 10) {
+            $bulan = 'Oktober';
+        }
+
+        if($i == '11') {
+            $bulan = 'November';
+        }
+
+        if($i == '12') {
+            $bulan = 'Desember';
+        }
+
+        return $bulan;
+
+    }
 }

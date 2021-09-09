@@ -200,13 +200,17 @@ class BastController extends Controller
 		}
 	}
 
-	public function actionExportPdfBast()
+	public function actionExportPdfBast($id)
 	{
+	    $model = $this->loadModel($id);
+
         $this->layout = false;
 		$mpdf = new Mpdf([
 			''
 		]);
-        $mpdf->WriteHTML($this->render('exportPdfBast', array(), true));
+        $mpdf->WriteHTML($this->render('exportPdfBast', [
+            'model' => $model
+        ], true));
         $mpdf->Output();
 	}
 
