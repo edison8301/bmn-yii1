@@ -40,17 +40,20 @@
 
 <table>
 	<tr>
-		<td width="200px">Nama</td>
+		<td width="20px">1.</td>
+		<td width="100px">Nama</td>
+		<td width="10px">:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td width="100px">NIP</td>
 		<td>:</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td width="200px">NIP</td>
-		<td>:</td>
 		<td></td>
-	</tr>
-	<tr>
-		<td width="200px">Jabatan</td>
+		<td width="100px">Jabatan</td>
 		<td>:</td>
 		<td></td>
 	</tr>
@@ -58,17 +61,20 @@
 <p>Selanjutnya disebut sebagai PIHAK PERTAMA</p>
 <table>
 	<tr>
-		<td width="200px">Nama</td>
+		<td width="20px">2.</td>
+		<td width="100px">Nama</td>
+		<td width="10px">:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td width="100px">NIP</td>
 		<td>:</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td width="200px">NIP</td>
-		<td>:</td>
 		<td></td>
-	</tr>
-	<tr>
-		<td width="200px">Jabatan</td>
+		<td width="100px">Jabatan</td>
 		<td>:</td>
 		<td></td>
 	</tr>

@@ -99,11 +99,11 @@ class BarangController extends Controller
 			$model->attributes=$_POST['Barang'];
 
 			date_default_timezone_set('Asia/Jakarta');
+			
 			$model->waktu_dibuat = date('Y-m-d H:i:s'); 
 
-				$gambar = CUploadedFile::getInstance($model,'gambar');
+			$gambar = CUploadedFile::getInstance($model,'gambar');
 
-			
 			if($gambar!==null) {
                 $model->gambar = str_replace(' ', '-', time() . '_' . $gambar->name);
             }

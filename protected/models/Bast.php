@@ -36,7 +36,7 @@ class Bast extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast, id_jenis_bast', 'numerical', 'integerOnly'=>true),
-			array('nomor', 'length', 'max'=>255),
+			array('nomor, berkas_bast', 'length', 'max'=>255),
 			array('tanggal, created_at, updated_at, deleted_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

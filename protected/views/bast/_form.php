@@ -6,88 +6,53 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm', array(
 	'id'=>'bast-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'type'=>'horizontal',
+	'htmlOptions'=>array('enctype'=>'multipart/form-data')
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+<div class="row">
+	<div class="col-sm-9">
+		<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'nomor'); ?>
-		<?php echo $form->textField($model,'nomor',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'nomor'); ?>
+		<div class="well">
+			<?php echo $form->textFieldGroup($model,'nomor',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+			
+			<?php echo $form->datePickerGroup($model,'tanggal',array(
+				'widgetOptions'=>array(
+					'options'=>array('format'=>'yyyy-mm-dd','autoclose'=>true),
+					'htmlOptions'=>array('class'=>'span5')
+					), 
+				'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
+			)); ?>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Berkas BAST</label>
+				<div class="col-sm-9">
+					<?php echo $form->fileField($model,'berkas_bast',array('class'=>'form-control')); ?>
+					<?php echo $form->error($model,'berkas_bast'); ?>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'tanggal'); ?>
-		<?php echo $form->textField($model,'tanggal'); ?>
-		<?php echo $form->error($model,'tanggal'); ?>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="well">
+			<?php $this->widget('booster.widgets.TbButton', array(
+				'buttonType'=>'submit',
+				'context'=>'danger',
+				'icon'=>'ok',
+				'label'=>$model->isNewRecord ? 'Simpan' : 'Update',
+			)); ?>
+		</div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_pegawai_pihak_pertama'); ?>
-		<?php echo $form->textField($model,'id_pegawai_pihak_pertama'); ?>
-		<?php echo $form->error($model,'id_pegawai_pihak_pertama'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_pegawai_pihak_kedua'); ?>
-		<?php echo $form->textField($model,'id_pegawai_pihak_kedua'); ?>
-		<?php echo $form->error($model,'id_pegawai_pihak_kedua'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_barang'); ?>
-		<?php echo $form->textField($model,'id_barang'); ?>
-		<?php echo $form->error($model,'id_barang'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'jumlah'); ?>
-		<?php echo $form->textField($model,'jumlah'); ?>
-		<?php echo $form->error($model,'jumlah'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status_bast'); ?>
-		<?php echo $form->textField($model,'status_bast'); ?>
-		<?php echo $form->error($model,'status_bast'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_jenis_bast'); ?>
-		<?php echo $form->textField($model,'id_jenis_bast'); ?>
-		<?php echo $form->error($model,'id_jenis_bast'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-		<?php echo $form->error($model,'created_at'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated_at'); ?>
-		<?php echo $form->textField($model,'updated_at'); ?>
-		<?php echo $form->error($model,'updated_at'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted_at'); ?>
-		<?php echo $form->textField($model,'deleted_at'); ?>
-		<?php echo $form->error($model,'deleted_at'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+</div>
 
 <?php $this->endWidget(); ?>
 

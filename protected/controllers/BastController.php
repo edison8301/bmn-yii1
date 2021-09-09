@@ -82,8 +82,24 @@ class BastController extends Controller
 		if(isset($_POST['Bast']))
 		{
 			$model->attributes=$_POST['Bast'];
-			if($model->save())
+
+			$berkas_bast = CUploadedFile::getInstance($model,'berkas_bast');
+
+			if($berkas_bast!==null) {
+                $model->berkas_bast = str_replace(' ', '-', time() . '_' . $berkas_bast->name);
+            }
+
+			if($model->save()) 
+			{
+				if($berkas_bast!==null)
+				{
+					$path = Yii::app()->basePath.'/../uploads/bast/';
+					$berkas_bast->saveAs($path.$model->berkas_bast);
+				}
+				
+				Yii::app()->user->setFlash('success','Data berhasil ditambahkan');
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(

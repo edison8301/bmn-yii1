@@ -3,19 +3,18 @@
 /* @var $model Bast */
 
 $this->breadcrumbs=array(
-	'Basts'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	'BAST'=>array('admin'),
 	'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List Bast', 'url'=>array('index')),
-	array('label'=>'Create Bast', 'url'=>array('create')),
-	array('label'=>'View Bast', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Bast', 'url'=>array('admin')),
+	array('label'=>'List BAST', 'url'=>array('index')),
+	array('label'=>'Create BAST', 'url'=>array('create')),
+	array('label'=>'View BAST', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Manage BAST', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Bast <?php echo $model->id; ?></h1>
+<h1>Sunting <?php echo $model->nomor; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
