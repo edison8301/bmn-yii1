@@ -30,6 +30,14 @@
 				'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
 			)); ?>
 
+            <?php echo $form->select2Group($model,'id_pegawai_pihak_pertama', array(
+                'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Pegawai'))
+            )) ?>
+
+            <?php echo $form->select2Group($model,'id_pegawai_pihak_kedua', array(
+                'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Pegawai'))
+            )) ?>
+
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Berkas BAST</label>
 				<div class="col-sm-9">

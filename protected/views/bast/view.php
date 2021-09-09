@@ -16,12 +16,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Bast #<?php echo $model->id; ?></h1>
+<h1>Detail BAST</h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('booster.widgets.TbDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'nomor',
 		'tanggal',
 		'id_pegawai_pihak_pertama',
@@ -35,3 +34,34 @@ $this->menu=array(
 		'deleted_at',
 	),
 )); ?>
+
+<div>&nbsp;</div>
+
+<div class="well">
+
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Sunting',
+        'icon'=>'pencil',
+        'size'=>'small',
+        'context'=>'danger',
+        'url'=>array('/bast/update','id'=>$model->id)
+    )); ?>&nbsp;
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Tambah',
+        'icon'=>'plus',
+        'size'=>'small',
+        'context'=>'danger',
+        'url'=>array('/bast/create')
+    )); ?>&nbsp;
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Kelola',
+        'icon'=>'list',
+        'size'=>'small',
+        'context'=>'danger',
+        'url'=>array('/bast/admin')
+    )); ?>&nbsp;
+
+</div>

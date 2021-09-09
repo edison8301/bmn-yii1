@@ -22,16 +22,23 @@ $this->menu=array(
 <div>&nbsp;</div>
 
 
-<?php $this->widget('booster.widgets.TbDetailView', array(
-	'data'=>$model,
-	'type' => 'striped bordered condensed',
-	'attributes'=>array(
-		'kode',
-		'nama',
-	),
-)); ?>
+<div class="container">
+    <div class="row">
+        <?php $this->widget('booster.widgets.TbDetailView', array(
+                'data'=>$model,
+                'type' => 'striped bordered condensed',
+                'attributes'=>array(
+                    'kode',
+                    'nama',
+                ),
+            )); ?>
+    </div>
+</div>
 
-<div>&nbsp;</div> 
+<div>
+    <img src="<?= $qrcode->render($model->kode); ?>" height="150px">
+</div>
+<div>&nbsp;</div>
 
 <div class="well">
 <?php $this->widget('booster.widgets.TbButton',array(
