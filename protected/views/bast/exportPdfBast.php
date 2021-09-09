@@ -1,16 +1,27 @@
-<?php
-use yii\helpers\Url;
-use yii\helpers\Html;
-
-
-?>
-
 <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		table {
+			width: 100%;
+			/* border-collapse: collapse; */
+		}
+
+		table tr td{
+			padding: 0px;
+		}
+	</style>
+</head>
+<body>
 
 <table style="border-bottom: 1px solid;">
     <tr>
-        <td>
-            <img src="images/logo-lan.jpg" alt="logo-lan" style="height:70px;">
+        <td style="vertical-align: middle;">
+            <img src="images/logo-lan.png" alt="logo-lan" style="height:70px;">
         </td>
         <td style="text-align: center;">
             <h4 style="font-weight: bold"> LEMBAGA ADMINISTRASI NEGARA<br>REPUBLIK INDONESIA</h4>
@@ -21,23 +32,48 @@ use yii\helpers\Html;
 
 <br>
 
-<h4 style="font-weight: bold" class="text-center"> BERITA ACARA SERAH TERIMA PENGGUNAAN </h4>
+<h4 style="font-weight: bold" class="text-center"> BERITA ACARA SERAH TERIMA PENGGUNAAN</h4>
 
 <p class="text-center">Nomor:</p>
 
-<p class="text-justify" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
+<p class="text-left" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
 
-<div class="text-start">1. Nama :</div>
-<div class="text-start">&emsp;NIP :</div>
-<div class="text-start">&emsp;Jabatan : Kepala Biro SDM dan Umum </div>
-<div class="text-start">&emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</div>
-<div class="text-start">&emsp;Selanjutnya disebut sebagai PIHAK PERTAMA</div>
-
-<div class="text-start">2. Nama :</p>
-<div class="text-start"> &emsp;NIP :</p>
-<div class="text-start"> &emsp;Jabatan : Kepala Biro SDM dan Umum </div>
-<div class="text-start"> &emsp;Alamat : Jalan Veteran Nomor 10 Jakarta Pusat</div>
-<div class="text-start"> &emsp;Selanjutnya disebut sebagai PIHAK Kedua</div>
+<table>
+	<tr>
+		<td width="200px">Nama</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width="200px">NIP</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width="200px">Jabatan</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+</table>
+<p>Selanjutnya disebut sebagai PIHAK PERTAMA</p>
+<table>
+	<tr>
+		<td width="200px">Nama</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width="200px">NIP</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width="200px">Jabatan</td>
+		<td>:</td>
+		<td></td>
+	</tr>
+</table>
+<p>Selanjutnya disebut sebagai PIHAK KEDUA</p>
 
 <p  class="lh-sm" style="text-align:justify; text-indent: 3em; ">Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan ... (.....) unit BMN LAN berupa .......... dengan spesifikasi :</p>
 
@@ -58,8 +94,6 @@ use yii\helpers\Html;
 	<li class="lh-sm">Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.</li>
 </li>
 
-
-
 <div style="margin: auto;width:500px;height: 100px;">
 	<div style="width: 150px;height: 150px;float:left;">
 		<h5 style="text-align: center;">PIHAK KEDUA</h5>
@@ -78,8 +112,6 @@ use yii\helpers\Html;
 </div>
 
 <h5 style="font-weight: bold" class="text-center">Kelengkapan Barang</h5>
-
-
 
 <table border="1" class="table table bordered">
 	<thead>
@@ -133,3 +165,5 @@ use yii\helpers\Html;
 		<p>.......................................................... NIP</p>
 	</div>
 </div>
+</body>
+</html>

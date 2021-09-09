@@ -9,5 +9,4 @@ return array(
 	'username' => 'root',
 	'password' => 'burger123',
 	'charset' => 'utf8',
-
 );

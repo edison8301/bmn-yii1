@@ -38,18 +38,15 @@ class BarangController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','REST.GET','REST.PUT','REST.POST','REST.DELETE'),
+				'actions'=>array('index','view','REST.GET','REST.PUT','REST.POST','REST.DELETE','dbr'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','export','exportExcel','exportBarang','laporan','import','viewQr','filterQr','reportPerawatan',
-								'cetakQr','hapusKepemilikanPegawai','hapusKepemilikanLokasi','selectBarang','cetakQrPdf',
-								'kondisi','perawatan','pemeriksaan','reportPemeriksaan','reportPemindahan', 'importV2'
-				),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','cetakQrcode','cetakQrcodeDbr', 'cetakBastPdf'),
+				'actions'=>array('admin','delete'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -1191,25 +1188,4 @@ public function actionSelectBarang(){
 			'model'=>$model
 		));
 	}
-
-    public function actionExportPdfBast()
-	{
-        $this->layout = false;
-		$mpdf = new Mpdf([
-			''
-		]);
-        $mpdf->WriteHTML($this->render('exportPdfBast', array(), true));
-        $mpdf->Output();
-	}
-
-    public function actionExportPdfBastPengembalian()
-    {
-        $this->layout = false;
-        $mpdf = new Mpdf([
-            ''
-        ]);
-        $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
-        $mpdf->Output();
-    }
-
 }

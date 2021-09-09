@@ -132,7 +132,6 @@ $this->breadcrumbs=array(
 			'value'=>'CHtml::link("<i class=\"glyphicon glyphicon-qrcode\"></i>",array("barang/cetakQr","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak QR"))',
 			'htmlOptions'=>array('style'=>'text-align:center; width: 50px'),
 			'cssClassExpression' => '$data->getCssClass($data->id_barang_kondisi)',
-
 		),		
 		array(
 			'class'=>'booster.widgets.TbButtonColumn',
