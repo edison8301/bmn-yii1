@@ -750,7 +750,7 @@ public function getCssClass($data)
 	
 			$sheet->getStyle('A3:E3')->getFont()->setBold(true);
 			$sheet->getStyle("A1:E1")->getFont()->setSize(14);
-			$sheet->getStyle('A1:E1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+			$sheet->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
 			$sheet->mergeCells('A1:E1');//sama jLga
 			$sheet->setCellValueByColumnAndRow(0, 1, "LAPORAN PERAWATAN BARANG");
 		
@@ -778,18 +778,18 @@ public function getCssClass($data)
 				$sheet->setCellValue('D'.$kolom, $data->keterangan);
 				$sheet->setCellValue('E'.$kolom, $data->waktu_dibuat);
 
-				$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+				$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
 				$sheet->getStyle('A2:E'.$kolom)->getFont()->setSize(9);
-				$sheet->getStyle('A3:E'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
+				$sheet->getStyle('A3:E'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);//border header surat	
 									
 				$i++; $kolom++;
 			}
 
 			$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setWrapText(true);
-			$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+			$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
 		
 			$filename = time().'_LaporanPerawatanBarang.xlsx';
-			
+
 			$objWriter = new Xlsx($spreadsheet);
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename='.$filename);
