@@ -380,6 +380,7 @@ class BarangController extends Controller
 	{
 
 	$model = new ExportBarang;
+	$model->nama = "3.01";
 
 	if(isset($_POST['ExportBarang']))
 	{
@@ -398,8 +399,8 @@ class BarangController extends Controller
 			$params = array();
 
 			if(!empty($_POST['ExportBarang']['nama'])) {
-			    $nama = $_POST['ExportBarang']['nama'];
-                $criteria->addCondition("kode REGEXP '^$nama'");
+				$criteria->addCondition('kode=:nama');
+				$params[':nama'] = $_POST['ExportBarang']['nama'];
 			}
 
 			if(!empty($_POST['ExportBarang']['kondisi_barang'])) {
