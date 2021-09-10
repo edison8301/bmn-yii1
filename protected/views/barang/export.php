@@ -16,7 +16,7 @@
 
 
 
-        <?php echo $form->select2Group($laporanform,'nama',array(
+        <?php echo $form->textFieldGroup($laporanform,'nama',array(
                 'wrapperHtmlOptions'=>array('class'=>'col-sm-5'),
                 'widgetOptions'=>array(
                     'data'=>Barang::getList(),
