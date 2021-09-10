@@ -4,7 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1 style="font-size: 28px !important;">Selamat Datang di Aplikasi Sistem Inventarisasi dan Manajemen Aset TIK (SIMPATIK)</h1>
+<h1 style="font-size: 28px !important;">Selamat Datang di Aplikasi Sistem Inventarisasi dan Manajemen Penggunaan Aset Tetap Internal Kantor (SIMPATIK)</h1>
 
 <hr>
 

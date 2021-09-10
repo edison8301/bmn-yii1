@@ -45,8 +45,14 @@
 				), 
 			'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 
 		)); ?>
-                    
-        <?php echo $form->select2Group($model,'id_lokasi_jenis',array(
+
+        <?php echo $form->select2Group($model,'id_ruangan',array(
+                'widgetOptions'=>array(
+                    'data'=>Ruangan::getListData(),
+                    'htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'placeholder'=>'Pilih Ruangan'))
+        )); ?>
+
+        <?php /* echo $form->select2Group($model,'id_lokasi_jenis',array(
             'widgetOptions'=>array(
                 'data'=>LokasiJenis::getList(),
                 'htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'placeholder' => 'Pilih Ruangan'))
@@ -56,7 +62,7 @@
 				'widgetOptions'=>array(
 					'data'=>Lokasi::getListData(),
 					'htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'placeholder'=>'Pilih Lokasi'))
-		)); ?>
+		)); */ ?>
 
 		<?php
 		if(isset($_GET['id_pegawai'])){

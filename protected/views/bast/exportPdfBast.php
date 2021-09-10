@@ -39,22 +39,30 @@
 
 <h4 style="font-weight: bold" class="text-center"> BERITA ACARA SERAH TERIMA PENGGUNAAN</h4>
 
-<p class="text-center">Nomor:</p>
+<p class="text-center">Nomor: <?= $model->nomor; ?></p>
 
-<p class="text-left" style="text-indent: 3em;">Pada hari ini …… tanggal ……… bulan ….. tahun ……………… (… - … - …..) kami yang bertandatangan dibawah ini :</p>
+<p class="text-left" style="text-indent: 3em;">
+    Pada hari ini <?= $model->getNamaHariFromTanggal(); ?>
+    tanggal <?= $model->getTanggalByFormat('j'); ?>
+    bulan <?= $model->getNamaBulanByTanggal(); ?>
+    tahun <?= $model->getTanggalByFormat('Y'); ?> (<?= $model->getTanggalByFormat('d-m-Y'); ?>)
+    kami yang bertandatangan dibawah ini :
+</p>
 
 <table>
 	<tr>
 		<td width="20px">1.</td>
 		<td width="100px">Nama</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td>
+            <?= @$model->pihakPertama->nama; ?>
+        </td>
 	</tr>
 	<tr>
 		<td></td>
 		<td width="100px">NIP</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= @$model->pihakPertama->nip; ?></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -73,13 +81,17 @@
 		<td width="20px">2.</td>
 		<td width="100px">Nama</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td>
+            <?= @$model->pihakKedua->nama; ?>
+        </td>
 	</tr>
 	<tr>
 		<td></td>
 		<td width="100px">NIP</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td>
+            <?= @$model->pihakKedua->nip; ?>
+        </td>
 	</tr>
 	<tr>
 		<td></td>
@@ -104,25 +116,25 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		<td width="40px"></td>
 		<td width="100px">Merk / Type</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= @$barang->merek; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Perolehan</td>
 		<td width="10px">:</td>
-		<td>Tahun ....</td>
+		<td><?=  @$barang->tanggal_perolehan; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Nilai Perolehan</td>
 		<td width="10px">:</td>
-		<td>Rp. ....</td>
+		<td>Rp. <?= Helper::rp(@$barang->nilai_perolehan,0); ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Kode Barang dan NUP</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= @$barang->kode; ?>-<?= @$barang->nup; ?></td>
 	</tr>
 </table>
 
@@ -150,26 +162,33 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.
 </p>
 
-<div style="margin: auto;width:500px;height: 100px;">
-	<div style="width: 150px;height: 150px;float:left;">
-		<h5 style="text-align: center;">PIHAK KEDUA</h5>
-		<br>
-		<br>
-		<br>
-		<p>.................................<br>
-		NIP ...........................
-		</p>
-	</div>
-	<div style="width: 150px;height: 150px;float:right;">
-		<h5 style="text-align: center;">PIHAK PERTAMA</h5>
-		<br>
-		<br>
-		<br>
-		<p>.................................<br>
-		NIP ...........................
-		</p>
-	</div>
-</div>
+<div>&nbsp;</div>
+
+<table cellspacing="0" cellpadding="0" width="80%">
+    <tr>
+        <td style="text-align: center">PIHAK KEDUA</td>
+        <td width="40%"></td>
+        <td style="text-align: center">PIHAK PERTAMA</td>
+    </tr>
+    <?php for($i=1; $i<=5; $i++) { ?>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td style="text-align: center">
+            <?= $model->pihakKedua->nama; ?><br>
+            NIP <?=$model->pihakKedua->nip; ?>
+        </td>
+        <td></td>
+        <td style="text-align: center">
+            <?= $model->pihakPertama->nama; ?><br>
+            NIP <?=$model->pihakPertama->nip; ?>
+        </td>
+    </tr>
+</table>
 
 <div style="page-break-after: always;"></div>
 
@@ -207,29 +226,34 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 		</tr>
 	</table>
 
-	<p style="text-align: right">Jakarta,.......</p>
+	<p style="text-align: right">Jakarta, <?= $model->getTanggalByFormat('d-m-Y'); ?></p>
 
-	<div style="margin: auto;width:500px;height: 100px;">
-		<div style="width: 150px;height: 150px;float:left;">
-			<h5 style="text-align: center;">PIHAK KEDUA</h5>
-			<br>
-			<br>
-			<br>
-			<p>.................................<br>
-			NIP ...........................
-			</p>
-		</div>
-		<div style="width: 150px;height: 150px;float:right;">
-			<h5 style="text-align: center;">PIHAK PERTAMA</h5>
-			<br>
-			<br>
-			<br>
-			<p>.................................<br>
-			NIP ...........................
-			</p>
-		</div>
-	</div>
 </div>
 
+    <table cellspacing="0" cellpadding="0" width="80%" align="center">
+        <tr>
+            <td style="text-align: center">PIHAK KEDUA</td>
+            <td width="40%"></td>
+            <td style="text-align: center">PIHAK PERTAMA</td>
+        </tr>
+        <?php for($i=1; $i<=5; $i++) { ?>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td style="text-align: center">
+                <?= $model->pihakKedua->nama; ?><br>
+                NIP <?=$model->pihakKedua->nip; ?>
+            </td>
+            <td></td>
+            <td style="text-align: center">
+                <?= $model->pihakPertama->nama; ?><br>
+                NIP <?=$model->pihakPertama->nip; ?>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

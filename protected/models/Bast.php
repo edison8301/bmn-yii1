@@ -37,6 +37,7 @@ class Bast extends CActiveRecord
 		return array(
 			array('id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast, id_jenis_bast', 'numerical', 'integerOnly'=>true),
 			array('nomor, berkas_bast', 'length', 'max'=>255),
+			['kode_barang, nup_barang', 'safe'],
 			array('tanggal, created_at, updated_at, deleted_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -54,7 +55,6 @@ class Bast extends CActiveRecord
 		return array(
 			'pihakPertama' => array(self::BELONGS_TO,'Pegawai','id_pegawai_pihak_pertama'),
 			'pihakKedua' => array(self::BELONGS_TO,'Pegawai','id_pegawai_pihak_kedua'),
-			'barang' => array(self::BELONGS_TO,'Barang','id_barang')
 		);
 	}
 
@@ -125,4 +125,98 @@ class Bast extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function getTanggalByFormat($format)
+    {
+        $datetime = DateTime::createFromFormat('Y-m-d',$this->tanggal);
+        return $datetime->format($format);
+    }
+
+    public function getNamaHariFromTanggal()
+    {
+        $i = $this->getTanggalByFormat('N');
+
+        if($i == 1) {
+            return "Senin";
+        }
+
+        if($i == 2) {
+            return "Selasa";
+        }
+
+        if($i == 3) {
+            return "Rabu";
+        }
+
+        if($i == 4) {
+            return "Kamis";
+        }
+
+        if($i == 5) {
+            return "Jumat";
+        }
+
+        if($i == 6) {
+            return "Sabtu";
+        }
+
+        if($i == 7) {
+            return "Minggu";
+        }
+    }
+
+    public function getNamaBulanByTanggal()
+    {
+        $i = $this->getTanggalByFormat('n');
+
+        if($i == 1) {
+            $bulan = 'Januari';
+        }
+        if($i == 2) {
+            $bulan = 'Februari';
+        }
+        if($i == 3) {
+            $bulan = 'Maret';
+        }
+        if($i == 4) {
+            $bulan = 'April';
+        }
+        if($i == 5) {
+            $bulan = 'Mei';
+        }
+        if($i == 6) {
+            $bulan = 'Juni';
+        }
+        if($i == 7) {
+            $bulan = 'Juli';
+        }
+        if($i == 8) {
+            $bulan = 'Agustus';
+        }
+        if($i == 9) {
+            $bulan = 'September';
+        }
+        if($i == 10) {
+            $bulan = 'Oktober';
+        }
+
+        if($i == '11') {
+            $bulan = 'November';
+        }
+
+        if($i == '12') {
+            $bulan = 'Desember';
+        }
+
+        return $bulan;
+
+    }
+
+    public function getBarang()
+    {
+        return Barang::model()->findByAttributes([
+            'kode' => $this->kode_barang,
+            'nup' => $this->nup_barang
+        ]);
+    }
 }

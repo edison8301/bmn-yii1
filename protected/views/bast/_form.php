@@ -38,7 +38,12 @@
                 'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Pegawai'))
             )) ?>
 
-			<div class="form-group">
+            <?php echo $form->textFieldGroup($model,'kode_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+            <?php echo $form->textFieldGroup($model,'nup_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+
+            <div class="form-group">
 				<label class="col-sm-3 control-label">Berkas BAST</label>
 				<div class="col-sm-9">
 					<?php echo $form->fileField($model,'berkas_bast',array('class'=>'form-control')); ?>

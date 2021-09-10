@@ -18,7 +18,14 @@ $this->breadcrumbs=array(
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="well">
-		<?php echo $form->select2Group($model,'kode',array(
+        <?php echo $form->textFieldGroup($model,'kode',array(
+            'wrapperHtmlOptions'=>array('class'=>'col-sm-5'),
+            'widgetOptions'=>array(
+                'htmlOptions'=>array('class'=>'span5','maxlength'=>255)
+            )
+        )); ?>
+
+		<?php /* echo $form->select2Group($model,'kode',array(
 				'wrapperHtmlOptions'=>array('class'=>'col-sm-5'),
 				'widgetOptions'=>array(
 					'data'=>Barang::getList(),
@@ -26,7 +33,7 @@ $this->breadcrumbs=array(
 						'placeholder'=>'Ketik Kode atau Nama Barang',
 					)
 				)
-		)); ?>
+		)); */ ?>
 		
 		<?php echo $form->textFieldGroup($model,'nup_awal',array(
 				'wrapperHtmlOptions'=>array('class'=>'col-sm-2'),

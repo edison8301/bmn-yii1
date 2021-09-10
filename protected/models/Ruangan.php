@@ -113,7 +113,7 @@ class Ruangan extends CActiveRecord
 		$criteria->order = 'kode ASC';
 		foreach(Ruangan::model()->findAll($criteria) as $data)
 		{
-			$list[$data->id] = $data->kode.' - '.$data->nama;
+			$list[$data->id] = $data->nama.' - '.@$data->lokasi->nama;
 		}
 
 		return $list;

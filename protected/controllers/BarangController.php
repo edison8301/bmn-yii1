@@ -400,8 +400,8 @@ class BarangController extends Controller
 			$params = array();
 
 			if(!empty($_POST['ExportBarang']['nama'])) {
-				$criteria->addCondition('kode=:nama');
-				$params[':nama'] = $_POST['ExportBarang']['nama'];
+			    $nama = $_POST['ExportBarang']['nama'];
+                $criteria->addCondition("kode REGEXP '^$nama'");
 			}
 
 			if(!empty($_POST['ExportBarang']['kondisi_barang'])) {

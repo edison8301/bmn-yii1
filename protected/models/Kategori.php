@@ -95,4 +95,17 @@ class Kategori extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public static function getList()
+    {
+        $list = array();
+
+        $criteria = new CDbCriteria;
+
+        foreach(Kategori::model()->findAll() as $data) {
+            $list[$data->kode]=$data->kode.'-'.$data->nup.' - '.$data->nama;
+        }
+
+        return $list;
+    }
 }
