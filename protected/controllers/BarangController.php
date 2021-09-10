@@ -4,6 +4,8 @@ use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 use Mpdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class BarangController extends Controller
@@ -809,6 +811,7 @@ public function getCssClass($data)
 	public function actionReportPemeriksaan()
 	{
 		$model = new LaporanPemeriksaanForm;
+
 		if(isset($_POST['LaporanPemeriksaanForm']))
 		{
 
@@ -816,11 +819,11 @@ public function getCssClass($data)
 			if($model->validate())
 			{
 
-			spl_autoload_unregister(array('YiiBase','autoload'));
+			// spl_autoload_unregister(array('YiiBase','autoload'));
 		
-			Yii::import('application.vendors.PHPExcel',true);
+			// Yii::import('application.vendors.PHPExcel',true);
 		
-			spl_autoload_register(array('YiiBase', 'autoload'));
+			// spl_autoload_register(array('YiiBase', 'autoload'));
 
 			$criteria = new CDbCriteria;
 			$params = array();
@@ -843,64 +846,62 @@ public function getCssClass($data)
 			$criteria->params = $params;
 			$criteria->order = 'tanggal ASC';
 
-
-
-		$PHPExcel = new PHPExcel();
-			
+			$spreadsheet = new Spreadsheet();
+			$spreadsheet->setActiveSheetIndex(0);
+			$sheet = $spreadsheet->getActiveSheet();
 		
-			$PHPExcel->getActiveSheet()->getStyle('A3:F3')->getFont()->setBold(true);
-			$PHPExcel->getActiveSheet()->getStyle("A1:F1")->getFont()->setSize(14);
-			$PHPExcel->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-			$PHPExcel->getActiveSheet()->mergeCells('A1:F1');//sama jLga
-			$PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 1, "LAPORAN PEMERIKSAAN BARANG");
+			$sheet->getStyle('A3:F3')->getFont()->setBold(true);
+			$sheet->getStyle("A1:F1")->getFont()->setSize(14);
+			$sheet->getStyle('A1:F1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+			$sheet->mergeCells('A1:F1');//sama jLga
+			$sheet->setCellValueByColumnAndRow(0, 1, "LAPORAN PEMERIKSAAN BARANG");
 		
-			$PHPExcel->getActiveSheet()->setCellValue('A3', 'No');
-			$PHPExcel->getActiveSheet()->setCellValue('B3', 'Tanggal');
-			$PHPExcel->getActiveSheet()->setCellValue('C3', 'Nama Barang');
-			$PHPExcel->getActiveSheet()->setCellValue('D3', 'Keterangan');
-			$PHPExcel->getActiveSheet()->setCellValue('E3', 'Kondisi');
-			$PHPExcel->getActiveSheet()->setCellValue('F3', 'Waktu Dibuat');
+			$sheet->setCellValue('A3', 'No');
+			$sheet->setCellValue('B3', 'Tanggal');
+			$sheet->setCellValue('C3', 'Nama Barang');
+			$sheet->setCellValue('D3', 'Keterangan');
+			$sheet->setCellValue('E3', 'Kondisi');
+			$sheet->setCellValue('F3', 'Waktu Dibuat');
 
-				$PHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
-				$PHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(23);
-				$PHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-				$PHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(45);
-				$PHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(22);
-				$PHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(22);
+			$sheet->getColumnDimension('A')->setWidth(6);
+			$sheet->getColumnDimension('B')->setWidth(23);
+			$sheet->getColumnDimension('C')->setWidth(30);
+			$sheet->getColumnDimension('D')->setWidth(45);
+			$sheet->getColumnDimension('E')->setWidth(22);
+			$sheet->getColumnDimension('F')->setWidth(22);
 
 
-		$i = 1;
-		$kolom = 4;
+			$i = 1;
+			$kolom = 4;
 		
 			foreach(BarangPemeriksaan::model()->findAll($criteria) as $data)
 			{
-				$PHPExcel->getActiveSheet()->setCellValue('A'.$kolom, $i);
-				$PHPExcel->getActiveSheet()->setCellValue('B'.$kolom, Helper::tanggal($data->tanggal));
-				$PHPExcel->getActiveSheet()->setCellValue('C'.$kolom, $data->getBarang());
-				$PHPExcel->getActiveSheet()->setCellValue('D'.$kolom, $data->keterangan);
-				$PHPExcel->getActiveSheet()->setCellValue('E'.$kolom, $data->getBarangKondisi());
-				$PHPExcel->getActiveSheet()->setCellValue('F'.$kolom, $data->waktu_dibuat);
+				$sheet->setCellValue('A'.$kolom, $i);
+				$sheet->setCellValue('B'.$kolom, Helper::tanggal($data->tanggal));
+				$sheet->setCellValue('C'.$kolom, $data->getBarang());
+				$sheet->setCellValue('D'.$kolom, $data->keterangan);
+				$sheet->setCellValue('E'.$kolom, $data->getBarangKondisi());
+				$sheet->setCellValue('F'.$kolom, $data->waktu_dibuat);
 
-				$PHPExcel->getActiveSheet()->getStyle('A3:F'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
-				$PHPExcel->getActiveSheet()->getStyle('A2:F'.$kolom)->getFont()->setSize(9);
-				$PHPExcel->getActiveSheet()->getStyle('A3:F'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
+				$sheet->getStyle('A3:F'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+				$sheet->getStyle('A2:F'.$kolom)->getFont()->setSize(9);
+				$sheet->getStyle('A3:F'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);//border header surat	
 									
 				$i++; $kolom++;
 			}
 
-			$PHPExcel->getActiveSheet()->getStyle('A3:E'.$kolom)->getAlignment()->setWrapText(true);
-			$PHPExcel->getActiveSheet()->getStyle('A3:E'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+			$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setWrapText(true);
+			$sheet->getStyle('A3:E'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
 		
 			$filename = time().'_LaporanKondisiBarang.xlsx';
 
-			$path = Yii::app()->basePath.'/../uploads/laporan_pemeriksaan/';
-			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
+			$objWriter = new Xlsx($spreadsheet);
 			ob_end_clean();
 
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="'.$filename.'.xlsx"');
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$filename);
+			header('Cache-Control: max-age=0');
 			$objWriter->save('php://output');
-			$this->redirect(Yii::app()->request->baseUrl.'/uploads/exports/'.$filename);
 		}
 	}
 
