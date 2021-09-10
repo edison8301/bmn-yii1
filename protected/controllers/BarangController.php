@@ -896,7 +896,7 @@ public function getCssClass($data)
 			$filename = time().'_LaporanKondisiBarang.xlsx';
 
 			$objWriter = new Xlsx($spreadsheet);
-			ob_end_clean();
+			die;
 
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename='.$filename);
