@@ -896,12 +896,11 @@ public function getCssClass($data)
 			$filename = time().'_LaporanKondisiBarang.xlsx';
 
 			$objWriter = new Xlsx($spreadsheet);
-			die;
-
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename='.$filename);
 			header('Cache-Control: max-age=0');
 			$objWriter->save('php://output');
+			die();  
 		}
 	}
 
