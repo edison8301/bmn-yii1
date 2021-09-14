@@ -2,6 +2,7 @@
 /* @var $this BastController */
 /* @var $model Bast */
 
+
 $this->breadcrumbs=array(
 	'BAST'=>array('admin'),
 	'Kelola BAST',
@@ -67,9 +68,25 @@ $this->breadcrumbs=array(
 			'htmlOptions' => array('style'=>'text-align:left'),
 		),
 		array(
+			'name' => 'jabatan_pihak_pertama',
+			'value' => function($data) {
+			    return @$data->jabatan_pihak_pertama;
+			},
+			'headerHtmlOptions' => array('style'=>'text-align:center'),
+			'htmlOptions' => array('style'=>'text-align:left'),
+		),
+		array(
 			'name' => 'id_pegawai_pihak_kedua',
 			'value' => function($data) {
 			    return @$data->pihakKedua->nama;
+			},
+			'headerHtmlOptions' => array('style'=>'text-align:center'),
+			'htmlOptions' => array('style'=>'text-align:left'),
+		),
+		array(
+			'name' => 'jabatan_pihak_kedua',
+			'value' => function($data) {
+			    return @$data->jabatan_pihak_kedua;
 			},
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
@@ -90,11 +107,27 @@ $this->breadcrumbs=array(
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),
         ),
+		// array(
+		// 	'name' => 'id_barang',
+		// 	'value' => function($data) {
+		// 	    $barang = $data->getBarang();
+		// 	    return @$barang->nama;
+		// 	},
+		// 	'headerHtmlOptions' => array('style'=>'text-align:center'),
+		// 	'htmlOptions' => array('style'=>'text-align:left'),
+		// ),
 		array(
-			'name' => 'id_barang',
+            'name' => 'nama_barang',
+            'value' => function($data) {
+                return @$data->nama_barang;
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
+		array(
+			'name' => 'jumlah_unit',
 			'value' => function($data) {
-			    $barang = $data->getBarang();
-			    return @$barang->nama;
+			    return @$data->jumlah_unit;
 			},
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
