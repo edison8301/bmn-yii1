@@ -43,6 +43,14 @@
                 'htmlOptions'=>array('empty'=>'-- Pilih Lokasi --')
             )
         )); ?>
+
+        <?php echo $form->select2Group($model,'id_pegawai',array(
+            'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+            'widgetOptions'=>array(
+                'data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),
+                'htmlOptions'=>array('empty'=>'-- Pilih Pegawai --')
+            )
+        )); ?>
     </div>
 </div>
 

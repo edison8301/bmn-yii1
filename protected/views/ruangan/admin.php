@@ -25,15 +25,27 @@ $this->breadcrumbs=array(
             'htmlOptions' => array('style'=>'text-align:center; width: 50px'),
         ),
         'nama',
-		'kode',
 		 [
+            'name' => 'kode',
+            'headerHtmlOptions' => array('style' =>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:center; width: 100px'),
+        ],
+        [
             'name' => 'id_lokasi',
             'value' => function($data) {
                 return @$data->lokasi->nama;
             },
             'headerHtmlOptions' => array('width' =>'30%'),
             'htmlOptions'=>array('style'=>'text-align:left')
-         ],
+        ],
+        [
+            'name' => 'id_pegawai',
+            'value' => function(Ruangan $data) {
+                return @$data->pegawai->nama;
+            },
+            'headerHtmlOptions' => array('width' =>'200px','style'=>'text-align:center'),
+            'htmlOptions'=>array('style'=>'text-align:left')
+        ],
         array(
             'name' => 'id',
             'header'=>'Jumlah<br/>Barang',

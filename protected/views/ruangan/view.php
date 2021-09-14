@@ -32,6 +32,10 @@ $this->menu=array(
                 'attributes'=>array(
                     'kode',
                     'nama',
+                    [
+                        'label' => 'PJ Ruangan',
+                        'value' => @$model->pegawai->nama,
+                    ]
                 ),
             )); ?>
     </div>
