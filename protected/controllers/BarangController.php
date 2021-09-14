@@ -380,7 +380,6 @@ class BarangController extends Controller
 
 	public function actionExportBarang($id)
 	{
-
 		$model = $this->loadModel($id);
 
         $criteria = new CDbCriteria;
@@ -431,11 +430,11 @@ class BarangController extends Controller
 
         $sheet->setCellValue('C10', ': LEMBAGA ADMINISTRASI NEGARA');
         $sheet->setCellValue('C11', ': LEMBAGA ADMINISTRASI NEGARA');
-        $sheet->setCellValue('C12', ': LAN JAKARTA');
+        $sheet->setCellValue('C12', ': PKP2A I LAN');
 
         $sheet->setCellValue('C15', ': 086.01.02.450423.000');
-        $sheet->setCellValue('C16', ': LAN JAKARTA');
-        // $sheet->setCellValue('C17', ': '.$_GET['lokasi']);
+        $sheet->setCellValue('C16', ': PKP2A I LAN');
+        //$sheet->setCellValue('C17', ': '.$_GET['lokasi']);
 
 
         $sheet->mergeCells('D19:F19');
@@ -450,16 +449,15 @@ class BarangController extends Controller
 
         $sheet->setCellValue('A19', 'No');
         $sheet->setCellValue('B19', 'Kode');
-        $sheet->setCellValue('C19', 'Nama');
+        $sheet->setCellValue('C19', 'Nama Barang');
 
+        $sheet->setCellValue('A21', '1');
+        $sheet->setCellValue('B21', '2');
+        $sheet->setCellValue('C21', '3');
+    
         $sheet->getColumnDimension('A')->setWidth(6);
         $sheet->getColumnDimension('B')->setWidth(14);
         $sheet->getColumnDimension('C')->setWidth(16);
-        // $sheet->getColumnDimension('D')->setWidth(20);
-        // $sheet->getColumnDimension('E')->setWidth(20);
-        // $sheet->getColumnDimension('F')->setWidth(20);
-        // $sheet->getColumnDimension('G')->setWidth(18);
-        // $sheet->getColumnDimension('H')->setWidth(17);
 
 		$i = 1;
 			$kolom = 22;
@@ -470,10 +468,9 @@ class BarangController extends Controller
 				$sheet->setCellValue('A'.$kolom, $i);
 				$sheet->setCellValue('B'.$kolom, $data->kode);
 				$sheet->setCellValue('C'.$kolom, $data->nama);
-				$sheet->setCellValue('D'.$kolom, $data->halo);
 
-				$sheet->getStyle('A2:C'.$kolom)->getFont()->setSize(9);
-				$sheet->getStyle('A19:C'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
+				$sheet->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
+				$sheet->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
 									
 				$i++; $kolom++;
 
@@ -539,7 +536,7 @@ class BarangController extends Controller
 			$objWriter->save('php://output');
 	}
 
-	public function actionwwww($id)
+	public function actionExporthalo($id)
 	{
 
 			$criteria = new CDbCriteria;
@@ -631,6 +628,7 @@ class BarangController extends Controller
 	{
 
 		$this->render('batch_laporan');
+
 	}
 
 public function getCssClass($data)
