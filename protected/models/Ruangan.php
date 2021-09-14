@@ -98,12 +98,15 @@ class Ruangan extends CActiveRecord
 
 	public function findAllBarang()
 	{
-		$model = Barang::model()->findAllByAttributes(array('id_lokasi'=>$this->id));
+		$model = Barang::model()->findAllByAttributes([
+		    'id_ruangan'=>$this->id
+        ]);
 		
-		if($model!==null)
-			return $model;
-		else
-			return false;
+		if($model!==null) {
+            return $model;
+        } else {
+            return false;
+        }
 	}
 
 	public static function getListData()
@@ -160,7 +163,7 @@ class Ruangan extends CActiveRecord
 
 	public function getCountBarang()
     {
-        Barang::model()->countByAttributes([
+        return Barang::model()->countByAttributes([
             'id_ruangan' => $this->id
         ]);
     }

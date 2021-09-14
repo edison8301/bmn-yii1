@@ -38,7 +38,9 @@ $this->breadcrumbs=array(
             'name' => 'id',
             'header'=>'Jumlah<br/>Barang',
             'type'=>'raw',
-            'value' => '$data->getCountBarang()',
+            'value' => function(Ruangan $data) {
+                return $data->getCountBarang();
+            },
             'headerHtmlOptions' => array('width' =>'5%'),
             'filter' => '',
             'htmlOptions'=>array('style'=>'text-align:center'),
@@ -48,7 +50,12 @@ $this->breadcrumbs=array(
             'name' => 'id',
             'header'=>'DBR',
             'type'=>'raw',
-            'value' => 'CHtml::link("<i class=\"glyphicon glyphicon-download-alt\"></i>",array("/ruangan/dbr","id"=>$data->id))',
+            'value' => function(Ruangan $data) {
+                return CHtml::link("<i class=\"glyphicon glyphicon-download-alt\"></i>",[
+                    "/ruangan/exportExcelDbr",
+                    "id"=>$data->id
+                ]);
+            },
             'headerHtmlOptions' => array('width' =>'5%'),
             'filter' => '',
             'htmlOptions'=>array('style'=>'text-align:center'),

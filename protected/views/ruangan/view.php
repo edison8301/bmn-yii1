@@ -1,6 +1,8 @@
 <?php
-/* @var $this LokasiController */
-/* @var $model Lokasi */
+
+/* @see RuanganController::actionView() */
+/* @var $this RuanganController */
+/* @var $model Ruangan */
 
 $this->breadcrumbs=array(
 	'Ruangan' => array('admin'),
@@ -98,20 +100,20 @@ $this->menu=array(
 </thead>
 
 <?php  $i=1; foreach($model->findAllBarang() as $barang) { ?>
- <tr>
- 	<td><?=$i ?></td>
- 	<td><?= CHtml::link($barang->kode.'-'.$barang->nup,array('barang/view','id'=>$barang->id)); ?></td>
- 	<td><?= $barang->nama; ?></td>
- 	<td><?= $barang->getPegawai(); ?></td>
- 	<td><?php echo CHtml::link('<i class="glyphicon glyphicon-trash"></i>', 
- 			array('barang/hapusKepemilikanLokasi', 'id'=>$barang->id,'lokasi'=>$model->id),
-  				array(
-    				'class' => 'delete','confirm'=>'Apa anda yakin?'
-  					)
-				); ?>
-	</td>
 
- </tr>
+<tr>
+    <td><?=$i ?></td>
+    <td><?= CHtml::link($barang->kode.'-'.$barang->nup,array('barang/view','id'=>$barang->id)); ?></td>
+    <td><?= $barang->nama; ?></td>
+    <td><?= $barang->getPegawai(); ?></td>
+    <td><?php echo CHtml::link('<i class="glyphicon glyphicon-trash"></i>',
+            array('barang/hapusKepemilikanLokasi', 'id'=>$barang->id,'lokasi'=>$model->id),
+                array(
+                    'class' => 'delete','confirm'=>'Apa anda yakin?'
+                    )
+                ); ?>
+    </td>
+</tr>
 <?php $i++; } ?>
  </table>
 
