@@ -671,7 +671,6 @@ class BarangController extends Controller
 
 	public function actionExporthalo($id)
 	{
->>>>>>> 254ea912b8ec1d093af4bf4a1f445c72a75ff4c1
 
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'id_lokasi = :id_lokasi OR id_pegawai = :id_pegawai';

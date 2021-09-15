@@ -106,7 +106,7 @@
 </table>
 
 <p class="lh-sm" style="text-align:justify; text-indent: 3em;">
-Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan ... (.....) unit BMN LAN berupa .......... dengan spesifikasi :
+Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan <?= @$barang->nama_merek; ?> (<?= @$model->jumlah_unit; ?>) unit BMN LAN berupa <?= @$barang->nama_merek; ?> dengan spesifikasi :
 </p>
 
 <br>
@@ -116,7 +116,7 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		<td width="40px"></td>
 		<td width="100px">Merk / Type</td>
 		<td width="10px">:</td>
-		<td><?= @$barang->merek; ?></td>
+		<td><?= @$barang->nama_merek; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
@@ -151,7 +151,7 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		Pihak Kedua bersedia mengganti barang tersebut apabila terjadi kerusakan dan kehilangan akibat kelalaian Pihak Kedua dalam waktu paling lambat 1 bulan setelah terjadinya kerusakan/kehilangan tersebut.
 	</li>
 	<li class="lh-sm" style="text-align:justify;">
-		Apabila tidak menjabat lagi sebagai ............. , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1.
+		Apabila tidak menjabat lagi sebagai <?= @$model->jabatan_pihak_kedua; ?>  , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1.
 	</li>
 	<li class="lh-sm" style="text-align:justify;">
 		Label kode NUP barang (nomor registrasi) tidak boleh dilepas dari notebook.
@@ -183,7 +183,7 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
             NIP <?=$model->pihakKedua->nip; ?>
         </td>
         <td></td>
-        <td style="text-align: center">
+        <td style="text-align: center;width: 100px;">
             <?= $model->pihakPertama->nama; ?><br>
             NIP <?=$model->pihakPertama->nip; ?>
         </td>
