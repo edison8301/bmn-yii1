@@ -37,8 +37,9 @@ class Bast extends CActiveRecord
 		return array(
 			array('id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast, id_jenis_bast', 'numerical', 'integerOnly'=>true),
 			array('nomor, berkas_bast', 'length', 'max'=>255),
-			['kode_barang, nup_barang, jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,id_barang,jenis_bast','safe'],
+			['kode_barang, nup_barang, jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,id_barang','safe'],
 			array('tanggal, created_at, updated_at, deleted_at','safe'),
+			['id_bast_jenis','numerical','integerOnly'=>true],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, nomor, tanggal, id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast, id_jenis_bast, created_at, updated_at, deleted_at', 'safe', 'on'=>'search'),
@@ -75,6 +76,7 @@ class Bast extends CActiveRecord
 			'jabatan_pihak_kedua',
 			'status_bast' => 'Status Bast',
 			'id_jenis_bast' => 'Jenis Bast',
+			'id_bast_jenis' => 'Jenis BAST',
 			'created_at' => 'Created At',
 			'updated_at' => 'Updated At',
 			'deleted_at' => 'Deleted At',

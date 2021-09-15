@@ -22,7 +22,7 @@
 
 		<div class="well">
 
-			<?php echo $form->select2Group($model,'jenis_bast', array(
+			<?php echo $form->select2Group($model,'id_bast_jenis', array(
                 'widgetOptions'=>array('data'=>array(
                 		'1'=>'Penggunaan','2'=>'Pengembalian'
                 	),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Jenis Bast'))

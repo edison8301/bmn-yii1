@@ -134,9 +134,9 @@ $this->breadcrumbs=array(
 		),
 		array(
 			'header' => 'Jenis BAST',
-            'name' => 'jenis_bast',
+            'name' => 'id_bast_jenis',
             'value' => function($data) {
-                if ($data->jenis_bast == 1){
+                if ($data->id_bast_jenis == 1) {
                 	return "Penggunaan";
                 }else{
                 	return "Pengembalian";
@@ -156,7 +156,7 @@ $this->breadcrumbs=array(
 		array(
 			'type'=>'raw',
 			'value' => function($data) {
-                if ($data->jenis_bast == 1){
+                if ($data->id_bast_jenis == 1){
                 	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBast","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));
                 }else{
                 	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBastPengembalian","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));

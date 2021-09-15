@@ -49,7 +49,7 @@ $this->menu=array(
 		[
 			'name' => 'jenis_bast',
             'value' => function($model) {
-                if (@$model->jenis_bast == 1){
+                if (@$model->id_bast_jenis == 1){
                 	return "Penggunaan";
                 }else{
                 	return "Pengembalian";

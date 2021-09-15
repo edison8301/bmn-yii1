@@ -170,13 +170,13 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
     <?php } ?>
     <tr>
         <td style="text-align: center">
-            <?= $model->pihakKedua->nama; ?><br>
-            NIP <?=$model->pihakKedua->nip; ?>
+            <?= @$model->pihakKedua->nama; ?><br>
+            NIP <?= @$model->pihakKedua->nip; ?>
         </td>
         <td></td>
         <td style="text-align: center">
-            <?= $model->pihakPertama->nama; ?><br>
-            NIP <?=$model->pihakPertama->nip; ?>
+            <?= @$model->pihakPertama->nama; ?><br>
+            NIP <?= @$model->pihakPertama->nip; ?>
         </td>
     </tr>
 </table>
@@ -236,13 +236,13 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
         <?php } ?>
         <tr>
             <td style="text-align: center">
-                <?= $model->pihakKedua->nama; ?><br>
-                NIP <?=$model->pihakKedua->nip; ?>
+                <?= @$model->pihakKedua->nama; ?><br>
+                NIP <?= @$model->pihakKedua->nip; ?>
             </td>
             <td></td>
             <td style="text-align: center">
-                <?= $model->pihakPertama->nama; ?><br>
-                NIP <?=$model->pihakPertama->nip; ?>
+                <?= @$model->pihakPertama->nama; ?><br>
+                NIP <?= @$model->pihakPertama->nip; ?>
             </td>
         </tr>
     </table>
