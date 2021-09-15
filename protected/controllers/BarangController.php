@@ -469,14 +469,7 @@ class BarangController extends Controller
 				$sheet->setCellValue('B'.$kolom, $data->kode);
 				$sheet->setCellValue('C'.$kolom, $data->nama);
 
-<<<<<<< HEAD
-				$sheet->getStyle('A2:C'.$kolom)->getFont()->setSize(9);
-				$sheet->getStyle('A19:C'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);//border header surat
-=======
-				$sheet->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
-				$sheet->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
->>>>>>> a66b44735242b3e35194e30c01518ad072c7622f
-									
+
 				$i++; $kolom++;
 
 
