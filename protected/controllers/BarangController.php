@@ -378,6 +378,141 @@ class BarangController extends Controller
 		}
 	}
 
+    public function actionExportExcel()
+    {
+
+        $model = new ExportBarang;
+        $model->nama = "3.01";
+
+        if(isset($_POST['ExportBarang']))
+        {
+            $model->attributes=$_POST['ExportBarang'];
+
+            if($model->validate())
+            {
+
+                spl_autoload_unregister(array('YiiBase','autoload'));
+
+                Yii::import('application.vendors.PHPExcel',true);
+
+                spl_autoload_register(array('YiiBase', 'autoload'));
+
+                $criteria = new CDbCriteria;
+                $params = array();
+
+                if(!empty($_POST['ExportBarang']['nama'])) {
+                    $criteria->addCondition('kode=:nama');
+                    $params[':nama'] = $_POST['ExportBarang']['nama'];
+                }
+
+                if(!empty($_POST['ExportBarang']['kondisi_barang'])) {
+                    $criteria->addCondition('id_barang_kondisi=:kondisi_barang');
+                    $params[':kondisi_barang'] = $_POST['ExportBarang']['kondisi_barang'];
+                }
+
+                if(!empty($_POST['tahun'])) {
+                    $criteria->addCondition('tahun_perolehan>=:awal AND tahun_perolehan<=:akhir');
+                    //$criteria->addCondition('');
+                    $params[':awal'] = $_POST['ExportBarang']['tahun'].'-01-01';
+                    $params[':akhir'] = $_POST['ExportBarang']['tahun'].'-12-31';
+                }
+
+                if(!empty($_POST['ExportBarang']['lokasi'])) {
+                    $criteria->addCondition('id_lokasi=:lokasi');
+                    $params[':lokasi'] = $_POST['ExportBarang']['lokasi'];
+                }
+
+                $criteria->params = $params;
+                $criteria->order = 'kode ASC';
+
+                $spreadsheet = new Spreadsheet();
+                $spreadsheet->setActiveSheetIndex(0);
+                $sheet = $spreadsheet->getActiveSheet();
+
+                $sheet->getStyle('A3:M3')->getFont()->setBold(true);
+                $sheet->getStyle("A1:L1")->getFont()->setSize(14);
+                $sheet->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+                $sheet->mergeCells('A1:M1');//sama jLga
+                $sheet->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
+
+                $sheet->setCellValue('A3', 'NO');
+                $sheet->setCellValue('B3', 'KODE');
+                $sheet->setCellValue('C3', 'NAMA');
+                $sheet->setCellValue('D3', 'TAHUN PEROLEHAN');
+                $sheet->setCellValue('E3', 'ASAL PEROLEHAN');
+                $sheet->setCellValue('F3', 'MASA MANFAAT');
+                $sheet->setCellValue('G3', 'KONDISI BARANG');
+                $sheet->setCellValue('H3', 'SK PSP');
+                $sheet->setCellValue('I3', 'SK PENGHAPUSAN');
+                $sheet->setCellValue('J3', 'LOKASI');
+                $sheet->setCellValue('K3', 'PEGAWAI');
+                $sheet->setCellValue('L3', 'Waktu Diubah');
+                $sheet->setCellValue('M3', 'Waktu Dibuat');
+
+                $sheet->getColumnDimension('A')->setWidth(6);
+                $sheet->getColumnDimension('B')->setWidth(12);
+                $sheet->getColumnDimension('C')->setWidth(14);
+                $sheet->getColumnDimension('D')->setWidth(18);
+                $sheet->getColumnDimension('E')->setWidth(18);
+                $sheet->getColumnDimension('F')->setWidth(18);
+                $sheet->getColumnDimension('G')->setWidth(16);
+                $sheet->getColumnDimension('H')->setWidth(15);
+                $sheet->getColumnDimension('I')->setWidth(18);
+                $sheet->getColumnDimension('J')->setWidth(12);
+                $sheet->getColumnDimension('K')->setWidth(22);
+                $sheet->getColumnDimension('L')->setWidth(15);
+                $sheet->getColumnDimension('M')->setWidth(15);
+
+
+                $i = 1;
+                $kolom = 4;
+
+                foreach(Barang::model()->findAll($criteria) as $data)
+                {
+                    $sheet->setCellValue('A'.$kolom, $i);
+                    $sheet->setCellValue('B'.$kolom, $data->kode);
+                    $sheet->setCellValue('C'.$kolom, $data->nama);
+                    $sheet->setCellValue('D'.$kolom, $data->getTahunPerolehan());
+                    $sheet->setCellValue('E'.$kolom, $data->getPerolehanAsal());
+                    $sheet->setCellValue('F'.$kolom, $data->masa_manfaat);
+                    $sheet->setCellValue('G'.$kolom, $data->getBarangKondisi());
+                    $sheet->setCellValue('H'.$kolom, $data->sk_psp);
+                    $sheet->setCellValue('I'.$kolom, $data->sk_penghapusan);
+                    $sheet->setCellValue('J'.$kolom, $data->getLokasi());
+                    $sheet->setCellValue('K'.$kolom, $data->getPegawai());
+                    $sheet->setCellValue('L'.$kolom, $data->waktu_diubah);
+                    $sheet->setCellValue('M'.$kolom, $data->waktu_dibuat);
+
+                    $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+                    $sheet->getStyle('A2:M'.$kolom)->getFont()->setSize(9);
+                    $sheet->getStyle('A3:M'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat
+
+                    $i++; $kolom++;
+                }
+
+                $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+
+                $filename = time().'_Barang.xlsx';
+
+                // $path = 'uploads/export/';
+                // $objWriter->save($path.$filename);
+                // $this->redirect($path.$filename);
+
+                $objWriter = new Xlsx($spreadsheet);
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename='.$filename);
+                header('Cache-Control: max-age=0');
+                $objWriter->save('php://output');
+                die();
+            }
+        }
+
+        $this->render('export',array(
+            'laporanform'=>$model
+        ));
+    }
+
 	public function actionExportBarang($id)
 	{
 		$model = $this->loadModel($id);
