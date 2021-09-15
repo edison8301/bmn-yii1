@@ -47,6 +47,7 @@
 					array('label'=>'Pegawai','icon'=>'user','url'=>array('/pegawai/admin')),
 					array('label'=>'Laporan','icon'=>'file','url'=>array('/barang/exportExcel')),
 					array('label'=>'BAST','icon'=>'file','url'=>array('/bast/admin')),
+
 					array('label'=>'Setting','icon'=>'wrench','items'=>array(
 						array('label'=>'User','icon'=>'user','url'=>array('/user/admin')),
                         array('label'=>'Kategori Barang','icon'=>'user','url'=>array('/kategori/admin')),

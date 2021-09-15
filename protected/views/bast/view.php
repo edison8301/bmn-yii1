@@ -46,6 +46,18 @@ $this->menu=array(
 		// 	    return @$barang->nama;
 		// 	},
 		// ],
+		[
+			'name' => 'jenis_bast',
+            'value' => function($model) {
+                if (@$model->jenis_bast == 1){
+                	return "Penggunaan";
+                }else{
+                	return "Pengembalian";
+                }
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+		],
 		'nama_barang',
 		'jumlah',
 		'status_bast',

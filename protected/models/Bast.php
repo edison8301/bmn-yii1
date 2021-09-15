@@ -37,7 +37,7 @@ class Bast extends CActiveRecord
 		return array(
 			array('id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast, id_jenis_bast', 'numerical', 'integerOnly'=>true),
 			array('nomor, berkas_bast', 'length', 'max'=>255),
-			['kode_barang, nup_barang, jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,id_barang','safe'],
+			['kode_barang, nup_barang, jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,id_barang,jenis_bast','safe'],
 			array('tanggal, created_at, updated_at, deleted_at','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -220,5 +220,13 @@ class Bast extends CActiveRecord
             'kode' => $this->kode_barang,
             'nup' => $this->nup_barang
         ]);
+    }
+
+     public function getJenisBast()
+    {
+        return array(
+            1=>"Penggunaan",
+            2=>"Pengembalian",
+            );
     }
 }

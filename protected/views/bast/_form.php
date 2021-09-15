@@ -21,6 +21,13 @@
 		<?php echo $form->errorSummary($model); ?>
 
 		<div class="well">
+
+			<?php echo $form->select2Group($model,'jenis_bast', array(
+                'widgetOptions'=>array('data'=>array(
+                		'1'=>'Penggunaan','2'=>'Pengembalian'
+                	),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Jenis Bast'))
+            )) ?>
+
 			<?php echo $form->textFieldGroup($model,'nomor',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 			
 			<?php echo $form->datePickerGroup($model,'tanggal',array(

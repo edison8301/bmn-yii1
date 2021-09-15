@@ -33,7 +33,7 @@ class BastController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','exportPdfBast','REST.GET','REST.PUT','REST.POST','REST.DELETE'),
+				'actions'=>array('index','view','exportPdfBast','REST.GET','REST.PUT','REST.POST','REST.DELETE','exportPdfBastPengembalian'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -216,13 +216,19 @@ class BastController extends Controller
         $mpdf->Output();
 	}
 
-    public function actionExportPdfBastPengembalian()
+    public function actionExportPdfBastPengembalian($id)
     {
+    	$model = $this->loadModel($id);
+	    $barang = $model->getBarang();
+
         $this->layout = false;
         $mpdf = new Mpdf([
             ''
         ]);
-        $mpdf->WriteHTML($this->render('cetakBastPdf', array(), true));
+       $mpdf->WriteHTML($this->render('exportPdfBastPengembalian', [
+            'model' => $model,
+            'barang' => $barang
+        ], true));
         $mpdf->Output();
     }
 }

@@ -132,6 +132,19 @@ $this->breadcrumbs=array(
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
 		),
+		array(
+			'header' => 'Jenis BAST',
+            'name' => 'jenis_bast',
+            'value' => function($data) {
+                if ($data->jenis_bast == 1){
+                	return "Penggunaan";
+                }else{
+                	return "Pengembalian";
+                }
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
 		/*
 		'jumlah',
 		'status_bast',
@@ -142,7 +155,13 @@ $this->breadcrumbs=array(
 		*/
 		array(
 			'type'=>'raw',
-			'value'=>'CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBast","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"))',
+			'value' => function($data) {
+                if ($data->jenis_bast == 1){
+                	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBast","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));
+                }else{
+                	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBastPengembalian","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));
+                }
+            },
 			'htmlOptions'=>array('style'=>'text-align:center; width: 50px'),
 		),
 		array(

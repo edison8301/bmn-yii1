@@ -372,7 +372,6 @@ class Helper {
 		return $ckeditor;
 	}
 
-
 }
 
 
