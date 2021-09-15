@@ -68,7 +68,7 @@
 		<td></td>
 		<td width="100px">Jabatan</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= $model->jabatan_pihak_pertama; ?></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -97,7 +97,7 @@
 		<td></td>
 		<td width="100px">Jabatan</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= $model->jabatan_pihak_kedua; ?></td>
 	</tr>
 	<tr>
 		<td></td>
