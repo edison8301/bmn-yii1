@@ -3,8 +3,8 @@
 /* @var $model Bast */
 
 $this->breadcrumbs=array(
-	'Basts'=>array('index'),
-	'Create',
+	'BAST'=>array('index'),
+	'Tambah',
 );
 
 $this->menu=array(
@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Bast</h1>
+<h1>Tambah BAST</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

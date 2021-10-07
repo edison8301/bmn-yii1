@@ -3,7 +3,7 @@
 /* @var $model Bast */
 
 $this->breadcrumbs=array(
-	'Basts'=>array('index'),
+	'BAST'=>array('index'),
 	$model->id,
 );
 

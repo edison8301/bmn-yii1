@@ -14,16 +14,24 @@
 
     <div class="form-actions well">
 
-
-
-        <?php echo $form->textFieldGroup($laporanform,'nama',array(
+        <?php echo $form->textFieldGroup($laporanform,'kode',array(
                 'wrapperHtmlOptions'=>array('class'=>'col-sm-5'),
                 'widgetOptions'=>array(
                     'htmlOptions'=>array(
-                        'placeholder'=>'Ketik Kode atau Nama Barang',
+                        'placeholder'=>'Ketik Barang',
                         'empty' => 'Semua Barang',
                     )
                 )
+        )); ?>
+
+        <?php echo $form->textFieldGroup($laporanform,'nama',array(
+            'wrapperHtmlOptions'=>array('class'=>'col-sm-5'),
+            'widgetOptions'=>array(
+                'htmlOptions'=>array(
+                    'placeholder'=>'Ketik Nama',
+                    'empty' => 'Semua Barang',
+                )
+            )
         )); ?>
 
     <?php echo $form->dropDownListGroup($laporanform,'tahun',array(

@@ -380,17 +380,22 @@ class BarangController extends Controller
 
     public function actionExportExcel()
     {
-
         $model = new ExportBarang;
-        $model->nama = "3.01";
 
         if(isset($_POST['ExportBarang']))
         {
             $model->attributes=$_POST['ExportBarang'];
 
+            if(empty($_POST['ExportBarang']['nama']) AND  empty($_POST['ExportBarang']['kode'])) {
+                $model->addError('nama','Minimal Nama atau Kode harus terisi');
+                $model->addError('kode','Minimal Nama atau Kode harus terisi');
+                return $this->render('export',array(
+                    'laporanform'=>$model
+                ));
+            }
+
             if($model->validate())
             {
-
                 spl_autoload_unregister(array('YiiBase','autoload'));
 
                 Yii::import('application.vendors.PHPExcel',true);
@@ -400,8 +405,13 @@ class BarangController extends Controller
                 $criteria = new CDbCriteria;
                 $params = array();
 
+                if(!empty($_POST['ExportBarang']['kode'])) {
+                    $criteria->addCondition('kode REGEXP :kode');
+                    $params[':kode'] = "^".$_POST['ExportBarang']['kode'];
+                }
+
                 if(!empty($_POST['ExportBarang']['nama'])) {
-                    $criteria->addCondition('kode=:nama');
+                    $criteria->addCondition('nama LIKE :nama');
                     $params[':nama'] = $_POST['ExportBarang']['nama'];
                 }
 
