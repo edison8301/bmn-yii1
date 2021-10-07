@@ -30,6 +30,8 @@ class User extends CActiveRecord
 			array('username, password, role_id', 'required'),
 			array('role_id', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>255),
+			['nip','safe'],
+			['id_pegawai','safe'],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, username, password, role_id', 'safe', 'on'=>'search'),
@@ -44,6 +46,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'pegawai'=>array(self::BELONGS_TO,'Pegawai','id_pegawai'),
 		);
 	}
 
@@ -57,6 +60,7 @@ class User extends CActiveRecord
 			'username' => 'Username',
 			'password' => 'Password',
 			'role_id' => 'Role',
+            'nip' => 'Pegawai',
 		);
 	}
 
@@ -98,4 +102,37 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function getNamaRole()
+    {
+        if($this->role_id == 1) {
+            return "Admin";
+        }
+
+        if($this->role_id == 2) {
+            return "Pegawai";
+        }
+    }
+
+    public function getKeterangan()
+    {
+        if($this->role_id == 1) {
+            return '';
+        }
+
+        if($this->role_id == 2) {
+            if($this->pegawai !== null) {
+                return @$this->pegawai->nama;
+            }
+
+            return 'Pegawai Belum Ditentukan';
+        }
+    }
+
+    public function getPegawai()
+    {
+        return Pegawai::model()->findByAttributes([
+            'nip' => $this->nip
+        ]);
+    }
 }

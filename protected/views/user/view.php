@@ -13,26 +13,40 @@ array('label'=>'Manage User','url'=>array('admin')),
 );
 ?>
 
-<h1><b><?php echo $model->username; ?> </b></h1>
+<h1>Detail Pegawai</h1>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
-'data'=>$model,
-'type' => 'striped bordered condensed',
-'attributes'=>array(
-		'username',
-		'password',
-		'role_id',
-),
+        'data'=>$model,
+        'type' => 'striped bordered condensed',
+        'attributes'=>array(
+            'username',
+            'password',
+            [
+                'label' => 'Role',
+                'value' => $model->getNamaRole(),
+            ],
+            [
+                'label' => 'Pegawai',
+                'value' => @$model->pegawai->nama,
+            ]
+        ),
 )); ?>
 
 <div>&nbsp;</div>
 
 <div class="well">
-<?php $this->widget('booster.widgets.TbButton',array(
-		'buttonType'=>'link',
-		'label'=>'Tambah',
-		'icon'=>'plus',
-		'context'=>'danger',
-		'url'=>array('create')
-)); ?>&nbsp;
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Ubah',
+        'icon'=>'pencil',
+        'context'=>'danger',
+        'url'=>array('update','id'=>$model->id)
+    )); ?>&nbsp;
+    <?php $this->widget('booster.widgets.TbButton',array(
+        'buttonType'=>'link',
+        'label'=>'Indeks',
+        'icon'=>'list',
+        'context'=>'danger',
+        'url'=>array('/user/admin')
+    )); ?>&nbsp;
 </div>
