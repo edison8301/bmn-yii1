@@ -166,9 +166,9 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 
 <table cellspacing="0" cellpadding="0" width="80%">
     <tr>
-        <td style="text-align: center; width: 30%">PIHAK KEDUA</td>
+        <td style="text-align: center; width: 35%">PIHAK KEDUA</td>
         <td></td>
-        <td style="text-align: center; ; width: 30%">PIHAK PERTAMA</td>
+        <td style="text-align: center; ; width: 35%">PIHAK PERTAMA</td>
     </tr>
     <?php for($i=1; $i<=5; $i++) { ?>
     <tr>
@@ -232,9 +232,9 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 
     <table cellspacing="0" cellpadding="0" width="80%" align="center">
         <tr>
-            <td style="text-align: center">PIHAK KEDUA</td>
-            <td width="40%"></td>
-            <td style="text-align: center">PIHAK PERTAMA</td>
+            <td style="text-align: center; width: 35%">PIHAK KEDUA</td>
+            <td></td>
+            <td style="text-align: center; width: 35%">PIHAK PERTAMA</td>
         </tr>
         <?php for($i=1; $i<=5; $i++) { ?>
             <tr>
