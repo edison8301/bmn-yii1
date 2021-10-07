@@ -137,6 +137,7 @@ $this->breadcrumbs=array(
 
 <div>&nbsp;</div>
 
+<div style="margin-bottom: 20px">
 <?php $this->widget('booster.widgets.TbTabs',array(
     	'type' => 'tabs',
 		'tabs'=> array(
@@ -152,3 +153,7 @@ $this->breadcrumbs=array(
             ),
   		)
 )); ?>
+</div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
