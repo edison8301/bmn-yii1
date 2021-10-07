@@ -106,7 +106,7 @@
 </table>
 
 <p class="lh-sm" style="text-align:justify; text-indent: 3em;">
-Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan <?= @$barang->nama_merek; ?> (<?= @$model->jumlah_unit; ?>) unit BMN LAN berupa <?= @$barang->nama_merek; ?> dengan spesifikasi :
+Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan <?= @$barang->merek; ?> (<?= @$model->jumlah_unit; ?>) unit BMN LAN berupa <?= @$barang->merek; ?> dengan spesifikasi :
 </p>
 
 <br>
@@ -116,7 +116,7 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		<td width="40px"></td>
 		<td width="100px">Merk / Type</td>
 		<td width="10px">:</td>
-		<td><?= @$barang->nama_merek; ?></td>
+		<td><?= @$barang->merek; ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
@@ -156,7 +156,7 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 	<li class="lh-sm" style="text-align:justify;">
 		Label kode NUP barang (nomor registrasi) tidak boleh dilepas dari notebook.
 	</li>
-</li>
+</ol>
 
 <p class="lh-sm" style="text-align: justify; text-indent: 3em;">
 Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.
@@ -166,9 +166,9 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 
 <table cellspacing="0" cellpadding="0" width="80%">
     <tr>
-        <td style="text-align: center">PIHAK KEDUA</td>
-        <td width="40%"></td>
-        <td style="text-align: center">PIHAK PERTAMA</td>
+        <td style="text-align: center; width: 30%">PIHAK KEDUA</td>
+        <td></td>
+        <td style="text-align: center; ; width: 30%">PIHAK PERTAMA</td>
     </tr>
     <?php for($i=1; $i<=5; $i++) { ?>
     <tr>
