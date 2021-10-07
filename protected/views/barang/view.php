@@ -144,7 +144,7 @@ $this->breadcrumbs=array(
             array(
                 'label' => 'Perawatan',
                 'content' => $this->renderPartial('_perawatan',array('model'=>$model),true),
-                 'active' => True
+                'active' => True
             ),
             array(
                 'label' => 'Pemeriksaan',
