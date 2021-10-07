@@ -135,4 +135,13 @@ class User extends CActiveRecord
             'nip' => $this->nip
         ]);
     }
+
+    public static function isPegawai()
+    {
+        if(Yii::app()->session['id_user_role'] == 2) {
+            return true;
+        }
+
+        return false;
+    }
 }

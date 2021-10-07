@@ -25,6 +25,8 @@
 </div>
 
 <div id="mainnav">
+
+<?php if(Yii::app()->session['id_user_role'] == 1) { ?>
 <?php $this->widget('booster.widgets.TbNavbar',array(
         'brand' => '',
         'fixed' => false,
@@ -66,6 +68,26 @@
         )
     )
 ); ?>
+<?php } ?>
+
+<?php if(Yii::app()->session['id_user_role'] == 2) { ?>
+    <?php $this->widget('booster.widgets.TbNavbar',array(
+            'brand' => '',
+            'fixed' => false,
+            'fluid' => true,
+            'items' => array(
+                array(
+                    'class' => 'booster.widgets.TbMenu',
+                    'type' => 'navbar',
+                    'items' => array(
+                        array('label' =>'Beranda', 'url' => array('site/index'), 'icon'=>'home'),
+                        array('label' => 'Logout', 'url' => array('site/logout'), 'icon'=>'off','linkOptions'=>array('class'=>'pull-right')),
+                    )
+                )
+            )
+        )
+    ); ?>
+<?php } ?>
 </div>
 
 <div id="breadcrumb" class="container">
