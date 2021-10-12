@@ -2,6 +2,7 @@
 /* @var $this BastController */
 /* @var $model Bast */
 
+
 $this->breadcrumbs=array(
 	'BAST'=>array('admin'),
 	'Kelola BAST',
@@ -67,9 +68,25 @@ $this->breadcrumbs=array(
 			'htmlOptions' => array('style'=>'text-align:left'),
 		),
 		array(
+			'name' => 'jabatan_pihak_pertama',
+			'value' => function($data) {
+			    return @$data->jabatan_pihak_pertama;
+			},
+			'headerHtmlOptions' => array('style'=>'text-align:center'),
+			'htmlOptions' => array('style'=>'text-align:left'),
+		),
+		array(
 			'name' => 'id_pegawai_pihak_kedua',
 			'value' => function($data) {
 			    return @$data->pihakKedua->nama;
+			},
+			'headerHtmlOptions' => array('style'=>'text-align:center'),
+			'htmlOptions' => array('style'=>'text-align:left'),
+		),
+		array(
+			'name' => 'jabatan_pihak_kedua',
+			'value' => function($data) {
+			    return @$data->jabatan_pihak_kedua;
 			},
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
@@ -90,15 +107,44 @@ $this->breadcrumbs=array(
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),
         ),
+		// array(
+		// 	'name' => 'id_barang',
+		// 	'value' => function($data) {
+		// 	    $barang = $data->getBarang();
+		// 	    return @$barang->nama;
+		// 	},
+		// 	'headerHtmlOptions' => array('style'=>'text-align:center'),
+		// 	'htmlOptions' => array('style'=>'text-align:left'),
+		// ),
 		array(
-			'name' => 'id_barang',
+            'name' => 'nama_barang',
+            'value' => function($data) {
+                return @$data->nama_barang;
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
+		array(
+			'name' => 'jumlah_unit',
 			'value' => function($data) {
-			    $barang = $data->getBarang();
-			    return @$barang->nama;
+			    return @$data->jumlah_unit;
 			},
 			'headerHtmlOptions' => array('style'=>'text-align:center'),
 			'htmlOptions' => array('style'=>'text-align:left'),
 		),
+		array(
+			'header' => 'Jenis BAST',
+            'name' => 'id_bast_jenis',
+            'value' => function($data) {
+                if ($data->id_bast_jenis == 1) {
+                	return "Penggunaan";
+                }else{
+                	return "Pengembalian";
+                }
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+        ),
 		/*
 		'jumlah',
 		'status_bast',
@@ -109,7 +155,13 @@ $this->breadcrumbs=array(
 		*/
 		array(
 			'type'=>'raw',
-			'value'=>'CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBast","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"))',
+			'value' => function($data) {
+                if ($data->id_bast_jenis == 1){
+                	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBast","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));
+                }else{
+                	return CHtml::link("<i class=\"glyphicon glyphicon-export\"></i>",array("bast/exportPdfBastPengembalian","id"=>"$data->id"),array("target" => "_blank","data-toggle"=>"tooltip","title"=>"Cetak BAST"));
+                }
+            },
 			'htmlOptions'=>array('style'=>'text-align:center; width: 50px'),
 		),
 		array(

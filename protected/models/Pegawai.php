@@ -114,4 +114,17 @@ class Pegawai extends CActiveRecord
 			return false;
 	}
 
+	public static function getList()
+    {
+        $list = [];
+
+        foreach(Pegawai::model()->findAll() as $data) {
+            $nip = $data->id;
+            $nip = trim($nip);
+            $list[$nip] = $data->nama;
+        }
+
+        return $list;
+    }
+
 }

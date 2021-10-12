@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use chillerlan\QRCode\QROptions;
 use chillerlan\QRCode\QRCode;
@@ -37,7 +38,7 @@ class RuanganController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','REST.GET','REST.PUT','REST.POST','REST.DELETE','dbr'),
+				'actions'=>array('index','view','REST.GET','REST.PUT','REST.POST','REST.DELETE','exportExcelDbr'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,7 +82,8 @@ class RuanganController extends Controller
 
 		if(isset($_POST['TambahBarangForm']))
 		{
-			$barang = $_POST['TambahBarangForm']['barang'];			
+			$barang = $_POST['TambahBarangForm']['barang'];
+
 			$list_barang = explode(';',$barang); 
 	
 			foreach($list_barang as $barang) 
@@ -90,12 +92,12 @@ class RuanganController extends Controller
 				$kode = trim($data[0]);
 				$nup = trim($data[1]);
 
-				$model=Barang::model()->findByAttributes(array('kode'=>$kode,'nup'=>$nup));
-				$model->id_lokasi = $id;
+				$model = Barang::model()->findByAttributes(array('kode'=>$kode,'nup'=>$nup));
+				$model->id_ruangan = $id;
 				$model->save();
 			} 			
 
-			$this->redirect(array('lokasi/view','id'=>$id));
+			$this->redirect(['/ruangan/view','id' => $id]);
 		}
 
 		$this->render('view',array(
@@ -222,7 +224,7 @@ class RuanganController extends Controller
 		}
 	}
 
-	public function actionDbr($id)
+	public function actionExportExcelDbr($id)
 	{
 		$model = $this->loadModel($id);
 
@@ -274,10 +276,10 @@ class RuanganController extends Controller
 
         $sheet->setCellValue('C10', ': LEMBAGA ADMINISTRASI NEGARA');
         $sheet->setCellValue('C11', ': LEMBAGA ADMINISTRASI NEGARA');
-        $sheet->setCellValue('C12', ': PKP2A I LAN');
+        $sheet->setCellValue('C12', ': LAN JAKARTA');
 
         $sheet->setCellValue('C15', ': 086.01.02.450423.000');
-        $sheet->setCellValue('C16', ': PKP2A I LAN');
+        $sheet->setCellValue('C16', ': LAN JAKARTA');
         //$sheet->setCellValue('C17', ': '.$_GET['lokasi']);
 
 
@@ -320,85 +322,84 @@ class RuanganController extends Controller
         $sheet->getColumnDimension('H')->setWidth(17);
 
 		$i = 1;
-			$kolom = 22;
-			$bawah = 24;
+        $kolom = 22;
+        $bawah = 24;
 
-			foreach(Barang::model()->findAll($criteria) as $data)
-			{
-				$sheet->setCellValue('A'.$kolom, $i);
-				$sheet->setCellValue('B'.$kolom, $data->nup);
-				$sheet->setCellValue('C'.$kolom, $data->nama);
-				$sheet->setCellValue('D'.$kolom, $data->merek);
-				$sheet->setCellValue('E'.$kolom, $data->kode);
-				$sheet->setCellValue('F'.$kolom, $data->tahun_perolehan);
-				$sheet->setCellValue('G'.$kolom, '1');
-				$sheet->setCellValue('H'.$kolom, '');
+        foreach(Barang::model()->findAll($criteria) as $data)
+        {
+            $sheet->setCellValue('A'.$kolom, $i);
+            $sheet->setCellValue('B'.$kolom, $data->nup);
+            $sheet->setCellValue('C'.$kolom, $data->nama);
+            $sheet->setCellValue('D'.$kolom, $data->merek);
+            $sheet->setCellValue('E'.$kolom, $data->kode);
+            $sheet->setCellValue('F'.$kolom, $data->tahun_perolehan);
+            $sheet->setCellValue('G'.$kolom, '1');
+            $sheet->setCellValue('H'.$kolom, '');
 
-				$sheet->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
-				$sheet->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat	
-									
-				$i++; $kolom++;
+            $sheet->getStyle('A2:H'.$kolom)->getFont()->setSize(9);
+            $sheet->getStyle('A19:H'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);//border header surat
 
+            $i++; $kolom++;
 
-				$bawah = $kolom+2;
-			}
+            $bawah = $kolom+2;
+        }
 
-			$peringatan = "TIDAK DIBENARKAN MEMINDAHKAN BARANG-BARANG YANG ADA PADA DAFTAR BARANG RUANG INI TANPA SEPENGETAHUAN PENANGGUNG JAWAB RUANGAN DAN PENANGGUNG JAWAB UPKBP.";
+        $peringatan = "TIDAK DIBENARKAN MEMINDAHKAN BARANG-BARANG YANG ADA PADA DAFTAR BARANG RUANG INI TANPA SEPENGETAHUAN PENANGGUNG JAWAB RUANGAN DAN PENANGGUNG JAWAB UPKBP.";
 
-			$sheet->setCellValue('A'.$bawah, $peringatan);
+        $sheet->setCellValue('A'.$bawah, $peringatan);
 
-			$kolom_peringatan = $bawah + 2;
+        $kolom_peringatan = $bawah + 2;
 
-			$sheet->mergeCells('A'.$bawah.':H'.$kolom_peringatan.'');
+        $sheet->mergeCells('A'.$bawah.':H'.$kolom_peringatan.'');
 
-			$sheet->getStyle('A19:H'.$kolom)->getAlignment()->setWrapText(true);
-			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A19:H'.$kolom)->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setWrapText(true);
 
-			$sheet->getStyle('A22:H'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
-			$sheet->getStyle('A22:B'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-			$sheet->getStyle('E22:H'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);			
+        $sheet->getStyle('A22:H'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
+        $sheet->getStyle('A22:B'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('E22:H'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setBold(true);
-			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setSize(16);
+        $sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setBold(true);
+        $sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setSize(16);
 
-			$sheet->getStyle('A1:H17')->getFont()->setSize(13);
-			$sheet->getStyle('A22:H19')->getFont()->setSize(11);
+        $sheet->getStyle('A1:H17')->getFont()->setSize(13);
+        $sheet->getStyle('A22:H19')->getFont()->setSize(11);
 
-			//=============================== Tandatangan =====================================/
+        //=============================== Tandatangan =====================================/
 
-			$kolom_tandatangan = $bawah + 6;
-			$kolom_nama_penandatangan = $kolom_tandatangan + 6;
-			$kolom_nip = $kolom_tandatangan + 7;
+        $kolom_tandatangan = $bawah + 6;
+        $kolom_nama_penandatangan = $kolom_tandatangan + 6;
+        $kolom_nip = $kolom_tandatangan + 7;
 
-			// $pegawai = Pegawai::model()->findByAttributes(array('id'=>$model->id_pegawai));
+        // $pegawai = Pegawai::model()->findByAttributes(array('id'=>$model->id_pegawai));
 
-			// $sheet->setCellValue('A'.$kolom_tandatangan, 'PENANGGUNG JAWAB RUANGAN');
+        // $sheet->setCellValue('A'.$kolom_tandatangan, 'PENANGGUNG JAWAB RUANGAN');
 
-			// $sheet->setCellValue('A'.$kolom_nama_penandatangan, $model->getPegawai());
-			// $sheet->setCellValue('A'.$kolom_nip, $pegawai->nip);
+        // $sheet->setCellValue('A'.$kolom_nama_penandatangan, $model->getPegawai());
+        // $sheet->setCellValue('A'.$kolom_nip, $pegawai->nip);
 
-			$tanggal = date('Y-m-d');
-			$kolom_tandatangan_1 = $kolom_tandatangan-1;
-			$kolom_tandatangan_2 = $kolom_tandatangan_1+1;
-			$kolom_tandatangan_3 = $kolom_tandatangan_1+2;
-			$sheet->setCellValue('F'.$kolom_tandatangan_1, 'SUMEDANG, '.Helper::getBulan($tanggal).' '.date('Y'));	
-			$sheet->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');	
-			$sheet->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA PKP2A I LAN');	
+        $tanggal = date('Y-m-d');
+        $kolom_tandatangan_1 = $kolom_tandatangan-1;
+        $kolom_tandatangan_2 = $kolom_tandatangan_1+1;
+        $kolom_tandatangan_3 = $kolom_tandatangan_1+2;
+        $sheet->setCellValue('F'.$kolom_tandatangan_1, 'JAKARTA, '.Helper::getBulan($tanggal).' '.date('Y'));
+        $sheet->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');
+        $sheet->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA LAN');
 
-			$penanggungjawab = Pengaturan::getNilaiByKode('penanggung_jawab_upkpb'); 
+        $penanggungjawab = Pengaturan::getNilaiByKode('penanggung_jawab_upkpb');
 
-			$sheet->setCellValue('F'.$kolom_nama_penandatangan, $penanggungjawab);
-			$sheet->setCellValue('F'.$kolom_nip, 'NIP. 19540407  197501  1  001');
-	
-			$filename = time().'_Barang.xlsx';
+        $sheet->setCellValue('F'.$kolom_nama_penandatangan, $penanggungjawab);
+        $sheet->setCellValue('F'.$kolom_nip, 'NIP. 19540407  197501  1  001');
 
-			$objWriter = new Xlsx($spreadsheet);
-			header('Content-Type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment;filename='.$filename);
-			header('Cache-Control: max-age=0');
-			$objWriter->save('php://output');
+        $filename = 'DBR - '.$model->nama.'.xlsx';
+
+        $objWriter = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename='.$filename);
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
 	}
 
 }

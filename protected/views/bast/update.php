@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'BAST'=>array('admin'),
-	'Update',
+	'Ubah',
 );
 
 $this->menu=array(
@@ -15,6 +15,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Sunting <?php echo $model->nomor; ?></h1>
+<h1>Ubah BAST</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

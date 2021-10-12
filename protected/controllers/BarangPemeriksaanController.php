@@ -63,15 +63,21 @@ $this->render('view',array(
 	{
 		$model=new BarangPemeriksaan;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		date_default_timezone_set('Asia/Jakarta');
 		$model->tanggal = date('Y-m-d');
 		$model->id_barang = $id;
+		$model->waktu_dibuat = date('Y-m-d H:i:s');
 
-		if($model->save())
-				$this->redirect(array('barang/view','id'=>$model->id_barang));
+        if(isset($_POST['BarangPemeriksaan']))
+        {
+            $model->attributes=$_POST['BarangPemeriksaan'];
+
+            if($model->save()) {
+                $this->redirect(array('/barang/view','id'=>$model->id_barang));
+            }
+
+        }
+
 				
 		$this->render('create',array(
 			'model'=>$model,

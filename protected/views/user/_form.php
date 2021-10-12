@@ -15,8 +15,15 @@
 
 	<?php echo $form->passwordFieldGroup($model,'password',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
-	<?php echo $form->textFieldGroup($model,'role_id',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-
+    <?php if($model->role_id == 2) { ?>
+        <?php echo $form->select2Group($model,'id_pegawai',array(
+            'wrapperHtmlOptions'=>array('class'=>'col-sm-4'),
+            'widgetOptions'=>array(
+                'data'=>Pegawai::getList(),
+                'htmlOptions'=>array('empty'=>'-- Pilih Pegawai --')
+            )
+        )); ?>
+    <?php } ?>
 </div>
 
 <div>&nbsp;</div>

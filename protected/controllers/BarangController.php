@@ -358,140 +358,308 @@ class BarangController extends Controller
 		}
 	}
 
-	public function actionExportExcel()
-	{
+    public function actionExportExcel()
+    {
+        $model = new ExportBarang;
 
-		$model = new ExportBarang;
-		$model->nama = "3.01";
+        if(isset($_POST['ExportBarang']))
+        {
+            $model->attributes=$_POST['ExportBarang'];
 
-		if (isset($_POST['ExportBarang'])) {
-			$model->attributes = $_POST['ExportBarang'];
+            if(empty($_POST['ExportBarang']['nama']) AND  empty($_POST['ExportBarang']['kode'])) {
+                $model->addError('nama','Minimal Nama atau Kode harus terisi');
+                $model->addError('kode','Minimal Nama atau Kode harus terisi');
+                return $this->render('export',array(
+                    'laporanform'=>$model
+                ));
+            }
 
-			if ($model->validate()) {
+            if($model->validate())
+            {
+                spl_autoload_unregister(array('YiiBase','autoload'));
 
-				spl_autoload_unregister(array('YiiBase', 'autoload'));
+                Yii::import('application.vendors.PHPExcel',true);
 
-				Yii::import('application.vendors.PHPExcel', true);
+                spl_autoload_register(array('YiiBase', 'autoload'));
 
-				spl_autoload_register(array('YiiBase', 'autoload'));
+                $criteria = new CDbCriteria;
+                $params = array();
 
-				$criteria = new CDbCriteria;
-				$params = array();
+                if(!empty($_POST['ExportBarang']['kode'])) {
+                    $criteria->addCondition('kode REGEXP :kode');
+                    $params[':kode'] = "^".$_POST['ExportBarang']['kode'];
+                }
 
-				if (!empty($_POST['ExportBarang']['nama'])) {
-					$criteria->addCondition('kode=:nama');
-					$params[':nama'] = $_POST['ExportBarang']['nama'];
-				}
+                if(!empty($_POST['ExportBarang']['nama'])) {
+                    $criteria->addCondition('nama LIKE :nama');
+                    $params[':nama'] = $_POST['ExportBarang']['nama'];
+                }
 
-				if (!empty($_POST['ExportBarang']['kondisi_barang'])) {
-					$criteria->addCondition('id_barang_kondisi=:kondisi_barang');
-					$params[':kondisi_barang'] = $_POST['ExportBarang']['kondisi_barang'];
-				}
+                if(!empty($_POST['ExportBarang']['kondisi_barang'])) {
+                    $criteria->addCondition('id_barang_kondisi=:kondisi_barang');
+                    $params[':kondisi_barang'] = $_POST['ExportBarang']['kondisi_barang'];
+                }
 
-				if (!empty($_POST['tahun'])) {
-					$criteria->addCondition('tahun_perolehan>=:awal AND tahun_perolehan<=:akhir');
-					//$criteria->addCondition('');
-					$params[':awal'] = $_POST['ExportBarang']['tahun'] . '-01-01';
-					$params[':akhir'] = $_POST['ExportBarang']['tahun'] . '-12-31';
-				}
+                if(!empty($_POST['tahun'])) {
+                    $criteria->addCondition('tahun_perolehan>=:awal AND tahun_perolehan<=:akhir');
+                    //$criteria->addCondition('');
+                    $params[':awal'] = $_POST['ExportBarang']['tahun'].'-01-01';
+                    $params[':akhir'] = $_POST['ExportBarang']['tahun'].'-12-31';
+                }
 
-				if (!empty($_POST['ExportBarang']['lokasi'])) {
-					$criteria->addCondition('id_lokasi=:lokasi');
-					$params[':lokasi'] = $_POST['ExportBarang']['lokasi'];
-				}
+                if(!empty($_POST['ExportBarang']['lokasi'])) {
+                    $criteria->addCondition('id_lokasi=:lokasi');
+                    $params[':lokasi'] = $_POST['ExportBarang']['lokasi'];
+                }
 
-				$criteria->params = $params;
-				$criteria->order = 'kode ASC';
+                $criteria->params = $params;
+                $criteria->order = 'kode ASC';
 
-				$spreadsheet = new Spreadsheet();
-				$spreadsheet->setActiveSheetIndex(0);
-				$sheet = $spreadsheet->getActiveSheet();
+                $spreadsheet = new Spreadsheet();
+                $spreadsheet->setActiveSheetIndex(0);
+                $sheet = $spreadsheet->getActiveSheet();
 
-				$sheet->getStyle('A3:M3')->getFont()->setBold(true);
-				$sheet->getStyle("A1:L1")->getFont()->setSize(14);
-				$sheet->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //merge and center
-				$sheet->mergeCells('A1:M1'); //sama jLga
-				$sheet->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
+                $sheet->getStyle('A3:M3')->getFont()->setBold(true);
+                $sheet->getStyle("A1:L1")->getFont()->setSize(14);
+                $sheet->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+                $sheet->mergeCells('A1:M1');//sama jLga
+                $sheet->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
 
-				$sheet->setCellValue('A3', 'NO');
-				$sheet->setCellValue('B3', 'KODE');
-				$sheet->setCellValue('C3', 'NAMA');
-				$sheet->setCellValue('D3', 'TAHUN PEROLEHAN');
-				$sheet->setCellValue('E3', 'ASAL PEROLEHAN');
-				$sheet->setCellValue('F3', 'MASA MANFAAT');
-				$sheet->setCellValue('G3', 'KONDISI BARANG');
-				$sheet->setCellValue('H3', 'SK PSP');
-				$sheet->setCellValue('I3', 'SK PENGHAPUSAN');
-				$sheet->setCellValue('J3', 'LOKASI');
-				$sheet->setCellValue('K3', 'PEGAWAI');
-				$sheet->setCellValue('L3', 'Waktu Diubah');
-				$sheet->setCellValue('M3', 'Waktu Dibuat');
+                $sheet->setCellValue('A3', 'NO');
+                $sheet->setCellValue('B3', 'KODE');
+                $sheet->setCellValue('C3', 'NAMA');
+                $sheet->setCellValue('D3', 'TAHUN PEROLEHAN');
+                $sheet->setCellValue('E3', 'ASAL PEROLEHAN');
+                $sheet->setCellValue('F3', 'MASA MANFAAT');
+                $sheet->setCellValue('G3', 'KONDISI BARANG');
+                $sheet->setCellValue('H3', 'SK PSP');
+                $sheet->setCellValue('I3', 'SK PENGHAPUSAN');
+                $sheet->setCellValue('J3', 'LOKASI');
+                $sheet->setCellValue('K3', 'PEGAWAI');
+                $sheet->setCellValue('L3', 'Waktu Diubah');
+                $sheet->setCellValue('M3', 'Waktu Dibuat');
 
-				$sheet->getColumnDimension('A')->setWidth(6);
-				$sheet->getColumnDimension('B')->setWidth(12);
-				$sheet->getColumnDimension('C')->setWidth(14);
-				$sheet->getColumnDimension('D')->setWidth(18);
-				$sheet->getColumnDimension('E')->setWidth(18);
-				$sheet->getColumnDimension('F')->setWidth(18);
-				$sheet->getColumnDimension('G')->setWidth(16);
-				$sheet->getColumnDimension('H')->setWidth(15);
-				$sheet->getColumnDimension('I')->setWidth(18);
-				$sheet->getColumnDimension('J')->setWidth(12);
-				$sheet->getColumnDimension('K')->setWidth(22);
-				$sheet->getColumnDimension('L')->setWidth(15);
-				$sheet->getColumnDimension('M')->setWidth(15);
+                $sheet->getColumnDimension('A')->setWidth(6);
+                $sheet->getColumnDimension('B')->setWidth(12);
+                $sheet->getColumnDimension('C')->setWidth(14);
+                $sheet->getColumnDimension('D')->setWidth(18);
+                $sheet->getColumnDimension('E')->setWidth(18);
+                $sheet->getColumnDimension('F')->setWidth(18);
+                $sheet->getColumnDimension('G')->setWidth(16);
+                $sheet->getColumnDimension('H')->setWidth(15);
+                $sheet->getColumnDimension('I')->setWidth(18);
+                $sheet->getColumnDimension('J')->setWidth(12);
+                $sheet->getColumnDimension('K')->setWidth(22);
+                $sheet->getColumnDimension('L')->setWidth(15);
+                $sheet->getColumnDimension('M')->setWidth(15);
 
 
-				$i = 1;
-				$kolom = 4;
+                $i = 1;
+                $kolom = 4;
 
-				foreach (Barang::model()->findAll($criteria) as $data) {
-					$sheet->setCellValue('A' . $kolom, $i);
-					$sheet->setCellValue('B' . $kolom, $data->kode);
-					$sheet->setCellValue('C' . $kolom, $data->nama);
-					$sheet->setCellValue('D' . $kolom, $data->getTahunPerolehan());
-					$sheet->setCellValue('E' . $kolom, $data->getPerolehanAsal());
-					$sheet->setCellValue('F' . $kolom, $data->masa_manfaat);
-					$sheet->setCellValue('G' . $kolom, $data->getBarangKondisi());
-					$sheet->setCellValue('H' . $kolom, $data->sk_psp);
-					$sheet->setCellValue('I' . $kolom, $data->sk_penghapusan);
-					$sheet->setCellValue('J' . $kolom, $data->getLokasi());
-					$sheet->setCellValue('K' . $kolom, $data->getPegawai());
-					$sheet->setCellValue('L' . $kolom, $data->waktu_diubah);
-					$sheet->setCellValue('M' . $kolom, $data->waktu_dibuat);
+                foreach(Barang::model()->findAll($criteria) as $data)
+                {
+                    $sheet->setCellValue('A'.$kolom, $i);
+                    $sheet->setCellValue('B'.$kolom, $data->kode);
+                    $sheet->setCellValue('C'.$kolom, $data->nama);
+                    $sheet->setCellValue('D'.$kolom, $data->getTahunPerolehan());
+                    $sheet->setCellValue('E'.$kolom, $data->getPerolehanAsal());
+                    $sheet->setCellValue('F'.$kolom, $data->masa_manfaat);
+                    $sheet->setCellValue('G'.$kolom, $data->getBarangKondisi());
+                    $sheet->setCellValue('H'.$kolom, $data->sk_psp);
+                    $sheet->setCellValue('I'.$kolom, $data->sk_penghapusan);
+                    $sheet->setCellValue('J'.$kolom, $data->getLokasi());
+                    $sheet->setCellValue('K'.$kolom, $data->getPegawai());
+                    $sheet->setCellValue('L'.$kolom, $data->waktu_diubah);
+                    $sheet->setCellValue('M'.$kolom, $data->waktu_dibuat);
 
-					$sheet->getStyle('A3:M' . $kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //merge and center
-					$sheet->getStyle('A2:M' . $kolom)->getFont()->setSize(9);
-					$sheet->getStyle('A3:M' . $kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN); //border header surat	
+                    $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//merge and center
+                    $sheet->getStyle('A2:M'.$kolom)->getFont()->setSize(9);
+                    $sheet->getStyle('A3:M'.$kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);//border header surat
 
-					$i++;
-					$kolom++;
-				}
+                    $i++; $kolom++;
+                }
 
-				$sheet->getStyle('A3:M' . $kolom)->getAlignment()->setWrapText(true);
-				$sheet->getStyle('A3:M' . $kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+                $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A3:M'.$kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
 
-				$filename = time() . '_Barang.xlsx';
+                $filename = time().'_Barang.xlsx';
 
-				// $path = 'uploads/export/';
-				// $objWriter->save($path.$filename);	
-				// $this->redirect($path.$filename);
+                // $path = 'uploads/export/';
+                // $objWriter->save($path.$filename);
+                // $this->redirect($path.$filename);
 
-				$objWriter = new Xlsx($spreadsheet);
-				header('Content-Type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment;filename=' . $filename);
-				header('Cache-Control: max-age=0');
-				$objWriter->save('php://output');
-				die();
-			}
-		}
+                $objWriter = new Xlsx($spreadsheet);
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename='.$filename);
+                header('Cache-Control: max-age=0');
+                $objWriter->save('php://output');
+                die();
+            }
+        }
 
-		$this->render('export', array(
-			'laporanform' => $model
-		));
-	}
+        $this->render('export',array(
+            'laporanform'=>$model
+        ));
+    }
 
 	public function actionExportBarang($id)
+	{
+		$model = $this->loadModel($id);
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'id_ruangan = :id_ruangan';
+        $criteria->params = array(':id_ruangan'=>$id);
+        $criteria->order = 'id ASC';
+
+        $spreadsheet = new Spreadsheet();
+		$spreadsheet->setActiveSheetIndex(0);
+		$sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getStyle('A7:H21')->getFont()->setBold(true);
+
+        $sheet->mergeCells('A7:H7');
+        $sheet->mergeCells('A8:H8');
+        $sheet->mergeCells('A13:H13');
+        $sheet->mergeCells('A14:H14');
+
+        $sheet->getStyle('A10:H12')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);//merge and center
+        $sheet->getStyle('A15:H17')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);//merge and center
+        $sheet->getStyle('A7:H8')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+        $sheet->getStyle('A13:H14')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+
+        $sheet->getStyle('A19:H21')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);//merge and center
+
+        $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+        $objDrawing->setName('Logo');
+        $objDrawing->setDescription('Logo');
+        $logo = 'images/makarti.png';
+        $objDrawing->setPath($logo);
+        $objDrawing->setOffsetX(130);    // setOffsetX works properly
+        $objDrawing->setOffsetY(300);  //setOffsetY has no effect
+        $objDrawing->setCoordinates('D1');
+        $objDrawing->setHeight(75); // logo height
+        $objDrawing->setWidth(115); // logo height
+        $objDrawing->setWorksheet($sheet);
+
+        $sheet->setCellValueByColumnAndRow(0, 7, "PUSAT KAJIAN DAN PENDIDIKAN DAN PELATIHAN APARATUR I");
+        $sheet->setCellValueByColumnAndRow(0, 8, "LEMBAGA ADMINISTRASI NEGARA");
+        $sheet->setCellValueByColumnAndRow(0, 13, "DAFTAR BARANG RUANGAN");
+        $sheet->setCellValueByColumnAndRow(0, 14, "(DBR)");
+        $sheet->setCellValue('A10', 'UPPB');
+        $sheet->setCellValue('A11', 'UPPB-E1');
+        $sheet->setCellValue('A12', 'UUPPB-W');
+        $sheet->setCellValue('A15', 'KODE UPKPB');
+        $sheet->setCellValue('A16', 'Nama Unit UPKPB');
+        $sheet->setCellValue('A17', 'Nomor Ruang');
+
+        $sheet->setCellValue('C10', ': LEMBAGA ADMINISTRASI NEGARA');
+        $sheet->setCellValue('C11', ': LEMBAGA ADMINISTRASI NEGARA');
+        $sheet->setCellValue('C12', ': PKP2A I LAN');
+
+        $sheet->setCellValue('C15', ': 086.01.02.450423.000');
+        $sheet->setCellValue('C16', ': PKP2A I LAN');
+        //$sheet->setCellValue('C17', ': '.$_GET['lokasi']);
+
+
+        $sheet->mergeCells('D19:F19');
+
+
+        $sheet->mergeCells('A19:A20');
+        $sheet->mergeCells('B19:B20');
+        $sheet->mergeCells('C19:C20');
+        $sheet->mergeCells('H19:H20');
+
+        $sheet->mergeCells('G19:G20');
+
+        $sheet->setCellValue('A19', 'No');
+        $sheet->setCellValue('B19', 'Kode');
+        $sheet->setCellValue('C19', 'Nama Barang');
+
+        $sheet->setCellValue('A21', '1');
+        $sheet->setCellValue('B21', '2');
+        $sheet->setCellValue('C21', '3');
+    
+        $sheet->getColumnDimension('A')->setWidth(6);
+        $sheet->getColumnDimension('B')->setWidth(14);
+        $sheet->getColumnDimension('C')->setWidth(16);
+
+		$i = 1;
+			$kolom = 22;
+			$bawah = 24;
+
+			foreach(Barang::model()->findAll($criteria) as $data)
+			{
+				$sheet->setCellValue('A'.$kolom, $i);
+				$sheet->setCellValue('B'.$kolom, $data->kode);
+				$sheet->setCellValue('C'.$kolom, $data->nama);
+
+
+				$i++; $kolom++;
+
+
+				$bawah = $kolom+2;
+			}
+
+			$peringatan = "TIDAK DIBENARKAN MEMINDAHKAN BARANG-BARANG YANG ADA PADA DAFTAR BARANG RUANG INI TANPA SEPENGETAHUAN PENANGGUNG JAWAB RUANGAN DAN PENANGGUNG JAWAB UPKBP.";
+
+			$sheet->setCellValue('A'.$bawah, $peringatan);
+
+			$kolom_peringatan = $bawah + 2;
+
+			$sheet->mergeCells('A'.$bawah.':H'.$kolom_peringatan.'');
+
+			$sheet->getStyle('A19:H'.$kolom)->getAlignment()->setWrapText(true);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setWrapText(true);
+
+			$sheet->getStyle('A22:H'.$kolom)->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
+			$sheet->getStyle('A22:B'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+			$sheet->getStyle('E22:H'.$kolom)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);			
+
+			$sheet->getStyle('A'.$bawah.':H'.$bawah)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setBold(true);
+			$sheet->getStyle('A'.$bawah.':H'.$bawah.'')->getFont()->setSize(16);
+
+			$sheet->getStyle('A1:H17')->getFont()->setSize(13);
+			$sheet->getStyle('A22:H19')->getFont()->setSize(11);
+
+			//=============================== Tandatangan =====================================/
+
+			$kolom_tandatangan = $bawah + 6;
+			$kolom_nama_penandatangan = $kolom_tandatangan + 6;
+			$kolom_nip = $kolom_tandatangan + 7;
+
+			// $pegawai = Pegawai::model()->findByAttributes(array('id'=>$model->id_pegawai));
+
+			// $sheet->setCellValue('A'.$kolom_tandatangan, 'PENANGGUNG JAWAB RUANGAN');
+
+			// $sheet->setCellValue('A'.$kolom_nama_penandatangan, $model->getPegawai());
+			// $sheet->setCellValue('A'.$kolom_nip, $pegawai->nip);
+
+			$tanggal = date('Y-m-d');
+			$kolom_tandatangan_1 = $kolom_tandatangan-1;
+			$kolom_tandatangan_2 = $kolom_tandatangan_1+1;
+			$kolom_tandatangan_3 = $kolom_tandatangan_1+2;
+			$sheet->setCellValue('F'.$kolom_tandatangan_1, 'SUMEDANG, '.Helper::getBulan($tanggal).' '.date('Y'));	
+			$sheet->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');	
+			$sheet->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA PKP2A I LAN');	
+
+			$penanggungjawab = Pengaturan::getNilaiByKode('penanggung_jawab_upkpb'); 
+
+			$sheet->setCellValue('F'.$kolom_nama_penandatangan, $penanggungjawab);
+			$sheet->setCellValue('F'.$kolom_nip, 'NIP. 19540407  197501  1  001');
+	
+			$filename = time().'_Barang.xlsx';
+
+			$objWriter = new Xlsx($spreadsheet);
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$filename);
+			header('Cache-Control: max-age=0');
+			$objWriter->save('php://output');
+	}
+
+	public function actionExporthalo($id)
 	{
 
 		$criteria = new CDbCriteria;
@@ -542,42 +710,11 @@ class BarangController extends Controller
 		$PHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
 
 
-		$i = 1;
-		$kolom = 4;
-
-		foreach (Barang::model()->findAll($criteria) as $data) {
-			$PHPExcel->getActiveSheet()->setCellValue('A' . $kolom, $i);
-			$PHPExcel->getActiveSheet()->setCellValue('B' . $kolom, $data->kode);
-			$PHPExcel->getActiveSheet()->setCellValue('C' . $kolom, $data->nama);
-			$PHPExcel->getActiveSheet()->setCellValue('D' . $kolom, $data->getTahun());
-			$PHPExcel->getActiveSheet()->setCellValue('E' . $kolom, $data->asal_perolehan);
-			$PHPExcel->getActiveSheet()->setCellValue('F' . $kolom, $data->masa_manfaat);
-			$PHPExcel->getActiveSheet()->setCellValue('G' . $kolom, $data->getBarangKondisi());
-			$PHPExcel->getActiveSheet()->setCellValue('H' . $kolom, $data->sk_psp);
-			$PHPExcel->getActiveSheet()->setCellValue('I' . $kolom, $data->sk_penghapusan);
-			$PHPExcel->getActiveSheet()->setCellValue('J' . $kolom, $data->getLokasi());
-			$PHPExcel->getActiveSheet()->setCellValue('K' . $kolom, $data->getPegawai());
-			$PHPExcel->getActiveSheet()->setCellValue('L' . $kolom, $data->waktu_diubah);
-			$PHPExcel->getActiveSheet()->setCellValue('M' . $kolom, $data->waktu_dibuat);
-
-			$PHPExcel->getActiveSheet()->getStyle('A3:M' . $kolom)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //merge and center
-			$PHPExcel->getActiveSheet()->getStyle('A2:M' . $kolom)->getFont()->setSize(9);
-			$PHPExcel->getActiveSheet()->getStyle('A3:M' . $kolom)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN); //border header surat	
-
-			$i++;
-			$kolom++;
-		}
-
-		$PHPExcel->getActiveSheet()->getStyle('A3:M' . $kolom)->getAlignment()->setWrapText(true);
-		$PHPExcel->getActiveSheet()->getStyle('A3:M' . $kolom)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
-
-		$filename = time() . '_Barang.xlsx';
-
-		$path = Yii::app()->basePath . '/../uploads/export/';
+		$path = Yii::app()->basePath.'/../uploads/export/';
 		$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
-		$objWriter->save($path . $filename);
-		$this->redirect(Yii::app()->request->baseUrl . '/uploads/export/' . $filename);
-	}
+		$objWriter->save($path.$filename);	
+		$this->redirect(Yii::app()->request->baseUrl.'/uploads/export/'.$filename);
+		}
 
 	public function actionLaporan()
 	{

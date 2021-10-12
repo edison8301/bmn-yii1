@@ -7,6 +7,7 @@
  */
 class ExportBarang extends CFormModel
 {
+    public $kode;
 	public $nama;
 	public $kondisi;
 	public $tahun;
@@ -28,6 +29,7 @@ class ExportBarang extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
+		    'kode' => 'Kode',
 			'tahun'=>'Tahun',
 			'nama_barang' => 'Nama Barang',
 			'lokasi' => 'Lokasi',

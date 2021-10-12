@@ -25,6 +25,8 @@
 </div>
 
 <div id="mainnav">
+
+<?php if(Yii::app()->session['id_user_role'] == 1) { ?>
 <?php $this->widget('booster.widgets.TbNavbar',array(
         'brand' => '',
         'fixed' => false,
@@ -43,10 +45,10 @@
 					array('label'=>'Ruangan','icon'=>'map-marker','url'=>array('/ruangan/admin')),
 					array('label'=>'Perawatan','icon'=>'wrench','url'=>array('/barangPerawatan/admin')),
 					array('label'=>'Pemeriksaan','icon'=>'ok','url'=>array('/barangPemeriksaan/admin')),
+                    array('label'=>'BAST','icon'=>'file','url'=>array('/bast/admin')),
 					array('label'=>'Pemindahan','icon'=>'list','url'=>array('/barangPemindahan/admin')),
 					array('label'=>'Pegawai','icon'=>'user','url'=>array('/pegawai/admin')),
 					array('label'=>'Laporan','icon'=>'file','url'=>array('/barang/exportExcel')),
-					array('label'=>'BAST','icon'=>'file','url'=>array('/bast/admin')),
 					array('label'=>'Setting','icon'=>'wrench','items'=>array(
 						array('label'=>'User','icon'=>'user','url'=>array('/user/admin')),
                         array('label'=>'Kategori Barang','icon'=>'user','url'=>array('/kategori/admin')),
@@ -65,6 +67,26 @@
         )
     )
 ); ?>
+<?php } ?>
+
+<?php if(Yii::app()->session['id_user_role'] == 2) { ?>
+    <?php $this->widget('booster.widgets.TbNavbar',array(
+            'brand' => '',
+            'fixed' => false,
+            'fluid' => true,
+            'items' => array(
+                array(
+                    'class' => 'booster.widgets.TbMenu',
+                    'type' => 'navbar',
+                    'items' => array(
+                        array('label' =>'Beranda', 'url' => array('site/index'), 'icon'=>'home'),
+                        array('label' => 'Logout', 'url' => array('site/logout'), 'icon'=>'off','linkOptions'=>array('class'=>'pull-right')),
+                    )
+                )
+            )
+        )
+    ); ?>
+<?php } ?>
 </div>
 
 <div id="breadcrumb" class="container">

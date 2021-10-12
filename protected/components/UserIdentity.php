@@ -15,12 +15,11 @@ class UserIdentity extends CUserIdentity
 		if($user!==null) 
 		{
 			if($user->password===$this->password)
-			{	
+			{
+				$this->errorCode=self::ERROR_NONE;
 
-					if($user->role_id == 2)
-
-					$this->setState('kategori_id',$user->getUserAttributeValueByKey('kategori_id'));
-				$this->errorCode=self::ERROR_NONE;		
+                Yii::app()->session['id_user_role'] = $user->role_id;
+                Yii::app()->session['role_id'] = $user->role_id;
 				
 			} else {
 				$this->errorCode=self::ERROR_PASSWORD_INVALID;

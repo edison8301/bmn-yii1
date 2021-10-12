@@ -3,7 +3,7 @@
 /* @var $model Bast */
 
 $this->breadcrumbs=array(
-	'Basts'=>array('index'),
+	'BAST'=>array('index'),
 	$model->id,
 );
 
@@ -23,9 +23,42 @@ $this->menu=array(
 	'attributes'=>array(
 		'nomor',
 		'tanggal',
-		'id_pegawai_pihak_pertama',
-		'id_pegawai_pihak_kedua',
-		'id_barang',
+		[
+			'label' => 'Pihak Pertama',
+            'value' => @$model->pihakPertama->nama,
+		],
+		[
+			'label' => 'Jabatan Pihak Pertama',
+            'value' => @$model->jabatan_pihak_pertama,
+		],
+		[
+			'label' => 'Pihak Kedua',
+            'value' => @$model->pihakKedua->nama,
+		],
+		[
+			'label' => 'Jabatan Pihak Kedua',
+            'value' => @$model->jabatan_pihak_kedua,
+		],
+		// [
+		// 	'label' => 'Nama Barang',
+		// 	'value' => function($data) {
+		// 	    $barang = $data->getBarang();
+		// 	    return @$barang->nama;
+		// 	},
+		// ],
+		[
+			'name' => 'jenis_bast',
+            'value' => function($model) {
+                if (@$model->id_bast_jenis == 1){
+                	return "Penggunaan";
+                }else{
+                	return "Pengembalian";
+                }
+            },
+            'headerHtmlOptions' => array('style'=>'text-align:center'),
+            'htmlOptions' => array('style'=>'text-align:left'),
+		],
+		'nama_barang',
 		'jumlah',
 		'status_bast',
 		'id_jenis_bast',

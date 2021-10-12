@@ -2,6 +2,7 @@
 /* @var $this BastController */
 /* @var $model Bast */
 /* @var $form CActiveForm */
+
 ?>
 
 <div class="form">
@@ -20,6 +21,13 @@
 		<?php echo $form->errorSummary($model); ?>
 
 		<div class="well">
+
+			<?php echo $form->select2Group($model,'id_bast_jenis', array(
+                'widgetOptions'=>array('data'=>array(
+                		'1'=>'Penggunaan','2'=>'Pengembalian'
+                	),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Jenis Bast'))
+            )) ?>
+
 			<?php echo $form->textFieldGroup($model,'nomor',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 			
 			<?php echo $form->datePickerGroup($model,'tanggal',array(
@@ -34,13 +42,21 @@
                 'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Pegawai'))
             )) ?>
 
+            <?php echo $form->textFieldGroup($model,'jabatan_pihak_pertama',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255,'label' => 'jabatan Pertama')))); ?>
+
             <?php echo $form->select2Group($model,'id_pegawai_pihak_kedua', array(
                 'widgetOptions'=>array('data'=>CHtml::listData(Pegawai::model()->findAll(),'id','nama'),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Pegawai'))
             )) ?>
 
+            <?php echo $form->textFieldGroup($model,'jabatan_pihak_kedua',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255,)))); ?>
+
+           <?php echo $form->textFieldGroup($model,'nama_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
             <?php echo $form->textFieldGroup($model,'kode_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
             <?php echo $form->textFieldGroup($model,'nup_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+             <?php echo $form->textFieldGroup($model,'jumlah_unit',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255,)))); ?>
 
 
             <div class="form-group">
@@ -68,5 +84,6 @@
 </div>
 
 <?php $this->endWidget(); ?>
+
 
 </div><!-- form -->

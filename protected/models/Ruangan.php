@@ -27,7 +27,7 @@ class Ruangan extends CActiveRecord
 		return array(
 			array('kode, nama','required','message'=>'{attribute} harus diisi'),
 			array('kode, nama', 'length', 'max'=>255),
-			['id_lokasi', 'numerical','integerOnly'=>true],
+			['id_lokasi, id_pegawai', 'numerical','integerOnly'=>true],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, nama, id_pegawai', 'safe', 'on'=>'search'),
@@ -41,6 +41,7 @@ class Ruangan extends CActiveRecord
 	{
         return array(
             'lokasi' => [self::BELONGS_TO,'Lokasi','id_lokasi'],
+            'pegawai' => [self::BELONGS_TO,'Pegawai','id_pegawai'],
         );
 	}
 
@@ -53,7 +54,8 @@ class Ruangan extends CActiveRecord
 			'id' => 'ID',
 			'nama' => 'Nama Ruangan',
 			'kode'=>'Kode Ruangan',
-            'id_lokasi' => 'Lokasi'
+            'id_lokasi' => 'Lokasi',
+            'id_pegawai' => 'PJ Ruangan',
 		);
 	}
 
@@ -98,12 +100,15 @@ class Ruangan extends CActiveRecord
 
 	public function findAllBarang()
 	{
-		$model = Barang::model()->findAllByAttributes(array('id_lokasi'=>$this->id));
+		$model = Barang::model()->findAllByAttributes([
+		    'id_ruangan'=>$this->id
+        ]);
 		
-		if($model!==null)
-			return $model;
-		else
-			return false;
+		if($model!==null) {
+            return $model;
+        } else {
+            return false;
+        }
 	}
 
 	public static function getListData()
@@ -117,15 +122,6 @@ class Ruangan extends CActiveRecord
 		}
 
 		return $list;
-	}
-
-	public function getPegawai()
-	{
-		$model = Pegawai::model()->findByPk($this->id_pegawai);
-		if($model !==null)
-			return $model->nama;
-		else
-			return null;
 	}
 
 	public function getRuangan()
@@ -160,7 +156,7 @@ class Ruangan extends CActiveRecord
 
 	public function getCountBarang()
     {
-        Barang::model()->countByAttributes([
+        return Barang::model()->countByAttributes([
             'id_ruangan' => $this->id
         ]);
     }

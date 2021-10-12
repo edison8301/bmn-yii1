@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Dokumen Penggunaan</title>
 	<style>
 		table {
 			width: 100%;
@@ -68,7 +68,7 @@
 		<td></td>
 		<td width="100px">Jabatan</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= $model->jabatan_pihak_pertama; ?></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -97,7 +97,7 @@
 		<td></td>
 		<td width="100px">Jabatan</td>
 		<td width="10px">:</td>
-		<td></td>
+		<td><?= $model->jabatan_pihak_kedua; ?></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -106,7 +106,7 @@
 </table>
 
 <p class="lh-sm" style="text-align:justify; text-indent: 3em;">
-Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan ... (.....) unit BMN LAN berupa .......... dengan spesifikasi :
+Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PIHAK KEDUA telah menerima penyerahan dari PIHAK PERTAMA untuk penggunaan <?= @$barang->merek; ?> (<?= @$model->jumlah_unit; ?>) unit BMN LAN berupa <?= @$barang->merek; ?> dengan spesifikasi :
 </p>
 
 <br>
@@ -151,12 +151,12 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		Pihak Kedua bersedia mengganti barang tersebut apabila terjadi kerusakan dan kehilangan akibat kelalaian Pihak Kedua dalam waktu paling lambat 1 bulan setelah terjadinya kerusakan/kehilangan tersebut.
 	</li>
 	<li class="lh-sm" style="text-align:justify;">
-		Apabila tidak menjabat lagi sebagai ............. , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1.
+		Apabila tidak menjabat lagi sebagai <?= @$model->jabatan_pihak_kedua; ?>  , wajib mengembalikan kepada PIHAK PERTAMA cq. Bagian Umum dan Layanan Pengadaan paling lambat 1.
 	</li>
 	<li class="lh-sm" style="text-align:justify;">
 		Label kode NUP barang (nomor registrasi) tidak boleh dilepas dari notebook.
 	</li>
-</li>
+</ol>
 
 <p class="lh-sm" style="text-align: justify; text-indent: 3em;">
 Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan sebagaimana mestinya.
@@ -166,9 +166,9 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 
 <table cellspacing="0" cellpadding="0" width="80%">
     <tr>
-        <td style="text-align: center">PIHAK KEDUA</td>
-        <td width="40%"></td>
-        <td style="text-align: center">PIHAK PERTAMA</td>
+        <td style="text-align: center; width: 35%">PIHAK KEDUA</td>
+        <td></td>
+        <td style="text-align: center; ; width: 35%">PIHAK PERTAMA</td>
     </tr>
     <?php for($i=1; $i<=5; $i++) { ?>
     <tr>
@@ -183,7 +183,7 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
             NIP <?=$model->pihakKedua->nip; ?>
         </td>
         <td></td>
-        <td style="text-align: center">
+        <td style="text-align: center;width: 100px;">
             <?= $model->pihakPertama->nama; ?><br>
             NIP <?=$model->pihakPertama->nip; ?>
         </td>
@@ -232,9 +232,9 @@ Demikian Berita Acara ini dibuat dan ditandatangani untuk dapat dipergunakan seb
 
     <table cellspacing="0" cellpadding="0" width="80%" align="center">
         <tr>
-            <td style="text-align: center">PIHAK KEDUA</td>
-            <td width="40%"></td>
-            <td style="text-align: center">PIHAK PERTAMA</td>
+            <td style="text-align: center; width: 35%">PIHAK KEDUA</td>
+            <td></td>
+            <td style="text-align: center; width: 35%">PIHAK PERTAMA</td>
         </tr>
         <?php for($i=1; $i<=5; $i++) { ?>
             <tr>

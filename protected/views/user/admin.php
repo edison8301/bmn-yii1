@@ -13,7 +13,7 @@ $this->menu=array(
 );
 
 ?>
-<h1>Kelola User</h1>
+<h1>Indeks User</h1>
 
 <?php $this->widget('booster.widgets.TbGridView', array(
 	'id'=>'user-grid',
@@ -22,6 +22,26 @@ $this->menu=array(
 	'type'=>'striped bordered condensed',
 	'columns'=>array(
 		'username',
+		[
+            'name' => 'role_id',
+            'value' => function(User $data) {
+		        return $data->getNamaRole();
+            },
+            'filter' => [
+                '1' => 'Admin',
+                '2' => 'Pegawai',
+            ]
+        ],
+        [
+            'header' => 'Keterangan',
+            'value' => function(User $data) {
+                return $data->getKeterangan();
+            },
+            'filter' => [
+                '1' => 'Admin',
+                '2' => 'Pegawai',
+            ]
+        ],
 		array(
 			'class'=>'booster.widgets.TbButtonColumn',
 		),
@@ -33,10 +53,18 @@ $this->menu=array(
 <div class="well" style="text-align:right">
 <?php $this->widget('booster.widgets.TbButton',array(
 		'buttonType'=>'link',
-		'label'=>'Tambah',
+		'label'=>'User Admin',
 		'icon'=>'plus',
 		'size'=>'small',
 		'context'=>'danger',
-		'url'=>array('user/create')
+		'url'=>array('user/create','role_id' => 1)
+)); ?>&nbsp;
+<?php $this->widget('booster.widgets.TbButton',array(
+    'buttonType'=>'link',
+    'label'=>'User Pegawai',
+    'icon'=>'plus',
+    'size'=>'small',
+    'context'=>'danger',
+    'url'=>array('user/create','role_id' => 2)
 )); ?>&nbsp;
 </div>
