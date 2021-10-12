@@ -386,7 +386,6 @@ class RuanganController extends Controller
         $kolom_tandatangan_3 = $kolom_tandatangan_1+2;
         $sheet->setCellValue('F'.$kolom_tandatangan_1, 'JAKARTA, '.Helper::getBulan($tanggal).' '.date('Y'));
         $sheet->setCellValue('F'.$kolom_tandatangan_2, 'PENANGGUNG JAWAB UPKPB');
-        $sheet->setCellValue('F'.$kolom_tandatangan_3, 'KEPALA LAN');
 
         $penanggungjawab = Pengaturan::getNilaiByKode('penanggung_jawab_upkpb');
 
