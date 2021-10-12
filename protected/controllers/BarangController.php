@@ -117,8 +117,6 @@ class BarangController extends Controller
 				$model->gambar = str_replace(' ', '-', time() . '_' . $gambar->name);
 			}
 
-			$model->setNull();
-
 			if ($model->save()) {
 				if ($gambar !== null) {
 					$path = Yii::app()->basePath . '/../uploads/barang/';
@@ -659,70 +657,13 @@ class BarangController extends Controller
 			$objWriter->save('php://output');
 	}
 
-	public function actionExporthalo($id)
-	{
-
-		$criteria = new CDbCriteria;
-		$criteria->condition = 'id_lokasi = :id_lokasi OR id_pegawai = :id_pegawai';
-		$criteria->params = array(':id_lokasi' => $id, ':id_pegawai' => $id);
-		$criteria->order = 'id ASC';
-
-		spl_autoload_unregister(array('YiiBase', 'autoload'));
-
-		Yii::import('application.vendors.PHPExcel', true);
-
-		spl_autoload_register(array('YiiBase', 'autoload'));
-
-		$PHPExcel = new PHPExcel();
-
-		$PHPExcel->getActiveSheet()->getStyle('A3:M3')->getFont()->setBold(true);
-		$PHPExcel->getActiveSheet()->getStyle("A1:L1")->getFont()->setSize(14);
-		$PHPExcel->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //merge and center
-		$PHPExcel->getActiveSheet()->mergeCells('A1:M1'); //sama jLga
-		$PHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 1, "DATA BARANG");
-
-		$PHPExcel->getActiveSheet()->setCellValue('A3', 'NO');
-		$PHPExcel->getActiveSheet()->setCellValue('B3', 'KODE');
-		$PHPExcel->getActiveSheet()->setCellValue('C3', 'NAMA');
-		$PHPExcel->getActiveSheet()->setCellValue('D3', 'TAHUN PEROLEHAN');
-		$PHPExcel->getActiveSheet()->setCellValue('E3', 'ASAL PEROLEHAN');
-		$PHPExcel->getActiveSheet()->setCellValue('F3', 'MASA MANFAAT');
-		$PHPExcel->getActiveSheet()->setCellValue('G3', 'KONDISI BARANG');
-		$PHPExcel->getActiveSheet()->setCellValue('H3', 'SK PSP');
-		$PHPExcel->getActiveSheet()->setCellValue('I3', 'SK PENGHAPUSAN');
-		$PHPExcel->getActiveSheet()->setCellValue('J3', 'LOKASI');
-		$PHPExcel->getActiveSheet()->setCellValue('K3', 'PEGAWAI');
-		$PHPExcel->getActiveSheet()->setCellValue('L3', 'Waktu Diubah');
-		$PHPExcel->getActiveSheet()->setCellValue('M3', 'Waktu Dibuat');
-
-		$PHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
-		$PHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-		$PHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(14);
-		$PHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(18);
-		$PHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(18);
-		$PHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
-		$PHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(16);
-		$PHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-		$PHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(18);
-		$PHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(12);
-		$PHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(22);
-		$PHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
-		$PHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
-
-
-		$path = Yii::app()->basePath.'/../uploads/export/';
-		$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007');
-		$objWriter->save($path.$filename);	
-		$this->redirect(Yii::app()->request->baseUrl.'/uploads/export/'.$filename);
-		}
-
 	public function actionLaporan()
 	{
 
 		$this->render('batch_laporan');
 	}
 
-	public function getCssClass($data)
+	public function getCssClass($cssClass)
 	{
 		$cssClass;
 
