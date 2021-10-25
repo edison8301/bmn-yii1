@@ -30,14 +30,3 @@ $this->breadcrumbs=array(
 )); ?>
 
 <div>&nbsp;</div>
-
-<div class="well" style="text-align: right">
-	<?php $this->widget('booster.widgets.TbButton',array(
-		'buttonType'=>'link',
-		'label'=>'Tambah',
-		'icon'=>'plus',
-		'size' => 'small',
-		'context'=>'danger',
-		'url'=>array('create')
-)); ?>&nbsp;
-</div>
