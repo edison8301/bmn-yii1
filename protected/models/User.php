@@ -61,6 +61,7 @@ class User extends CActiveRecord
 			'password' => 'Password',
 			'role_id' => 'Role',
             'nip' => 'Pegawai',
+            'id_pegawai' => 'Nama Pegawai'
 		);
 	}
 

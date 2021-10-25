@@ -19,7 +19,14 @@ $this->breadcrumbs=array(
 	'columns'=>array(
 		'nama',
 		'nip',
-		'username',
+		array(
+			'name' => 'id_username',
+			'value' => function($data) {
+                return @$data->username->username;
+            },
+			'headerHtmlOptions' => ['width' =>'150px','style'=>'text-align:center'],
+            'htmlOptions' => ['style'=>'text-align:right'],
+		),
 		'email',
 		array(
 			'class'=>'booster.widgets.TbButtonColumn',

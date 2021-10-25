@@ -31,10 +31,11 @@ class Pegawai extends CActiveRecord
 		return array(
 			array('nama, email', 'length', 'max'=>128),
 			array('nip', 'length', 'max'=>25),
-			array('username, password', 'length', 'max'=>255),
+			array('id_username, password', 'length', 'max'=>255),
+			['id_username','safe'],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, nip, username, password, email', 'safe', 'on'=>'search'),
+			array('id, nama, nip, id_username, password, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +47,7 @@ class Pegawai extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'username'=>array(self::BELONGS_TO,'User','id_username'),
 		);
 	}
 
@@ -58,7 +60,7 @@ class Pegawai extends CActiveRecord
 			'id' => 'ID',
 			'nama' => 'Nama',
 			'nip' => 'Nip',
-			'username' => 'Username',
+			'id_username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
 		);
@@ -85,7 +87,7 @@ class Pegawai extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('nip',$this->nip,true);
-		$criteria->compare('username',$this->username,true);
+		$criteria->compare('id_username',$this->id_username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 

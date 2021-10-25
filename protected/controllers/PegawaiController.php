@@ -196,7 +196,7 @@ class PegawaiController extends Controller
 
 		$barang = $_POST['TambahBarangForm']['barang'];			
 	
-		$list_penerima = explode(';',$barang); 
+		$list_penerima = explode(';',$barang);
 
 		foreach($list_penerima as $penerima) { 
 			$model=Barang::model()->findByPk($penerima);
@@ -205,8 +205,6 @@ class PegawaiController extends Controller
 		return $model;
 
 		}
-
-
 	}	
 
 	/**

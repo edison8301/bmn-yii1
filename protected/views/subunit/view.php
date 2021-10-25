@@ -23,3 +23,12 @@ array('label'=>'Manage Subunit','url'=>array('admin')),
 		'nama',
 ),
 )); ?>
+
+<div class="well" style="text-align: right">
+<?php $this->widget('booster.widgets.TbButton',array(
+		'buttonType'=>'link',
+		'label'=>'Kembali',
+		'icon'=>'back',
+		'context'=>'danger',
+		'url'=>array('subunit/admin')
+)); ?>&nbsp;

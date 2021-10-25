@@ -36,7 +36,7 @@ $('.search-form form').submit(function(){
         'icon'=>'plus',
         'size'=>'small',
         'context'=>'success',
-        'url'=>array('/barangKategori/create')
+        'url'=>array('/kategori/create')
     )); ?>&nbsp;
 </div>
 
