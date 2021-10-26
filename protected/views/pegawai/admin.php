@@ -20,9 +20,9 @@ $this->breadcrumbs=array(
 		'nama',
 		'nip',
 		array(
-			'name' => 'id_username',
+			'name' => 'username',
 			'value' => function($data) {
-                return @$data->username->username;
+                return @$data->user->username;
             },
 			'headerHtmlOptions' => ['width' =>'150px','style'=>'text-align:center'],
             'htmlOptions' => ['style'=>'text-align:right'],

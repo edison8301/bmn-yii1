@@ -97,9 +97,11 @@ class BarangController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id_lokasi=null)
 	{
 		$model = new Barang;
+
+		$model->id_lokasi = $id_lokasi;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
