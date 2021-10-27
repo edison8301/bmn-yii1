@@ -22,8 +22,13 @@ $this->breadcrumbs=array(
 		array(
 			'name' => 'username',
 			'value' => function($data) {
-                return @$data->user->username;
-            },
+				if(@$data->user->username == null) {
+					return 'Belum Diatur';
+				}else{
+					return @$data->user->username; 
+				}
+			},
+
 			'headerHtmlOptions' => ['width' =>'150px','style'=>'text-align:center'],
             'htmlOptions' => ['style'=>'text-align:right'],
 		),
