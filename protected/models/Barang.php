@@ -41,7 +41,7 @@ class Barang extends CActiveRecord
 			array('nama, kode, nup', 'required'),
 			array('id_barang_kondisi, nup, id_lokasi, id_lokasi_jenis, id_pegawai, id_perolehan_asal', 'numerical', 'integerOnly' => true),
 			['tahun,tahun_perolehan, harga, id_ruangan', 'numerical', 'integerOnly' => true],
-			array('kode, nama, asal_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max' => 255),
+			array('kode, nama, asal_perolehan, nilai_perolehan, bukti_perolehan, masa_manfaat, sk_psp, sk_penghapusan, gambar', 'length', 'max' => 255),
 			array('waktu_diubah, merek, nup, waktu_dibuat, administrasi_jumlah,administrasi_harga_satuan,
 				  administrasi_harga,inventarisasi_jumlah,inventarisasi_harga_satuan,inventarisasi_harga,pemeriksaan_terakhir,
 				  perawatan_terakhir, sakhir, tanggal, spesifikasi_processor, sistem_operasi, tanggal_kondisi_barang', 'safe'),

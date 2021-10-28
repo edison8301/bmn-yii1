@@ -104,7 +104,7 @@
 		
 		<?php echo $form->textFieldGroup($model,'merek',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
-        <?php echo $form->textFieldGroup($model,'harga',[
+        <?php echo $form->textFieldGroup($model,'nilai_perolehan',[
             'widgetOptions'=>[
                 'htmlOptions'=>['class'=>'span5','maxlength'=>255]
             ]

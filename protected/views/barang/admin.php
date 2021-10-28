@@ -85,7 +85,7 @@ $this->breadcrumbs=array(
 		),
         [
             'header' => 'Nilai Perolehan',
-            'name' => 'harga',
+            'name' => 'nilai_perolehan',
             'value' => function($data) {
                 return number_format($data->nilai_perolehan,0,',','.');
             },

@@ -57,7 +57,7 @@ use chillerlan\QRCode\QRCode;
 			<?= $model->kode; ?>-<?=$model->nup; ?>
 		</div>
 		<div class="nama" >
-			<?= $model->nama; ?>
+			<?= $model->nama; ?> 
 		</div>
 	</div>
 </div>

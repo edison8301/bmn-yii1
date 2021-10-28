@@ -136,11 +136,7 @@ $this->breadcrumbs=array(
 			'header' => 'Jenis BAST',
             'name' => 'id_bast_jenis',
             'value' => function($data) {
-                if ($data->id_bast_jenis == 1) {
-                	return "Penggunaan";
-                }else{
-                	return "Pengembalian";
-                }
+                return @$data->id_bast_jenis;
             },
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),

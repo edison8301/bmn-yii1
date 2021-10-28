@@ -24,7 +24,7 @@
 
 			<?php echo $form->select2Group($model,'id_bast_jenis', array(
                 'widgetOptions'=>array('data'=>array(
-                		'1'=>'Penggunaan','2'=>'Pengembalian'
+                		'1'=>'Penggunaan','2'=>'Pengembalian','3' => 'Hibah','4' =>'Transfer Asset'
                 	),'htmlOptions'=>array('class'=>'span5','maxlength'=>255,'placeholder' => 'Pilih Jenis Bast'))
             )) ?>
 
@@ -50,7 +50,26 @@
 
             <?php echo $form->textFieldGroup($model,'jabatan_pihak_kedua',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255,)))); ?>
 
-           <?php echo $form->textFieldGroup($model,'nama_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+           <?php echo $form->select2Group($model,'nama_barang',array(
+					'wrapperHtmlOptions' => array('class' => 'col-sm-12	'),
+					'widgetOptions' => array(
+						'asDropDownList' => false,
+	      				 'options' => array(
+	                       'minimumInputLength'=>'2',
+	                       'placeholder'=> 'Pilih Barang',
+	                       'separator' => ';',
+	                       'allowClear' => TRUE,
+	                       'ajax'       => array(
+	                                   'url'       => Yii::app()->controller->createUrl('barang/selectBarang'),
+	                                   'dataType'  => 'json',
+	                                   'data'      => 'js:function(term, page) { return {q: term }; }',
+	                                   'results'   => 'js:function(data) { return {results: data}; }',
+	                               ),
+	                       'tags' => 'js:function(data) { return {results: data}; }',
+	                        ),
+					),
+			)); ?>		
 
             <?php echo $form->textFieldGroup($model,'kode_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 

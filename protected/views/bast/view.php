@@ -47,13 +47,10 @@ $this->menu=array(
 		// 	},
 		// ],
 		[
-			'name' => 'jenis_bast',
-            'value' => function($model) {
-                if (@$model->id_bast_jenis == 1){
-                	return "Penggunaan";
-                }else{
-                	return "Pengembalian";
-                }
+			'header' => 'Jenis BAST',
+			'name' => 'id_jenis_bast',
+            'value' => function($data) {
+                return @$data->id_bast_jenis;
             },
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),

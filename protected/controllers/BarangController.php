@@ -1183,15 +1183,15 @@ class BarangController extends Controller
 		$pdf->Output();
 	}
 
-	public function actionCetakQrcodeDbr()
+	public function actionCetakQrcodeDbr($id_lokasi=null)
 	{
 		$model = new CetakQrDbrForm;
 
+		$model->id_lokasi = $id_lokasi;
+
 		if (isset($_GET['id'])) {
 			$barang = Barang::model()->findByPk($_GET['id']);
-			$model->kode = $barang->kode;
-			$model->nup_awal = $barang->nup;
-			$model->nup_akhir = $barang->nup;
+			$model->id_lokasi = $barang->id_lokasi;
 		}
 
 		$this->performAjaxValidation($model);
@@ -1220,7 +1220,18 @@ class BarangController extends Controller
 
 				$models = Barang::model()->findAll($criteria);
 
-				$html = $this->renderPartial('cetakQrHtml', array('models' => $models), true);
+				$options = new QROptions([
+					'version'    => 5,
+					'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+					'eccLevel'   => QRCode::ECC_L,
+				]);
+
+				$qrcode = new QRCode($options);
+
+				$html = $this->renderPartial('cetakQrCode', array(
+					'models' => $models,
+					'qrcode' => $qrcode
+				), true);
 
 				$pdf->WriteHTML($html);
 
