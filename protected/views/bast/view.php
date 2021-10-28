@@ -50,7 +50,15 @@ $this->menu=array(
 			'header' => 'Jenis BAST',
 			'name' => 'id_jenis_bast',
             'value' => function($data) {
-                return @$data->id_bast_jenis;
+                if ($data->id_bast_jenis == 1) {
+                	return "Penggunaan";
+                }if ($data->id_bast_jenis == 2) {
+                	return "Pengembalian";
+                }if ($data->id_bast_jenis == 3) {
+                	return "Hibah";
+                }if ($data->id_bast_jenis == 4) {
+                	return "Transfer Asset";
+                }
             },
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),

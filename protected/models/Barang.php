@@ -180,7 +180,7 @@ class Barang extends CActiveRecord
 
 	public function getGambar($htmlOptions = array())
 	{
-		return CHtml::image(Yii::app()->baseUrl . '/uploads/barang/' . $this->gambar, '', array("style" => "width: 300px;"));
+		return CHtml::image(Yii::app()->request->baseUrl.'/uploads/barang/',"$this->gambar",array('width'=>500,'height'=>500));
 	}
 
 	public function getBarangKondisi()

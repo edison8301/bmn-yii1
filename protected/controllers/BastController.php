@@ -93,7 +93,7 @@ class BastController extends Controller
 			{
 				if($berkas_bast!==null)
 				{
-					$path = Yii::app()->basePath.'/../uploads/bast/';
+					$path = Yii::app()->basePath.'/uploads/bast/';
 					$berkas_bast->saveAs($path.$model->berkas_bast);
 				}
 				

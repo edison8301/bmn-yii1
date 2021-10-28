@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <table>
 	<tr>
 		<th style="text-align: left">Pemindahan Barang</th>
@@ -13,21 +18,14 @@
 
 <h2>Detail Pemindahan</h2>
 
+<div>
+	<img src="<?= $qrcode->render($model->id.'-'.$model->nomor) ?>" alt="QR Code" width="200px">
+</div>
+
 <table width="100%">
 	<tr>
 		<th width="20%" style="text-align: left">Tanggal Pemindahan</th>
 		<th width="5%">:</th>
-		<td><?= Helper::tanggal($model->tanggal); ?></td>
-		<td width="200px" rowspan="6" style="text-align: center">
-			<?php $this->widget('application.extensions.qrcode.QRCodeGenerator',array(
-					'data' => $model->id.'-'.$model->nomor.'-'.$model->tanggal,
-					'subfolderVar' => false,
-					'matrixPointSize' => 4,
-					'displayImage'=>true, // default to true, if set to false display a URL path
-					'errorCorrectionLevel'=>'L', // available parameter is L,M,Q,H
-			)) ?>&nbsp;
-
-		</td>
 	</tr>
 	<tr>
 		<th style="text-align: left">Lokasi Asal</th>
@@ -105,8 +103,8 @@
 		<td style="width:50%" style="text-align:center;font-weight:bold"></td>
 	</tr>
 	<tr>
-		<td style="width:50%" style="text-align:center;font-weight:bold"><?= $penandatangan->penanggung_jawab_ruangan; ?> <br>NIP. </td>
-		<td style="width:50%" style="text-align:center;font-weight:bold"><?= $penandatangan->petugas_bmn; ?> <br>NIP. </td>
+		<td style="width:50%" style="text-align:center;font-weight:bold"><?= $penandatangan->penanggung_jawab_ruangan; ?><br>NIP. </td>
+		<td style="width:50%" style="text-align:center;font-weight:bold"><?= $penandatangan->petugas_bmn; ?><br>NIP. </td>
 	</tr>
 </table>
 

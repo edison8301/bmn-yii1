@@ -136,7 +136,7 @@ $this->breadcrumbs=array(
 			'header' => 'Jenis BAST',
             'name' => 'id_bast_jenis',
             'value' => function($data) {
-                return @$data->id_bast_jenis;
+               return @$data->getJenisBast();
             },
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),

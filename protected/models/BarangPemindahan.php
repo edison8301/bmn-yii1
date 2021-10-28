@@ -151,4 +151,13 @@ class BarangPemindahan extends CActiveRecord
 		$this->save();
 		return true;
 	}
+
+	public function getBarang()
+	{
+		$model = Barang::model()->findByPk($this->id_barang);
+		if($model !==null)
+			return $model->nama;
+		else
+			return false;
+	}
 }

@@ -1,4 +1,7 @@
 <?php
+use Mpdf\Mpdf;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class BarangPemindahanController extends Controller
 {
@@ -109,24 +112,24 @@ array('deny',  // deny all users
 
 	public function actionCetakResi($id)
 	{
-		include(Yii::app()->basePath."/vendors/mpdf/mpdf.php");
+		$model = $this->loadModel($id);
 
-		$marginLeft = 15;
-		$marginRight = 15;
-		$marginTop = 15;
-		$marginBottom = 15;
-		$marginHeader = 15;
-		$marginFooter = 15;
+        $this->layout = false;
+		$mpdf = new Mpdf([
+			''
+		]);
+		$options = new QROptions([
+			'version'    => 5,
+			'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+			'eccLevel'   => QRCode::ECC_L,
+		]);
 
-		$pdf = new mPDF('UTF-8','A4',9,'Arial',$marginLeft,$marginRight,$marginTop,$marginBottom,$marginHeader,$marginFooter);
-
-		$model = $this->loadModel($id);		
-
-		$html = $this->renderPartial('cetak_resi',array('model'=>$model),true);
-
-		$pdf->WriteHTML($html);
-
-		$pdf->Output();				
+		$qrcode = new QRCode($options);
+        $mpdf->WriteHTML($this->render('cetak_resi', [
+            'model' => $model,
+            'qrcode' => $qrcode
+        ], true));
+        $mpdf->Output();
 	}
 
 /**

@@ -226,9 +226,23 @@ class Bast extends CActiveRecord
 
      public function getJenisBast()
     {
-        return array(
-            1=>"Penggunaan",
-            2=>"Pengembalian",
-            );
+    	$data = $this->id_bast_jenis;
+
+    	if($data == 1){
+    		return "Penggunaan";
+    	}
+
+    	if($data == 2) {
+    		return "Pengembalian";
+    	}
+
+    	if($data == 3) {
+    		return "Hibah";
+    	}
+
+    	if($data == 4) {
+    		return "Transfer Asset";
+    	}
+        
     }
 }

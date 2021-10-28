@@ -121,7 +121,7 @@ class BarangController extends Controller
 
 			if ($model->save()) {
 				if ($gambar !== null) {
-					$path = Yii::app()->basePath . '/../uploads/barang/';
+					$path = Yii::app()->basePath . '/uploads/barang/';
 					$gambar->saveAs($path . $model->gambar);
 				}
 
@@ -169,7 +169,7 @@ class BarangController extends Controller
 
 			if ($model->save()) {
 				if ($gambar !== null) {
-					$path = Yii::app()->basePath . '/../uploads/barang/';
+					$path = Yii::app()->basePath . '/uploads/barang/';
 					$gambar->saveAs($path . $model->gambar);
 
 					if (file_exists($path . $oldFile) and $oldFile != '')
@@ -1183,11 +1183,9 @@ class BarangController extends Controller
 		$pdf->Output();
 	}
 
-	public function actionCetakQrcodeDbr($id_lokasi=null)
+	public function actionCetakQrcodeDbr()
 	{
 		$model = new CetakQrDbrForm;
-
-		$model->id_lokasi = $id_lokasi;
 
 		if (isset($_GET['id'])) {
 			$barang = Barang::model()->findByPk($_GET['id']);

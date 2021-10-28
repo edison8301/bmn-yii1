@@ -97,7 +97,7 @@ array('label'=>'Manage BarangPemindahan','url'=>array('admin')),
 			'context'=>'success',
 			'htmlOptions' => array(
 				'target' => '_blank'),
-			'url'=>array('barangPemindahan/cetakResi','id'=>$model->id)
+			'url'=>array('barangPemindahan/CetakResi','id'=>$model->id)
 		)); ?>&nbsp;	
 
 		
