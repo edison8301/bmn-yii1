@@ -128,13 +128,13 @@ Dengan ini menyatakan bahwa PIHAK PERTAMA menyerahkan kepada PIHAK KEDUA, dan PI
 		<td width="40px"></td>
 		<td width="100px">Nilai Perolehan</td>
 		<td width="10px">:</td>
-		<td>Rp. <?= Helper::rp(@$barang->nilai_perolehan,0); ?></td>
+		<td>Rp. <?= Helper::rp(@$barang->nilai_perolehan); ?></td>
 	</tr>
 	<tr>
 		<td width="40px"></td>
 		<td width="100px">Kode Barang dan NUP</td>
 		<td width="10px">:</td>
-		<td><?= @$barang->kode; ?>-<?= @$barang->nup; ?></td>
+		<td><?= @$model->kode_barang; ?>-<?= @$model->nup_barang; ?></td>
 	</tr>
 </table>
 

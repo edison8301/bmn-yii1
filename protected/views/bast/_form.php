@@ -51,7 +51,7 @@
             <?php echo $form->textFieldGroup($model,'jabatan_pihak_kedua',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255,)))); ?>
 
 
-           <?php echo $form->select2Group($model,'nama_barang',array(
+           <?php echo $form->select2Group($model,'id_barang',array(
 					'wrapperHtmlOptions' => array('class' => 'col-sm-12	'),
 					'widgetOptions' => array(
 						'asDropDownList' => false,
@@ -61,15 +61,16 @@
 	                       'separator' => ';',
 	                       'allowClear' => TRUE,
 	                       'ajax'       => array(
-	                                   'url'       => Yii::app()->controller->createUrl('barang/selectBarang'),
-	                                   'dataType'  => 'json',
-	                                   'data'      => 'js:function(term, page) { return {q: term }; }',
-	                                   'results'   => 'js:function(data) { return {results: data}; }',
+                               'url'       => Yii::app()->controller->createUrl('barang/selectBarang'),
+                               'dataType'  => 'json',
+                               'data'      => 'js:function(term, page) { return {q: term }; }',
+                               'results'   => 'js:function(data) { return {results: data}; }',
 	                               ),
 	                       'tags' => 'js:function(data) { return {results: data}; }',
 	                        ),
 					),
-			)); ?>		
+			)); ?>
+
 
             <?php echo $form->textFieldGroup($model,'kode_barang',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 

@@ -117,9 +117,9 @@ $this->breadcrumbs=array(
 		// 	'htmlOptions' => array('style'=>'text-align:left'),
 		// ),
 		array(
-            'name' => 'nama_barang',
+            'name' => 'id_barang',
             'value' => function($data) {
-                return @$data->nama_barang;
+                return @$data->barang->nama;
             },
             'headerHtmlOptions' => array('style'=>'text-align:center'),
             'htmlOptions' => array('style'=>'text-align:left'),

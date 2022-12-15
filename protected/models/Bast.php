@@ -37,7 +37,7 @@ class Bast extends CActiveRecord
 		return array(
 			array('id_pegawai_pihak_pertama, id_pegawai_pihak_kedua, id_barang, jumlah, status_bast', 'numerical', 'integerOnly'=>true),
 			array('nomor, berkas_bast', 'length', 'max'=>255),
-			['kode_barang, nup_barang, jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,id_barang','safe'],
+			['kode_barang, nup_barang, merek,jabatan_pihak_pertama,jabatan_pihak_kedua,jumlah_unit,nama_barang,','safe'],
 			array('tanggal, created_at, updated_at, deleted_at,id_jenis_bast','safe'),
 			['id_bast_jenis','numerical','integerOnly'=>true],
 			// The following rule is used by search().
@@ -56,6 +56,7 @@ class Bast extends CActiveRecord
 		return array(
 			'pihakPertama' => array(self::BELONGS_TO,'Pegawai','id_pegawai_pihak_pertama'),
 			'pihakKedua' => array(self::BELONGS_TO,'Pegawai','id_pegawai_pihak_kedua'),
+			'barang' => array(self::BELONGS_TO,'Barang','id_barang'),
 		);
 	}
 
@@ -80,6 +81,7 @@ class Bast extends CActiveRecord
 			'created_at' => 'Created At',
 			'updated_at' => 'Updated At',
 			'deleted_at' => 'Deleted At',
+			'merek_barang' => 'Merek Barang'
 		);
 	}
 
@@ -220,7 +222,9 @@ class Bast extends CActiveRecord
     {
         return Barang::model()->findByAttributes([
             'kode' => $this->kode_barang,
-            'nup' => $this->nup_barang
+            'nup' => $this->nup_barang,
+            'merek' => $this->merek,
+            'nama' => $this->id_barang
         ]);
     }
 
